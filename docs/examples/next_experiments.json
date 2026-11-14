@@ -1,5 +1,91 @@
 {
   "preset": "exploration",
-  "suggestions": [],
-  "empty_state_message": "Populated in Phase 5 (shape defined here)."
+  "suggestions": [
+    {
+      "rank": 1,
+      "label": "Suggested test (not a result)",
+      "material_id": "epoxy_glass",
+      "o2_pct": 34.0,
+      "pressure_kpa": 56.54,
+      "gravity": "microgravity",
+      "preset_id": "exploration",
+      "why": "No microgravity outcome is recorded for Epoxy/glass laminate in the 34-35% O2 / <60 kPa cell, 0 O2 bin(s) from the Exploration atmosphere (lunar habitat) atmosphere (34% O2, 56.54 kPa). 18 of 18 solid materials are also untested in this cell, so one chamber setting would cover them. Material has 1g evidence but no microgravity evidence. No bordering evidence for this material.",
+      "score_parts": {
+        "closeness_to_preset": 1.0,
+        "materials_affected": 1.0,
+        "one_g_exists_ug_not": 0.5,
+        "score": 0.9
+      },
+      "bordering_evidence": []
+    },
+    {
+      "rank": 2,
+      "label": "Suggested test (not a result)",
+      "material_id": "nbr",
+      "o2_pct": 34.0,
+      "pressure_kpa": 56.54,
+      "gravity": "microgravity",
+      "preset_id": "exploration",
+      "why": "No microgravity outcome is recorded for NBR (nitrile rubber) in the 34-35% O2 / <60 kPa cell, 0 O2 bin(s) from the Exploration atmosphere (lunar habitat) atmosphere (34% O2, 56.54 kPa). 18 of 18 solid materials are also untested in this cell, so one chamber setting would cover them. Material has 1g evidence but no microgravity evidence. No bordering evidence for this material.",
+      "score_parts": {
+        "closeness_to_preset": 1.0,
+        "materials_affected": 1.0,
+        "one_g_exists_ug_not": 0.5,
+        "score": 0.9
+      },
+      "bordering_evidence": []
+    },
+    {
+      "rank": 3,
+      "label": "Suggested test (not a result)",
+      "material_id": "peek",
+      "o2_pct": 34.0,
+      "pressure_kpa": 56.54,
+      "gravity": "microgravity",
+      "preset_id": "exploration",
+      "why": "No microgravity outcome is recorded for PEEK in the 34-35% O2 / <60 kPa cell, 0 O2 bin(s) from the Exploration atmosphere (lunar habitat) atmosphere (34% O2, 56.54 kPa). 18 of 18 solid materials are also untested in this cell, so one chamber setting would cover them. Material has 1g evidence but no microgravity evidence. No bordering evidence for this material.",
+      "score_parts": {
+        "closeness_to_preset": 1.0,
+        "materials_affected": 1.0,
+        "one_g_exists_ug_not": 0.5,
+        "score": 0.9
+      },
+      "bordering_evidence": []
+    },
+    {
+      "rank": 4,
+      "label": "Suggested test (not a result)",
+      "material_id": "pet",
+      "o2_pct": 34.0,
+      "pressure_kpa": 56.54,
+      "gravity": "microgravity",
+      "preset_id": "exploration",
+      "why": "No microgravity outcome is recorded for PET in the 34-35% O2 / <60 kPa cell, 0 O2 bin(s) from the Exploration atmosphere (lunar habitat) atmosphere (34% O2, 56.54 kPa). 18 of 18 solid materials are also untested in this cell, so one chamber setting would cover them. Material has 1g evidence but no microgravity evidence. No bordering evidence for this material.",
+      "score_parts": {
+        "closeness_to_preset": 1.0,
+        "materials_affected": 1.0,
+        "one_g_exists_ug_not": 0.5,
+        "score": 0.9
+      },
+      "bordering_evidence": []
+    },
+    {
+      "rank": 5,
+      "label": "Suggested test (not a result)",
+      "material_id": "polyamide",
+      "o2_pct": 34.0,
+      "pressure_kpa": 56.54,
+      "gravity": "microgravity",
+      "preset_id": "exploration",
+      "why": "No microgravity outcome is recorded for PA (nylon) in the 34-35% O2 / <60 kPa cell, 0 O2 bin(s) from the Exploration atmosphere (lunar habitat) atmosphere (34% O2, 56.54 kPa). 18 of 18 solid materials are also untested in this cell, so one chamber setting would cover them. Material has 1g evidence but no microgravity evidence. No bordering evidence for this material.",
+      "score_parts": {
+        "closeness_to_preset": 1.0,
+        "materials_affected": 1.0,
+        "one_g_exists_ug_not": 0.5,
+        "score": 0.9
+      },
+      "bordering_evidence": []
+    }
+  ],
+  "empty_state_message": null
 }

@@ -40,6 +40,14 @@ class Settings(BaseSettings):
     vk_intercept: float = 17.5
     vk_slope: float = 0.40
 
+    # gap map / next-experiment recommender
+    pressure_bin_edges_kpa: tuple[float, ...] = (60.0, 80.0, 95.0)
+    gap_w_closeness: float = 0.5
+    gap_w_materials: float = 0.3
+    gap_w_1g_only: float = 0.2
+    gap_o2_bins_around_preset: int = 3
+    gap_excluded_kind_words: tuple[str, ...] = ("liquid", "gaseous")
+
     anthropic_api_key: str | None = None
     llm_model: str = "claude-sonnet-5-5"
 

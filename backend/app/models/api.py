@@ -348,7 +348,11 @@ class LabelQueueItem(BaseModel):
     flame_behavior_notes: str | None
     suggested_label: OutcomeLabel | None
     suggestion_rule: str | None = None
+    suggested_quote: str | None = Field(None, description="Verbatim sentence the keyword rule matched; a hint, not a decision")
     status: Literal["unlabelled", "suggested", "confirmed"]
+    label: OutcomeLabel | None = Field(None, description="Human label (only when status = confirmed)")
+    quote: str | None = None
+    labelled_by: str | None = None
 
 
 class LabelQueueResponse(BaseModel):

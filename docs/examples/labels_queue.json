@@ -1,5 +1,5 @@
 {
-  "total": 2,
+  "total": 121,
   "items": [
     {
       "experiment_id": "BASS-001",
@@ -7,9 +7,13 @@
       "oxygen_pct": 22.1,
       "pressure_kpa": 98.29,
       "flame_behavior_notes": "Nice symmetric burn, some soot at 10 cm/s, Steady spreading, flame seems to reach a steady length. Decreasing flow shrinks flame and changes to mostly blue, but still spreading. Gets very dim near end of sample as it shrinks and extinguishes at burnout. Don noted the fiberglass matrix was still intact after the burn.",
-      "suggested_label": null,
-      "suggestion_rule": null,
-      "status": "unlabelled"
+      "suggested_label": "sustained_burn",
+      "suggestion_rule": "sustained_burn: steady / sustained spread or long burn",
+      "suggested_quote": "Nice symmetric burn, some soot at 10 cm/s, Steady spreading, flame seems to reach a steady length.",
+      "status": "suggested",
+      "label": null,
+      "quote": null,
+      "labelled_by": null
     },
     {
       "experiment_id": "BASS-002",
@@ -17,9 +21,27 @@
       "oxygen_pct": 22.1,
       "pressure_kpa": 98.29,
       "flame_behavior_notes": "Don noted significant vapor jetting. Flame not very long , but very sooty. Don set up a 2nd still camera taking pictures 1/s at F7, Aperture priority, spot metering on center of sphere in brackets of 3. Don noted equatorial division between 'charred' front like coating on meterorites, and matt black sooty rear hemispheres. Broke igniter. 2 minute burn.",
-      "suggested_label": null,
-      "suggestion_rule": null,
-      "status": "unlabelled"
+      "suggested_label": "hardware_issue",
+      "suggestion_rule": "hardware_issue: igniter / video / lens problem",
+      "suggested_quote": "Broke igniter.",
+      "status": "suggested",
+      "label": null,
+      "quote": null,
+      "labelled_by": null
+    },
+    {
+      "experiment_id": "BASS-003",
+      "material_id": "pmma",
+      "oxygen_pct": 22.1,
+      "pressure_kpa": 98.29,
+      "flame_behavior_notes": "Very bright sooty ball. Lots of vapor jetting. N2 on at 1 minute. Blew off stagnation region but N2 did not extinguish wake, even with air flow off. Don turned off air, then N2 after some seconds. Wake flame sooty and wind-blown. Only extinguishes when all flow stops. N2 is entraining air to flame zone. Don noted that there was no soot on the sphere, just the 'char layer'. ~ 2 minute total burn.",
+      "suggested_label": "extinguished_by_flow_or_N2",
+      "suggestion_rule": "extinguished_by_flow_or_N2: N2 / fan / flow ended the flame",
+      "suggested_quote": "N2 on at 1 minute.",
+      "status": "suggested",
+      "label": null,
+      "quote": null,
+      "labelled_by": null
     }
   ]
 }

@@ -581,7 +581,7 @@
           "flammability_relevant": true,
           "source_url": "https://doi.org/10.60555/2chp-m469",
           "display_kind": "result",
-          "display_text": "flame_spread_rate = not available — PMMA; O2 22.05% (midpoint of source range 22.1 to 22.0), flow 20.0 cm/s.",
+          "display_text": "flame_spread_rate = not available (verbatim note: \"microgravity burn length: ~ 10 cm (note 3); spread: Note 4; burn time: 600 s\") — PMMA; O2 22.05% (midpoint of source range 22.1 to 22.0), flow 20.0 cm/s.",
           "test_family": null,
           "distance": 0.8477,
           "similarity": null

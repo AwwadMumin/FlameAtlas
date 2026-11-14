@@ -2,14 +2,14 @@
 from __future__ import annotations
 
 import json
-from typing import Any
+from typing import Any, Literal
 
 from fastapi import APIRouter, Query
 
 from app.core.config import get_settings
 from app.core.errors import ApiError
 from app.models import api as M
-from app.services import assess as assess_svc, catalog, demo, health as health_svc
+from app.services import assess as assess_svc, catalog, demo, gaps, health as health_svc, labels as labels_svc, validation as validation_svc
 
 router = APIRouter(prefix="/api")
 ERR = {404: {"model": M.ErrorResponse}, 422: {"model": M.ErrorResponse}}
@@ -89,27 +89,28 @@ def assess(req: M.AssessRequest):
 
 @router.get("/coverage/{material_id}", response_model=M.CoverageResponse, responses=ERR)
 def coverage(material_id: str):
-    return serve("coverage", "Phase 5")
+    return example("coverage") if MOCK() else gaps.coverage(material_id)
 
 
 @router.get("/next-experiments", response_model=M.NextExperimentsResponse, responses=ERR)
-def next_experiments(preset: str | None = None):
-    return serve("next_experiments", "Phase 5")
+def next_experiments(preset: str | None = None, limit: int = Query(10, ge=1, le=100)):
+    return example("next_experiments") if MOCK() else gaps.next_experiments(preset, limit)
 
 
 @router.get("/validation", response_model=M.ValidationResponse, responses=ERR)
 def validation():
-    return serve("validation", "Phase 5")
+    return example("validation") if MOCK() else validation_svc.compute()
 
 
 @router.get("/admin/labels/queue", response_model=M.LabelQueueResponse, responses=ERR)
-def labels_queue():
-    return serve("labels_queue", "Phase 5")
+def labels_queue(status: Literal["pending", "unlabelled", "suggested", "confirmed", "all"] = "pending",
+                 limit: int = Query(200, ge=1, le=1000), offset: int = Query(0, ge=0)):
+    return example("labels_queue") if MOCK() else labels_svc.queue(status, limit, offset)
 
 
 @router.post("/admin/labels", response_model=M.LabelOut, responses=ERR)
 def labels_save(body: M.LabelIn):
-    return serve("label_saved", "Phase 5")
+    return example("label_saved") if MOCK() else labels_svc.save_label(body)
 
 
 @router.get("/demo-scenarios", response_model=M.DemoScenariosResponse)

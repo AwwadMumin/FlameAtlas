@@ -777,7 +777,7 @@
         "flammability_relevant": true,
         "source_url": "https://doi.org/10.60555/2chp-m469",
         "display_kind": "result",
-        "display_text": "flame_spread_rate = not available — Cotton-Fiberglass (SIBAL); conditions not recorded.",
+        "display_text": "flame_spread_rate = not available (verbatim note: \"1g burn length: Complete; 1g spread: Acceleratory\") — Cotton-Fiberglass (SIBAL); conditions not recorded.",
         "test_family": null,
         "distance": 1.8,
         "similarity": null

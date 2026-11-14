@@ -39,6 +39,12 @@ Full example responses: `docs/examples/<name>.json` (generated from the real NAS
 - `GET /api/demo-scenarios`: POST each `request` to `/api/assess` as is. Postman: `docs/postman_collection.json`.
 - Unknown `preset_id` → 422; blank `material_query` → 422.
 
+## Notes (Phase 5)
+- **Labelling workflow:** `GET /api/admin/labels/queue` -> human reads `flame_behavior_notes` -> `POST /api/admin/labels` with a `quote` copied verbatim from the notes. `suggested_label` / `suggested_quote` are hints; show them as "suggested", never as results.
+- **Validation:** show `old_method_test.definition`, both strengths separately (strict vs variant-dependent), the `cases[]` with both `*_source_url` links, and `caveats`. `empty_state_message` is set until at least one label is confirmed. Say explicitly that n is small.
+- **Coverage grid:** `grids[bucket][pressure_idx][o2_idx]`; axes `o2_axis` (lower edge of each 1% bin) and `pressure_axis`; the last pressure row `"not stated"` holds records without pressure. Draw `preset_overlays[]` as markers at (`o2_index`, `pressure_index`).
+- **Next experiments:** always label "Suggested test (not a result)"; `bordering_evidence` = experiment ids to link via `/api/experiments/{id}`.
+
 ## Endpoints
 | Method & path | Response model | Example file(s) |
 |---|---|---|

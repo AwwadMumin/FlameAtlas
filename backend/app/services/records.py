@@ -66,6 +66,8 @@ def display_text(rec: dict[str, Any]) -> str:
         s += f" [{rec['outcome_unit']}]"
     if rec.get("outcome_class"):
         s += f"; class: {rec['outcome_class']}"
+    if val is None and rec.get("flame_behavior_notes"):
+        s += f" (verbatim note: \"{rec['flame_behavior_notes']}\")"
     return f"{s} — {name}; {c}."
 
 

@@ -76,7 +76,7 @@ def measured_error() -> tuple[float | None, str | None]:
         return None, None
 
 
-def estimate(inputs: dict[str, float | None]) -> CorrectionResult:
+def estimate(inputs: dict[str, float | None], require_error: bool = True) -> CorrectionResult:
     st, msg = status()
     if st != "configured":
         return CorrectionResult(status=st, message=msg)
@@ -95,8 +95,8 @@ def estimate(inputs: dict[str, float | None]) -> CorrectionResult:
         val = _eval(ast.parse(m["formula"], mode="eval"), {**m["coefficients"], **given})
     except Exception as e:  # noqa: BLE001
         return CorrectionResult("configured", False, f"Correction formula could not be evaluated: {e}", inputs=given, model=meta)
-    err, err_unit = measured_error()
-    if err is None:
+    err, err_unit = measured_error() if require_error else (None, None)
+    if require_error and err is None:
         return CorrectionResult("configured", False, "Model configured but its error has not been measured yet (run build_validation); not shown as an estimate.",
                                 inputs=given, model=meta)
     return CorrectionResult("configured", True, None, round(val, 2), error=err, error_unit=err_unit, inputs=given, model=meta)

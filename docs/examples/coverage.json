@@ -1,13 +1,1019 @@
 {
   "material_id": "pmma",
-  "o2_axis": [],
+  "o2_axis": [
+    13.0,
+    14.0,
+    15.0,
+    16.0,
+    17.0,
+    18.0,
+    19.0,
+    20.0,
+    21.0,
+    22.0,
+    23.0,
+    24.0,
+    25.0,
+    26.0,
+    27.0,
+    28.0,
+    29.0,
+    30.0,
+    31.0,
+    32.0,
+    33.0,
+    34.0
+  ],
   "pressure_axis": [
     "<60",
     "60-80",
     "80-95",
-    ">95"
+    ">95",
+    "not stated"
   ],
-  "grids": {},
-  "preset_overlays": [],
-  "empty_state_message": "Populated in Phase 5 (shape defined here)."
+  "grids": {
+    "microgravity": [
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 2,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 18,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 5,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 40,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 13,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 1
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 4
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 12
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 10
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 17
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 12
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 6
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 12
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 11
+        },
+        {
+          "outcomes": 1,
+          "conditions_only": 13
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ]
+    ],
+    "1g": [
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 1,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 2,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 2,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 1,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 1,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ],
+      [
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      ]
+    ]
+  },
+  "preset_overlays": [
+    {
+      "preset_id": "iss",
+      "name": "ISS / sea-level air",
+      "o2_pct": 21,
+      "pressure_kpa": 101.35,
+      "preset_gravity": "microgravity",
+      "o2_index": 8,
+      "pressure_index": 3,
+      "cells": {
+        "microgravity": {
+          "outcomes": 40,
+          "conditions_only": 0
+        },
+        "1g": {
+          "outcomes": 1,
+          "conditions_only": 0
+        }
+      }
+    },
+    {
+      "preset_id": "intermediate",
+      "name": "Intermediate exploration atmosphere",
+      "o2_pct": 26.5,
+      "pressure_kpa": 70.33,
+      "preset_gravity": "varies",
+      "o2_index": 13,
+      "pressure_index": 1,
+      "cells": {
+        "microgravity": {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        "1g": {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      }
+    },
+    {
+      "preset_id": "exploration",
+      "name": "Exploration atmosphere (lunar habitat)",
+      "o2_pct": 34,
+      "pressure_kpa": 56.54,
+      "preset_gravity": "lunar 1/6 g",
+      "o2_index": 21,
+      "pressure_index": 0,
+      "cells": {
+        "microgravity": {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        "1g": {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      }
+    },
+    {
+      "preset_id": "cev_cert",
+      "name": "CEV cabin materials certification",
+      "o2_pct": 30,
+      "pressure_kpa": 70.33,
+      "preset_gravity": "n/a",
+      "o2_index": 17,
+      "pressure_index": 1,
+      "cells": {
+        "microgravity": {
+          "outcomes": 0,
+          "conditions_only": 0
+        },
+        "1g": {
+          "outcomes": 0,
+          "conditions_only": 0
+        }
+      }
+    }
+  ],
+  "empty_state_message": null
 }
