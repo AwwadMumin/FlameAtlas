@@ -30,6 +30,11 @@ Full example responses: `docs/examples/<name>.json` (generated from the real NAS
 6. `earth_vs_space.banner` (red) is shown only when non-null (a µg sustained burn below the 1g MOC). `one_g_not_conservative = null` means undetermined (needs confirmed labels).
 7. `earth_vs_space.correction_model_status = not_configured` → show `correction_model_message` ("Correction model not configured") and the evidence comparison only.
 
+## Notes (Phase 2)
+- `materials/search` matches carry `confident`; show `false` ones as "Did you mean…" only.
+- `evidence_groups[].total_in_group` includes `tested_at` rows; `verdict_reason` states the count of rows with an outcome.
+- For 1g MOC records `oxygen_pct` is null by design (the MOC is `outcome_value`); show MOC/ULOI as given, never as LOI.
+
 ## Endpoints
 | Method & path | Response model | Example file(s) |
 |---|---|---|

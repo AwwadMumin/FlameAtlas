@@ -121,6 +121,7 @@ class MaterialMatch(BaseModel):
     material: MaterialCard
     score: float
     match_type: Literal["exact", "text", "vector"]
+    confident: bool = Field(True, description="False = suggestion only; /api/assess never auto-resolves on these")
 
 
 class MaterialSearchResponse(BaseModel):

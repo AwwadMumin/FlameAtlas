@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     w_pressure: float = 0.5
     w_airflow: float = 0.3
     top_n_per_group: int = 8
+    material_vector_threshold: float = 0.80   # auto-resolve; lower scores are suggestions only
+    material_suggest_threshold: float = 0.65
 
     anthropic_api_key: str | None = None
     llm_model: str = "claude-sonnet-5-5"
