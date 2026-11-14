@@ -1,0 +1,2031 @@
+{
+ "metadata": {
+  "version": "orion-1.0",
+  "built_from": "flame_in_freefall_knowledge.json (Team Orion; NASA PSI tables + NASA workbooks + NASA WSTF paper)",
+  "built": "2026-11-14",
+  "n_materials": 31,
+  "n_experiments": 872,
+  "records_without_material": 6,
+  "note": "Names in Arabic, aliases and chemical_family are search helpers written by the dataset builder, not NASA data. Every experiment carries source_file + source_row + doi so the app can show the original row. Missing cells stay null; nothing is inferred.",
+  "added_fields": {
+   "pair_id": "Same sample tested in microgravity and 1g (Saffire-II comparison columns). True pairs only.",
+   "cross_gravity_group": "XG-<material>: material has flammability evidence at more than one gravity level. A grouping, not matched conditions.",
+   "finding_ids": "Researcher's Guide findings (RG-xx) that cite this experiment's PSI investigation.",
+   "source_file/source_row": "Exact NASA file and row the record came from.",
+   "license": "License of the source."
+  },
+  "excluded": [
+   "PSI-21/22/23/106/10/159/107 fundamental gas-flame studies (not material flammability)",
+   "PSI-47 DAFT (dust, not fire smoke)",
+   "PSI-142 (list of publications, not tests)",
+   "PSI-26 raw table (superseded by the as-run workbook G1)",
+   "Link 2018 Tables S1/S2 (download from Nature, CC BY 4.0, then add)"
+  ]
+ },
+ "materials": [
+  {
+   "material_id": "pmma",
+   "name_en": "PMMA (acrylic)",
+   "name_ar": "أكريليك (PMMA)",
+   "kind": "solid polymer",
+   "chemical_family": "polymethyl methacrylate",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "PMMA",
+    "acrylic",
+    "plexiglas",
+    "perspex",
+    "polymethyl methacrylate",
+    "أكريليك",
+    "بليكسي"
+   ],
+   "variants": [
+    {
+     "variant": "film",
+     "raw_names": [
+      "1 cm 0.2 mm PMMA film",
+      "1 cm wide 200 micron thick PMMA",
+      "100 micron PMMA film 2 cm wide",
+      "2 cm 0.1 mm PMMA film",
+      "2 cm 0.2 mm PMMA film",
+      "2 cm 100 micron thick PMMA",
+      "200 micron PMMA film 2 cm wide",
+      "300 micron PMMA film 2 cm wide"
+     ],
+     "n_records": 17
+    },
+    {
+     "variant": "film [PMMA not named in cell; inferred from investigation context]",
+     "raw_names": [
+      "100 micron film 2 cm wide",
+      "2 cm 0.4 mm thick film",
+      "200 micron 2 cm wide",
+      "300 micron film 2 cm wide",
+      "400 micron film 2 cm wide"
+     ],
+     "n_records": 5
+    },
+    {
+     "variant": "rod, black [PMMA not named in cell; inferred from investigation context]",
+     "raw_names": [
+      "0.5'' black rod",
+      "1/4 blac rod",
+      "1/4 black rod",
+      "1/4'' black rod",
+      "3/8'' black rod"
+     ],
+     "n_records": 26
+    },
+    {
+     "variant": "rod, clear",
+     "raw_names": [
+      "1/2'' clear PMMA rod"
+     ],
+     "n_records": 4
+    },
+    {
+     "variant": "rod, clear [PMMA not named in cell; inferred from investigation context]",
+     "raw_names": [
+      "1/2'' clear rod",
+      "1/4 clear rod",
+      "1/4'' clear rod",
+      "3/8'' clear rod",
+      "3/8''clear rod"
+     ],
+     "n_records": 24
+    },
+    {
+     "variant": "rod, extruded",
+     "raw_names": [
+      "PMMA, extruded, 1/4-in. dia rod"
+     ],
+     "n_records": 2
+    },
+    {
+     "variant": "rod, unspecified",
+     "raw_names": [
+      "PMMA rod, 1/4-in. dia"
+     ],
+     "n_records": 3
+    },
+    {
+     "variant": "rod, unspecified [PMMA not named in cell; inferred from investigation context]",
+     "raw_names": [
+      "PA (Nylon 101 rod; Zytel 42 sheet)"
+     ],
+     "n_records": 2
+    },
+    {
+     "variant": "slab",
+     "raw_names": [
+      "1 cm wide PMMA 1 mm thick",
+      "1 cm wide PMMA 2 mm thick",
+      "1 cm wide PMMA 3 mm thick",
+      "1 cm wide PMMA 5 mm thick",
+      "1 mm thick PMMA 1 sided 2 cm",
+      "1 mm thick PMMA 2 cm wide",
+      "2 cm 4 mm 1 sided PMMA slab",
+      "2 cm wide 5 mm thick 1 sided PMMA",
+      "2 cm wide PMMA 2 mm thick",
+      "2 cm wide PMMA 3 mm thick",
+      "2 mm thick PMMA 2 cm wide",
+      "2mm thick PMMA 1 sided 2 cm wide",
+      "3 mm thick PMMA 1 sided 2 cm wide",
+      "3 mm thick PMMA 2 sided 2 cm thick",
+      "4 mm thick 1 cm wide PMMA slab",
+      "4 mm thick 2 cm 2ide PMMA slab",
+      "4 mm thick PMMA 2 cm wide",
+      "5 mm thick PMMA 2 cm wide",
+      "PMMA slab",
+      "pmma slab",
+      "pmma slab opposed",
+      "pmma slab, oppsed"
+     ],
+     "n_records": 28
+    },
+    {
+     "variant": "sphere",
+     "raw_names": [
+      "2 cm pmma sphere",
+      "PMMA sphere 1 cm",
+      "PMMA sphere 2 cm",
+      "pmma sphere"
+     ],
+     "n_records": 20
+    },
+    {
+     "variant": "sphere [PMMA not named in cell; inferred from investigation context]",
+     "raw_names": [
+      "1 cm sphere",
+      "1 cm sphere, wake",
+      "1 cm wake sphere",
+      "2 cm sphere",
+      "2 cm sphere, wake ign",
+      "4 cm spherical section"
+     ],
+     "n_records": 32
+    },
+    {
+     "variant": "unspecified",
+     "raw_names": [
+      "PMMA",
+      "PMMA 1 cm",
+      "PMMA 2 cm",
+      "pmma 1 cm",
+      "pmma 2 cm"
+     ],
+     "n_records": 22
+    }
+   ],
+   "n_records": 185,
+   "n_flammability_relevant": 185,
+   "sources": {
+    "BASS-II": 98,
+    "BASS": 78,
+    "Saffire-II": 2,
+    "WSTF 1g ground (Hirsch 2011)": 7
+   },
+   "investigations": [
+    "PSI-25",
+    "PSI-26",
+    "PSI-99"
+   ],
+   "dois": [
+    "10.60555/2chp-m469",
+    "10.60555/4qc4-de67",
+    "10.60555/58h4-dy80"
+   ],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI",
+    "large_scale_burn_test",
+    "solid_burn_test"
+   ],
+   "gravity_levels": [
+    "1g (ground)",
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    13.6,
+    22.58
+   ],
+   "pressure_kpa_range": [
+    98.29,
+    102.21
+   ],
+   "moc_pct_range_1g": [
+    14.0,
+    21.0
+   ],
+   "uloi_pct_range_1g": [
+    15.7,
+    21.9
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": true,
+   "cross_gravity_group": "XG-pmma",
+   "warnings": [
+    "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",
+    "Variants differ in behaviour: extruded vs cast PMMA have different 1g MOC (Hirsch 2011 Table 7)."
+   ]
+  },
+  {
+   "material_id": "sibal",
+   "name_en": "SIBAL (cotton-fiberglass fabric)",
+   "name_ar": "قماش سيبال (قطن وألياف زجاج)",
+   "kind": "composite fabric",
+   "chemical_family": "cotton/fiberglass blend",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "SIBAL",
+    "cotton-fiberglass",
+    "cotton fiberglass fabric",
+    "سيبال"
+   ],
+   "variants": [
+    {
+     "variant": "fabric",
+     "raw_names": [
+      "1 cm SIBAL",
+      "1 cm SIBAL top side ign",
+      "2 cm SIBAL",
+      "2 cm Sibal moved igniter",
+      "Cotton-Fiberglass (SIBAL)",
+      "SIBAL 1 cm",
+      "SIBAL 2 cm",
+      "SIBAL 2 cm, opposed flow",
+      "SIBAL Fabric"
+     ],
+     "n_records": 45
+    }
+   ],
+   "n_records": 45,
+   "n_flammability_relevant": 45,
+   "sources": {
+    "BASS-II": 27,
+    "BASS": 12,
+    "Saffire-I": 2,
+    "Saffire-II": 2,
+    "Saffire-III": 2
+   },
+   "investigations": [
+    "PSI-100",
+    "PSI-25",
+    "PSI-26",
+    "PSI-98",
+    "PSI-99"
+   ],
+   "dois": [
+    "10.60555/040q-4h36",
+    "10.60555/0t15-1z43",
+    "10.60555/2chp-m469",
+    "10.60555/4qc4-de67",
+    "10.60555/58h4-dy80"
+   ],
+   "evidence_types": [
+    "large_scale_burn_test",
+    "solid_burn_test"
+   ],
+   "gravity_levels": [
+    "1g (ground)",
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    16.4,
+    22.72
+   ],
+   "pressure_kpa_range": [
+    98.29,
+    101.72
+   ],
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": true,
+   "cross_gravity_group": "XG-sibal",
+   "warnings": []
+  },
+  {
+   "material_id": "nomex",
+   "name_en": "Nomex",
+   "name_ar": "نومكس",
+   "kind": "aramid fabric",
+   "chemical_family": "meta-aramid",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "Nomex",
+    "Nomex III",
+    "aramid",
+    "flight suit fabric",
+    "نومكس"
+   ],
+   "variants": [
+    {
+     "variant": "blend",
+     "raw_names": [
+      "Nomex blend 2 cm"
+     ],
+     "n_records": 4
+    },
+    {
+     "variant": "natural III",
+     "raw_names": [
+      "Nomex III Natural",
+      "Nomex natural (nomex III)",
+      "nomex natural III"
+     ],
+     "n_records": 5
+    }
+   ],
+   "n_records": 9,
+   "n_flammability_relevant": 9,
+   "sources": {
+    "BASS-II": 3,
+    "BASS": 6
+   },
+   "investigations": [
+    "PSI-25",
+    "PSI-26"
+   ],
+   "dois": [
+    "10.60555/4qc4-de67",
+    "10.60555/58h4-dy80"
+   ],
+   "evidence_types": [
+    "solid_burn_test"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    21.0,
+    22.53
+   ],
+   "pressure_kpa_range": [
+    98.5,
+    102.1
+   ],
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "pei",
+   "name_en": "PEI (Ultem)",
+   "name_ar": "بولي إيثر إيميد (Ultem)",
+   "kind": "solid polymer",
+   "chemical_family": "polyetherimide",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "PEI",
+    "Ultem",
+    "polyetherimide"
+   ],
+   "variants": [
+    {
+     "variant": "ultem sheet",
+     "raw_names": [
+      "ultem sheet"
+     ],
+     "n_records": 2
+    },
+    {
+     "variant": "unspecified",
+     "raw_names": [
+      "PEI"
+     ],
+     "n_records": 6
+    }
+   ],
+   "n_records": 8,
+   "n_flammability_relevant": 8,
+   "sources": {
+    "BASS": 2,
+    "WSTF 1g ground (Hirsch 2011)": 6
+   },
+   "investigations": [
+    "PSI-26"
+   ],
+   "dois": [
+    "10.60555/58h4-dy80"
+   ],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI",
+    "solid_burn_test"
+   ],
+   "gravity_levels": [
+    "1g (ground)",
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    21.89,
+    22.53
+   ],
+   "pressure_kpa_range": [
+    70.33,
+    102.1
+   ],
+   "moc_pct_range_1g": [
+    21.0,
+    24.0
+   ],
+   "uloi_pct_range_1g": [
+    21.9,
+    26.5
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": true,
+   "cross_gravity_group": "XG-pei",
+   "warnings": [
+    "\"ultem sheet\" (BASS) mapped to PEI because Ultem is a PEI trade name (builder knowledge, verify)."
+   ]
+  },
+  {
+   "material_id": "wax",
+   "name_en": "Wax (candle / slab)",
+   "name_ar": "شمع",
+   "kind": "solid fuel (melts)",
+   "chemical_family": "wax",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "wax",
+    "candle",
+    "paraffin",
+    "Japan wax",
+    "شمع",
+    "شمعة"
+   ],
+   "variants": [
+    {
+     "variant": "candle (wax type not stated)",
+     "raw_names": [
+      "candle"
+     ],
+     "n_records": 3
+    },
+    {
+     "variant": "japan wax candle",
+     "raw_names": [
+      "Japan Wax Candle, wake",
+      "Japan Wax candle",
+      "candle, Japan wax"
+     ],
+     "n_records": 11
+    },
+    {
+     "variant": "paraffin candle",
+     "raw_names": [
+      "candle, paraffin, wake",
+      "paraffin wax candle",
+      "parrafin wax candle"
+     ],
+     "n_records": 4
+    },
+    {
+     "variant": "paraffin slab",
+     "raw_names": [
+      "paraffin wax slab",
+      "parrafin wax slab"
+     ],
+     "n_records": 3
+    },
+    {
+     "variant": "wax slab (type not stated)",
+     "raw_names": [
+      "flat wax slab"
+     ],
+     "n_records": 3
+    }
+   ],
+   "n_records": 24,
+   "n_flammability_relevant": 24,
+   "sources": {
+    "BASS-II": 1,
+    "BASS": 23
+   },
+   "investigations": [
+    "PSI-25",
+    "PSI-26"
+   ],
+   "dois": [
+    "10.60555/4qc4-de67",
+    "10.60555/58h4-dy80"
+   ],
+   "evidence_types": [
+    "solid_burn_test"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    15.9,
+    22.22
+   ],
+   "pressure_kpa_range": [
+    98.29,
+    100.95
+   ],
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": [
+    "Some BASS rows say only \"candle\" or \"wax slab\"; wax type left unstated."
+   ]
+  },
+  {
+   "material_id": "silicone",
+   "name_en": "Silicone",
+   "name_ar": "سيليكون",
+   "kind": "elastomer",
+   "chemical_family": "silicone (MQ = methyl silicone rubber)",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "silicone",
+    "MQ",
+    "silicone rubber",
+    "سيليكون"
+   ],
+   "variants": [
+    {
+     "variant": "MQ silicone rubber",
+     "raw_names": [
+      "MQ"
+     ],
+     "n_records": 5
+    },
+    {
+     "variant": "MQ silicone rubber, 0.024 in. thick",
+     "raw_names": [
+      "MQ, 0.024 in. thick"
+     ],
+     "n_records": 2
+    },
+    {
+     "variant": "MQ silicone rubber, 0.040 in. thick",
+     "raw_names": [
+      "MQ, 0.040 in. thick"
+     ],
+     "n_records": 4
+    },
+    {
+     "variant": "MQ silicone rubber, 0.060 in. thick",
+     "raw_names": [
+      "MQ, 0.060 in. thick"
+     ],
+     "n_records": 2
+    },
+    {
+     "variant": "MQ silicone rubber, 0.25 in. thick",
+     "raw_names": [
+      "MQ, 0.25 in. thick"
+     ],
+     "n_records": 5
+    },
+    {
+     "variant": "saffire/SAME sample",
+     "raw_names": [
+      "Silicone"
+     ],
+     "n_records": 37
+    }
+   ],
+   "n_records": 55,
+   "n_flammability_relevant": 26,
+   "sources": {
+    "Saffire-II": 8,
+    "SAME": 7,
+    "SAME-R": 22,
+    "WSTF 1g ground (Hirsch 2011)": 18
+   },
+   "investigations": [
+    "PSI-101",
+    "PSI-102",
+    "PSI-99"
+   ],
+   "dois": [
+    "10.60555/2chp-m469",
+    "10.60555/2np7-jv14",
+    "10.60555/gd4k-8h62"
+   ],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI",
+    "large_scale_burn_test",
+    "smoke_particle_size"
+   ],
+   "gravity_levels": [
+    "1g (ground)",
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    21.5,
+    22.1
+   ],
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    17.0,
+    29.0
+   ],
+   "uloi_pct_range_1g": [
+    17.5,
+    29.5
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": true,
+   "cross_gravity_group": "XG-silicone",
+   "warnings": [
+    "Saffire/SAME silicone and WSTF MQ rubber are different products grouped under one family."
+   ]
+  },
+  {
+   "material_id": "polyimide",
+   "name_en": "Polyimide (Kapton / PI)",
+   "name_ar": "بولي إيميد (كابتون)",
+   "kind": "solid polymer",
+   "chemical_family": "polyimide",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "Kapton",
+    "PI",
+    "polyimide",
+    "كابتون"
+   ],
+   "variants": [
+    {
+     "variant": "Kapton film",
+     "raw_names": [
+      "Kapton"
+     ],
+     "n_records": 36
+    },
+    {
+     "variant": "PI (form per condition column)",
+     "raw_names": [
+      "PI"
+     ],
+     "n_records": 6
+    }
+   ],
+   "n_records": 42,
+   "n_flammability_relevant": 6,
+   "sources": {
+    "SAME": 6,
+    "SAME-R": 30,
+    "WSTF 1g ground (Hirsch 2011)": 6
+   },
+   "investigations": [
+    "PSI-101",
+    "PSI-102"
+   ],
+   "dois": [
+    "10.60555/2np7-jv14",
+    "10.60555/gd4k-8h62"
+   ],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI",
+    "smoke_particle_size"
+   ],
+   "gravity_levels": [
+    "1g (ground)",
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    25.0,
+    27.0
+   ],
+   "uloi_pct_range_1g": [
+    26.3,
+    28.7
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": [
+    "Kapton (SAME smoke tests) and WSTF \"PI\" are grouped as polyimide; form of WSTF PI not stated in the table."
+   ]
+  },
+  {
+   "material_id": "ptfe",
+   "name_en": "PTFE (Teflon)",
+   "name_ar": "تفلون",
+   "kind": "solid polymer",
+   "chemical_family": "polytetrafluoroethylene",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "Teflon",
+    "PTFE",
+    "تفلون"
+   ],
+   "variants": [
+    {
+     "variant": "Teflon",
+     "raw_names": [
+      "Teflon"
+     ],
+     "n_records": 23
+    }
+   ],
+   "n_records": 23,
+   "n_flammability_relevant": 0,
+   "sources": {
+    "SAME": 6,
+    "SAME-R": 17
+   },
+   "investigations": [
+    "PSI-101",
+    "PSI-102"
+   ],
+   "dois": [
+    "10.60555/2np7-jv14",
+    "10.60555/gd4k-8h62"
+   ],
+   "evidence_types": [
+    "smoke_particle_size"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": false,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "cotton",
+   "name_en": "Cotton (lampwick)",
+   "name_ar": "قطن (فتيل)",
+   "kind": "natural fiber",
+   "chemical_family": "cellulose",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "cotton",
+    "lampwick",
+    "wick",
+    "قطن",
+    "فتيل"
+   ],
+   "variants": [
+    {
+     "variant": "lampwick",
+     "raw_names": [
+      "Lampwick"
+     ],
+     "n_records": 26
+    }
+   ],
+   "n_records": 26,
+   "n_flammability_relevant": 0,
+   "sources": {
+    "SAME": 6,
+    "SAME-R": 20
+   },
+   "investigations": [
+    "PSI-101",
+    "PSI-102"
+   ],
+   "dois": [
+    "10.60555/2np7-jv14",
+    "10.60555/gd4k-8h62"
+   ],
+   "evidence_types": [
+    "smoke_particle_size"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": false,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "dbp",
+   "name_en": "DBP (dibutyl phthalate)",
+   "name_ar": "ثنائي بوتيل الفثالات",
+   "kind": "liquid",
+   "chemical_family": "phthalate ester",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "DBP",
+    "dibutyl phthalate"
+   ],
+   "variants": [
+    {
+     "variant": "liquid",
+     "raw_names": [
+      "DBP"
+     ],
+     "n_records": 20
+    }
+   ],
+   "n_records": 20,
+   "n_flammability_relevant": 0,
+   "sources": {
+    "SAME": 20
+   },
+   "investigations": [
+    "PSI-102"
+   ],
+   "dois": [
+    "10.60555/gd4k-8h62"
+   ],
+   "evidence_types": [
+    "smoke_particle_size"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": false,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "polyurethane_foam",
+   "name_en": "Pyrell polyurethane foam",
+   "name_ar": "فوم بولي يوريثان (Pyrell)",
+   "kind": "foam",
+   "chemical_family": "polyurethane",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "Pyrell",
+    "polyurethane foam",
+    "PU foam",
+    "فوم",
+    "اسفنج"
+   ],
+   "variants": [
+    {
+     "variant": "Pyrell",
+     "raw_names": [
+      "Pyrell"
+     ],
+     "n_records": 20
+    }
+   ],
+   "n_records": 20,
+   "n_flammability_relevant": 0,
+   "sources": {
+    "SAME-R": 20
+   },
+   "investigations": [
+    "PSI-101"
+   ],
+   "dois": [
+    "10.60555/2np7-jv14"
+   ],
+   "evidence_types": [
+    "smoke_particle_size"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": false,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "pet",
+   "name_en": "PET",
+   "name_ar": "بولي إيثيلين تيريفثاليت",
+   "kind": "solid polymer",
+   "chemical_family": "polyester",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "PET",
+    "polyester",
+    "Mylar"
+   ],
+   "variants": [
+    {
+     "variant": "unspecified",
+     "raw_names": [
+      "PET"
+     ],
+     "n_records": 6
+    }
+   ],
+   "n_records": 6,
+   "n_flammability_relevant": 6,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 6
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    70.33,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    15.0,
+    21.0
+   ],
+   "uloi_pct_range_1g": [
+    15.8,
+    22.6
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "peek",
+   "name_en": "PEEK",
+   "name_ar": "بيك",
+   "kind": "solid polymer",
+   "chemical_family": "polyether ether ketone",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "PEEK"
+   ],
+   "variants": [
+    {
+     "variant": "unspecified",
+     "raw_names": [
+      "PEEK"
+     ],
+     "n_records": 2
+    }
+   ],
+   "n_records": 2,
+   "n_flammability_relevant": 2,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 2
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    20.1,
+    21.1
+   ],
+   "uloi_pct_range_1g": [
+    20.8,
+    22.0
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "nbr",
+   "name_en": "NBR (nitrile rubber)",
+   "name_ar": "مطاط النتريل",
+   "kind": "elastomer",
+   "chemical_family": "nitrile butadiene rubber",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "NBR",
+    "nitrile rubber",
+    "Buna-N"
+   ],
+   "variants": [
+    {
+     "variant": "unspecified",
+     "raw_names": [
+      "NBR"
+     ],
+     "n_records": 2
+    }
+   ],
+   "n_records": 2,
+   "n_flammability_relevant": 2,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 2
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    16.1,
+    16.1
+   ],
+   "uloi_pct_range_1g": [
+    16.5,
+    16.6
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "pvc",
+   "name_en": "PVC",
+   "name_ar": "بي في سي",
+   "kind": "solid polymer",
+   "chemical_family": "polyvinyl chloride",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "PVC",
+    "vinyl"
+   ],
+   "variants": [
+    {
+     "variant": "sheet",
+     "raw_names": [
+      "PVC sheet"
+     ],
+     "n_records": 2
+    },
+    {
+     "variant": "unspecified",
+     "raw_names": [
+      "PVC"
+     ],
+     "n_records": 2
+    }
+   ],
+   "n_records": 4,
+   "n_flammability_relevant": 4,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 4
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    35.0,
+    40.0
+   ],
+   "uloi_pct_range_1g": [
+    40.1,
+    45.2
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "pom",
+   "name_en": "POM (acetal)",
+   "name_ar": "أسيتال (POM)",
+   "kind": "solid polymer",
+   "chemical_family": "polyoxymethylene",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "POM",
+    "acetal",
+    "Delrin",
+    "Acetron"
+   ],
+   "variants": [
+    {
+     "variant": "Acetron GP",
+     "raw_names": [
+      "POM (Acetron GP)"
+     ],
+     "n_records": 2
+    },
+    {
+     "variant": "Delrin",
+     "raw_names": [
+      "POM (Delrin)"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 3,
+   "n_flammability_relevant": 3,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 3
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    11.0,
+    12.0
+   ],
+   "uloi_pct_range_1g": [
+    12.3,
+    12.9
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "pp",
+   "name_en": "PP (polypropylene)",
+   "name_ar": "بولي بروبيلين",
+   "kind": "solid polymer",
+   "chemical_family": "polypropylene",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "PP",
+    "polypropylene"
+   ],
+   "variants": [
+    {
+     "variant": "unspecified",
+     "raw_names": [
+      "PP"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 1,
+   "n_flammability_relevant": 1,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 1
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    16.0,
+    16.0
+   ],
+   "uloi_pct_range_1g": [
+    17.6,
+    17.6
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "polyamide",
+   "name_en": "PA (nylon)",
+   "name_ar": "نايلون",
+   "kind": "solid polymer",
+   "chemical_family": "polyamide",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "nylon",
+    "PA",
+    "Zytel",
+    "نايلون"
+   ],
+   "variants": [
+    {
+     "variant": "Zytel 42",
+     "raw_names": [
+      "PA (Zytel 42)"
+     ],
+     "n_records": 2
+    }
+   ],
+   "n_records": 2,
+   "n_flammability_relevant": 2,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 2
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    21.0,
+    24.1
+   ],
+   "uloi_pct_range_1g": [
+    21.6,
+    24.5
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "epoxy_glass",
+   "name_en": "Epoxy/glass laminate",
+   "name_ar": "إيبوكسي مع ألياف زجاج",
+   "kind": "composite",
+   "chemical_family": "epoxy/fiberglass",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "epoxy glass",
+    "G-10",
+    "FR-4",
+    "fiberglass laminate"
+   ],
+   "variants": [
+    {
+     "variant": "laminate",
+     "raw_names": [
+      "Epoxy/glass"
+     ],
+     "n_records": 2
+    }
+   ],
+   "n_records": 2,
+   "n_flammability_relevant": 2,
+   "sources": {
+    "WSTF 1g ground (Hirsch 2011)": 2
+   },
+   "investigations": [],
+   "dois": [],
+   "evidence_types": [
+    "flammability_limit_1g_MOC_ULOI"
+   ],
+   "gravity_levels": [
+    "1g (ground)"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": [
+    101.35,
+    101.35
+   ],
+   "moc_pct_range_1g": [
+    16.0,
+    23.0
+   ],
+   "uloi_pct_range_1g": [
+    17.9,
+    23.6
+   ],
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": false,
+   "has_1g_evidence": true,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "methanol",
+   "name_en": "Methanol",
+   "name_ar": "ميثانول",
+   "kind": "liquid fuel",
+   "chemical_family": "alcohol",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "methanol",
+    "methyl alcohol",
+    "ميثانول"
+   ],
+   "variants": [
+    {
+     "variant": "pure",
+     "raw_names": [
+      "Methanol"
+     ],
+     "n_records": 157
+    }
+   ],
+   "n_records": 157,
+   "n_flammability_relevant": 157,
+   "sources": {
+    "FLEX": 157
+   },
+   "investigations": [
+    "PSI-69"
+   ],
+   "dois": [
+    "10.60555/mbq8-0451"
+   ],
+   "evidence_types": [
+    "droplet_combustion"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {
+    "disruption": 23,
+    "extinction": 126,
+    "completion": 8
+   },
+   "oxygen_pct_range": [
+    12.0,
+    34.0
+   ],
+   "pressure_kpa_range": [
+    70.17,
+    309.27
+   ],
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "n_heptane",
+   "name_en": "n-Heptane",
+   "name_ar": "هبتان",
+   "kind": "liquid fuel",
+   "chemical_family": "alkane",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "heptane",
+    "n-heptane",
+    "هبتان"
+   ],
+   "variants": [
+    {
+     "variant": "pure",
+     "raw_names": [
+      "Heptane",
+      "Heptane (pure)"
+     ],
+     "n_records": 118
+    }
+   ],
+   "n_records": 118,
+   "n_flammability_relevant": 118,
+   "sources": {
+    "FLEX": 117,
+    "FLEX-2": 1
+   },
+   "investigations": [
+    "PSI-68",
+    "PSI-69"
+   ],
+   "dois": [
+    "10.60555/byp8-h018",
+    "10.60555/mbq8-0451"
+   ],
+   "evidence_types": [
+    "droplet_combustion",
+    "test_matrix_summary"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {
+    "disruption": 38,
+    "extinction": 60,
+    "completion": 19
+   },
+   "oxygen_pct_range": [
+    13.0,
+    34.0
+   ],
+   "pressure_kpa_range": [
+    70.39,
+    309.29
+   ],
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "isooctane",
+   "name_en": "Isooctane",
+   "name_ar": "أيزو أوكتان",
+   "kind": "liquid fuel",
+   "chemical_family": "alkane",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "isooctane",
+    "iso-octane"
+   ],
+   "variants": [
+    {
+     "variant": "pure",
+     "raw_names": [
+      "IsoOctane (pure)"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 1,
+   "n_flammability_relevant": 1,
+   "sources": {
+    "FLEX-2": 1
+   },
+   "investigations": [
+    "PSI-68"
+   ],
+   "dois": [
+    "10.60555/byp8-h018"
+   ],
+   "evidence_types": [
+    "test_matrix_summary"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "n_octane",
+   "name_en": "n-Octane",
+   "name_ar": "أوكتان",
+   "kind": "liquid fuel",
+   "chemical_family": "alkane",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "octane",
+    "n-octane"
+   ],
+   "variants": [
+    {
+     "variant": "pure",
+     "raw_names": [
+      "n-Octane (pure)"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 1,
+   "n_flammability_relevant": 1,
+   "sources": {
+    "FLEX-2": 1
+   },
+   "investigations": [
+    "PSI-68"
+   ],
+   "dois": [
+    "10.60555/byp8-h018"
+   ],
+   "evidence_types": [
+    "test_matrix_summary"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "n_decane",
+   "name_en": "n-Decane",
+   "name_ar": "ديكان",
+   "kind": "liquid fuel",
+   "chemical_family": "alkane",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "decane",
+    "n-decane"
+   ],
+   "variants": [
+    {
+     "variant": "pure",
+     "raw_names": [
+      "Decane (pure)"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 1,
+   "n_flammability_relevant": 1,
+   "sources": {
+    "FLEX-2": 1
+   },
+   "investigations": [
+    "PSI-68"
+   ],
+   "dois": [
+    "10.60555/byp8-h018"
+   ],
+   "evidence_types": [
+    "test_matrix_summary"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "n_dodecane",
+   "name_en": "n-Dodecane",
+   "name_ar": "دوديكان",
+   "kind": "liquid fuel",
+   "chemical_family": "alkane",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "dodecane",
+    "C12H26"
+   ],
+   "variants": [
+    {
+     "variant": "pure",
+     "raw_names": [
+      "C12H26"
+     ],
+     "n_records": 22
+    }
+   ],
+   "n_records": 22,
+   "n_flammability_relevant": 22,
+   "sources": {
+    "CFI": 22
+   },
+   "investigations": [
+    "PSI-39"
+   ],
+   "dois": [
+    "10.60555/m6pj-a914"
+   ],
+   "evidence_types": [
+    "droplet_combustion"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    17.0,
+    21.0
+   ],
+   "pressure_kpa_range": [
+    101.33,
+    202.65
+   ],
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "ethanol",
+   "name_en": "Ethanol",
+   "name_ar": "إيثانول",
+   "kind": "liquid fuel",
+   "chemical_family": "alcohol",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "ethanol",
+    "alcohol",
+    "إيثانول",
+    "كحول"
+   ],
+   "variants": [
+    {
+     "variant": "pure",
+     "raw_names": [
+      "Ethanol (pure)"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 1,
+   "n_flammability_relevant": 1,
+   "sources": {
+    "FLEX-2": 1
+   },
+   "investigations": [
+    "PSI-68"
+   ],
+   "dois": [
+    "10.60555/byp8-h018"
+   ],
+   "evidence_types": [
+    "test_matrix_summary"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "propanol_glycerol",
+   "name_en": "Propanol/glycerol mixture",
+   "name_ar": "بروبانول مع جليسرين",
+   "kind": "liquid fuel mixture",
+   "chemical_family": "alcohol mixture",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "propanol glycerol"
+   ],
+   "variants": [
+    {
+     "variant": "Propanol (80%) Glycerol (20%) (mixture)",
+     "raw_names": [
+      "Propanol (80%) Glycerol (20%) (mixture)"
+     ],
+     "n_records": 1
+    },
+    {
+     "variant": "Propanol (95%) Glycerol (5%) (mixture)",
+     "raw_names": [
+      "Propanol (95%) Glycerol (5%) (mixture)"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 2,
+   "n_flammability_relevant": 2,
+   "sources": {
+    "FLEX-2": 2
+   },
+   "investigations": [
+    "PSI-68"
+   ],
+   "dois": [
+    "10.60555/byp8-h018"
+   ],
+   "evidence_types": [
+    "test_matrix_summary"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "heptane_isooctane",
+   "name_en": "Heptane/isooctane mixture",
+   "name_ar": "خليط هبتان وأيزو أوكتان",
+   "kind": "liquid fuel mixture",
+   "chemical_family": "alkane mixture",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "heptane isooctane"
+   ],
+   "variants": [
+    {
+     "variant": "50/50",
+     "raw_names": [
+      "Heptane (50%) IsoOctane (50%) (mixture)"
+     ],
+     "n_records": 1
+    }
+   ],
+   "n_records": 1,
+   "n_flammability_relevant": 1,
+   "sources": {
+    "FLEX-2": 1
+   },
+   "investigations": [
+    "PSI-68"
+   ],
+   "dois": [
+    "10.60555/byp8-h018"
+   ],
+   "evidence_types": [
+    "test_matrix_summary"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "dodecane_isododecane",
+   "name_en": "Dodecane/iso-dodecane mixture",
+   "name_ar": "خليط دوديكان",
+   "kind": "liquid fuel mixture",
+   "chemical_family": "alkane mixture",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "dodecane isododecane"
+   ],
+   "variants": [
+    {
+     "variant": "[.60]/[.40]",
+     "raw_names": [
+      "[.60]/[.40] C12H26/iso-dodecane"
+     ],
+     "n_records": 41
+    },
+    {
+     "variant": "[.75]/[.25]",
+     "raw_names": [
+      "[.75]/[.25] C12H26/iso-dodecane"
+     ],
+     "n_records": 24
+    }
+   ],
+   "n_records": 65,
+   "n_flammability_relevant": 65,
+   "sources": {
+    "CFI": 65
+   },
+   "investigations": [
+    "PSI-39"
+   ],
+   "dois": [
+    "10.60555/m6pj-a914"
+   ],
+   "evidence_types": [
+    "droplet_combustion"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": [
+    17.0,
+    21.0
+   ],
+   "pressure_kpa_range": [
+    50.66,
+    506.62
+   ],
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": []
+  },
+  {
+   "material_id": "ethylene",
+   "name_en": "Ethylene (gas)",
+   "name_ar": "إيثيلين",
+   "kind": "gaseous fuel",
+   "chemical_family": "alkene",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "ethylene",
+    "C2H4",
+    "إيثيلين"
+   ],
+   "variants": [
+    {
+     "variant": "100% C2H4",
+     "raw_names": [
+      "100% C2H4"
+     ],
+     "n_records": 8
+    },
+    {
+     "variant": "100%C2H4",
+     "raw_names": [
+      "100%C2H4"
+     ],
+     "n_records": 3
+    },
+    {
+     "variant": "50% C2H4",
+     "raw_names": [
+      "50% C2H4"
+     ],
+     "n_records": 5
+    }
+   ],
+   "n_records": 16,
+   "n_flammability_relevant": 16,
+   "sources": {
+    "ACME BRE": 16
+   },
+   "investigations": [
+    "PSI-20"
+   ],
+   "dois": [
+    "10.60555/vb93-3y72"
+   ],
+   "evidence_types": [
+    "gas_flame_test"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": [
+    "ACME BRE is a gas burner that emulates burning solids; not a solid material test."
+   ]
+  },
+  {
+   "material_id": "methane",
+   "name_en": "Methane (gas)",
+   "name_ar": "ميثان",
+   "kind": "gaseous fuel",
+   "chemical_family": "alkane",
+   "family_confidence": "builder knowledge (verify)",
+   "aliases": [
+    "methane",
+    "CH4",
+    "ميثان"
+   ],
+   "variants": [
+    {
+     "variant": "100% CH4",
+     "raw_names": [
+      "100% CH4"
+     ],
+     "n_records": 2
+    }
+   ],
+   "n_records": 2,
+   "n_flammability_relevant": 2,
+   "sources": {
+    "ACME BRE": 2
+   },
+   "investigations": [
+    "PSI-20"
+   ],
+   "dois": [
+    "10.60555/vb93-3y72"
+   ],
+   "evidence_types": [
+    "gas_flame_test"
+   ],
+   "gravity_levels": [
+    "microgravity"
+   ],
+   "outcome_class_counts": {},
+   "oxygen_pct_range": null,
+   "pressure_kpa_range": null,
+   "moc_pct_range_1g": null,
+   "uloi_pct_range_1g": null,
+   "has_flammability_evidence": true,
+   "has_microgravity_evidence": true,
+   "has_1g_evidence": false,
+   "cross_gravity_group": null,
+   "warnings": [
+    "ACME BRE is a gas burner that emulates burning solids; not a solid material test."
+   ]
+  }
+ ]
+}

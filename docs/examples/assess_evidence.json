@@ -1,0 +1,2309 @@
+{
+  "verdict": "EVIDENCE",
+  "verdict_label": "Evidence",
+  "verdict_tier": "green",
+  "verdict_reason": "53 record(s) with an outcome for PMMA (acrylic) at the same gravity bucket matched within ±1.5% O2 and ±20 kPa (pressure only when known).",
+  "empty_state_message": null,
+  "material": {
+    "material_id": "pmma",
+    "name_en": "PMMA (acrylic)",
+    "name_ar": "أكريليك (PMMA)",
+    "kind": "solid polymer",
+    "chemical_family": "polymethyl methacrylate",
+    "aliases": [
+      "PMMA",
+      "acrylic",
+      "plexiglas",
+      "perspex",
+      "polymethyl methacrylate",
+      "أكريليك",
+      "بليكسي"
+    ],
+    "variants": [
+      {
+        "variant": "film",
+        "n_records": 17,
+        "inferred": false
+      },
+      {
+        "variant": "film [PMMA not named in cell; inferred from investigation context]",
+        "n_records": 5,
+        "inferred": true
+      },
+      {
+        "variant": "rod, black [PMMA not named in cell; inferred from investigation context]",
+        "n_records": 26,
+        "inferred": true
+      },
+      {
+        "variant": "rod, clear",
+        "n_records": 4,
+        "inferred": false
+      },
+      {
+        "variant": "rod, clear [PMMA not named in cell; inferred from investigation context]",
+        "n_records": 24,
+        "inferred": true
+      },
+      {
+        "variant": "rod, extruded",
+        "n_records": 2,
+        "inferred": false
+      },
+      {
+        "variant": "rod, unspecified",
+        "n_records": 3,
+        "inferred": false
+      },
+      {
+        "variant": "rod, unspecified [PMMA not named in cell; inferred from investigation context]",
+        "n_records": 2,
+        "inferred": true
+      },
+      {
+        "variant": "slab",
+        "n_records": 28,
+        "inferred": false
+      },
+      {
+        "variant": "sphere",
+        "n_records": 20,
+        "inferred": false
+      },
+      {
+        "variant": "sphere [PMMA not named in cell; inferred from investigation context]",
+        "n_records": 32,
+        "inferred": true
+      },
+      {
+        "variant": "unspecified",
+        "n_records": 22,
+        "inferred": false
+      }
+    ],
+    "oxygen_pct_range": [
+      13.6,
+      22.58
+    ],
+    "pressure_kpa_range": [
+      98.29,
+      102.21
+    ],
+    "moc_pct_range_1g": [
+      14.0,
+      21.0
+    ],
+    "uloi_pct_range_1g": [
+      15.7,
+      21.9
+    ],
+    "gravity_levels": [
+      "1g (ground)",
+      "microgravity"
+    ],
+    "has_microgravity_evidence": true,
+    "has_1g_evidence": true,
+    "cross_gravity_group": "XG-pmma",
+    "warnings": [
+      "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",
+      "Variants differ in behaviour: extruded vs cast PMMA have different 1g MOC (Hirsch 2011 Table 7)."
+    ],
+    "dois": [
+      "10.60555/2chp-m469",
+      "10.60555/4qc4-de67",
+      "10.60555/58h4-dy80"
+    ]
+  },
+  "material_resolved_as": "pmma",
+  "requested": {
+    "material_query": "acrylic",
+    "material_variant": null,
+    "preset_id": "iss",
+    "oxygen_pct": 21.0,
+    "pressure_kpa": 101.3,
+    "gravity": "orbit",
+    "airflow_cm_s": null,
+    "thickness_mm": null,
+    "question": "will it self-extinguish?",
+    "unknown_material_props": null
+  },
+  "matched_tolerances": {
+    "o2_pct": 1.5,
+    "pressure_kpa": 20.0,
+    "text": "matched within ±1.5% O2 and ±20 kPa (pressure only when known)"
+  },
+  "evidence_groups": [
+    {
+      "evidence_type": "solid_burn_test",
+      "label": "Solid burn tests",
+      "records": [
+        {
+          "experiment_id": "BASS-115",
+          "source_investigation": "BASS",
+          "psi_id": "PSI-26",
+          "doi": "10.60555/58h4-dy80",
+          "gravity_level": "microgravity",
+          "gravity_bucket": "microgravity",
+          "material_id": "pmma",
+          "material_variant": "sphere",
+          "fuel_material": "pmma sphere",
+          "evidence_type": "solid_burn_test",
+          "configuration": null,
+          "oxygen_pct": 21.18,
+          "oxygen_basis": "O2 volume fraction x100",
+          "pressure_kpa": 100.95,
+          "airflow_cm_s": null,
+          "airflow_note": "air display steps: ",
+          "outcome_type": "observation_text",
+          "outcome_variable": null,
+          "outcome_value": null,
+          "outcome_unit": null,
+          "outcome_class": null,
+          "uloi_pct": null,
+          "flame_behavior_notes": "stagnation ignition in air. Dynamic flow changes planned after igntion. Good ignition, good dynamics from dim blue to sooty tail. Bracketing was on - 2 brackets plus dark frames.",
+          "quality_flags": [],
+          "source_ref": "PSI-26 'As Run Test Matrix' workbook, row 128",
+          "source_file": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+          "source_row": 128,
+          "license": "CC0-1.0",
+          "pair_id": null,
+          "finding_ids": [
+            "RG-05",
+            "RG-06",
+            "RG-08",
+            "RG-10",
+            "RG-11",
+            "RG-12",
+            "RG-13",
+            "RG-14",
+            "RG-16",
+            "RG-17"
+          ],
+          "flammability_relevant": true,
+          "source_url": "https://doi.org/10.60555/58h4-dy80",
+          "display_kind": "observation",
+          "display_text": "Observation: pmma sphere; O2 21.18% (O2 volume fraction x100), 100.95 kPa. See verbatim notes.",
+          "test_family": null,
+          "distance": 0.0035,
+          "similarity": null
+        },
+        {
+          "experiment_id": "BASS-116",
+          "source_investigation": "BASS",
+          "psi_id": "PSI-26",
+          "doi": "10.60555/58h4-dy80",
+          "gravity_level": "microgravity",
+          "gravity_bucket": "microgravity",
+          "material_id": "pmma",
+          "material_variant": "sphere",
+          "fuel_material": "pmma sphere",
+          "evidence_type": "solid_burn_test",
+          "configuration": null,
+          "oxygen_pct": 21.18,
+          "oxygen_basis": "O2 volume fraction x100",
+          "pressure_kpa": 100.95,
+          "airflow_cm_s": null,
+          "airflow_note": "air display steps: ",
+          "outcome_type": "observation_text",
+          "outcome_variable": null,
+          "outcome_value": null,
+          "outcome_unit": null,
+          "outcome_class": null,
+          "uloi_pct": null,
+          "flame_behavior_notes": "same as previous, with continuous pictures. Dropped out los for test, got playback of expt video but lost over theshoulder view for most of test. Up to fan 73 down to 39. Limit pot setting about 0.28. 149 total pics -27-2extras for camera check.",
+          "quality_flags": [],
+          "source_ref": "PSI-26 'As Run Test Matrix' workbook, row 129",
+          "source_file": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+          "source_row": 129,
+          "license": "CC0-1.0",
+          "pair_id": null,
+          "finding_ids": [
+            "RG-05",
+            "RG-06",
+            "RG-08",
+            "RG-10",
+            "RG-11",
+            "RG-12",
+            "RG-13",
+            "RG-14",
+            "RG-16",
+            "RG-17"
+          ],
+          "flammability_relevant": true,
+          "source_url": "https://doi.org/10.60555/58h4-dy80",
+          "display_kind": "observation",
+          "display_text": "Observation: pmma sphere; O2 21.18% (O2 volume fraction x100), 100.95 kPa. See verbatim notes.",
+          "test_family": null,
+          "distance": 0.0035,
+          "similarity": null
+        },
+        {
+          "experiment_id": "BASS-029",
+          "source_investigation": "BASS",
+          "psi_id": "PSI-26",
+          "doi": "10.60555/58h4-dy80",
+          "gravity_level": "microgravity",
+          "gravity_bucket": "microgravity",
+          "material_id": "pmma",
+          "material_variant": "sphere [PMMA not named in cell; inferred from investigation context]",
+          "fuel_material": "1 cm sphere",
+          "evidence_type": "solid_burn_test",
+          "configuration": null,
+          "oxygen_pct": 20.89,
+          "oxygen_basis": "O2 volume fraction x100",
+          "pressure_kpa": 100.11,
+          "airflow_cm_s": null,
+          "airflow_note": "air display steps: 9.75, 0",
+          "outcome_type": "observation_text",
+          "outcome_variable": null,
+          "outcome_value": null,
+          "outcome_unit": null,
+          "outcome_class": null,
+          "uloi_pct": null,
+          "flame_behavior_notes": "Joe 1st day, ignited at 9.75 cm/s, flame mostly envelope by end of ignition, turned flow slowly to 42, so lots of vapor jetting and soot. At fan off, flame turns blue, and oscilates before extinction.",
+          "quality_flags": [],
+          "source_ref": "PSI-26 'As Run Test Matrix' workbook, row 33",
+          "source_file": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+          "source_row": 33,
+          "license": "CC0-1.0",
+          "pair_id": null,
+          "finding_ids": [
+            "RG-05",
+            "RG-06",
+            "RG-08",
+            "RG-10",
+            "RG-11",
+            "RG-12",
+            "RG-13",
+            "RG-14",
+            "RG-16",
+            "RG-17"
+          ],
+          "flammability_relevant": true,
+          "source_url": "https://doi.org/10.60555/58h4-dy80",
+          "display_kind": "observation",
+          "display_text": "Observation: 1 cm sphere; O2 20.89% (O2 volume fraction x100), 100.11 kPa. See verbatim notes.",
+          "test_family": null,
+          "distance": 0.007,
+          "similarity": null
+        }
+      ],
+      "total_in_group": 52
+    },
+    {
+      "evidence_type": "large_scale_burn_test",
+      "label": "Large-scale burn tests (Saffire)",
+      "records": [
+        {
+          "experiment_id": "SAF2-2-8-UG",
+          "source_investigation": "Saffire-II",
+          "psi_id": "PSI-99",
+          "doi": "10.60555/2chp-m469",
+          "gravity_level": "microgravity",
+          "gravity_bucket": "microgravity",
+          "material_id": "pmma",
+          "material_variant": "unspecified",
+          "fuel_material": "PMMA",
+          "evidence_type": "large_scale_burn_test",
+          "configuration": "Concurrent flow, large sample",
+          "oxygen_pct": 22.05,
+          "oxygen_basis": "midpoint of source range 22.1 to 22.0",
+          "pressure_kpa": null,
+          "airflow_cm_s": 20.0,
+          "airflow_note": null,
+          "outcome_type": "measured",
+          "outcome_variable": "flame_spread_rate",
+          "outcome_value": null,
+          "outcome_unit": null,
+          "outcome_class": null,
+          "uloi_pct": null,
+          "flame_behavior_notes": "microgravity burn length: ~ 10 cm (note 3); spread: Note 4; burn time: 600 s",
+          "quality_flags": [],
+          "source_ref": "PSI-99 Saffire-II experimental table, sample 2-8",
+          "source_file": "PSI-99 experimental table",
+          "source_row": 8,
+          "license": "CC0-1.0",
+          "pair_id": "PAIR-SAF2-2-8",
+          "finding_ids": [
+            "RG-08",
+            "RG-17"
+          ],
+          "flammability_relevant": true,
+          "source_url": "https://doi.org/10.60555/2chp-m469",
+          "display_kind": "result",
+          "display_text": "flame_spread_rate = not available — PMMA; O2 22.05% (midpoint of source range 22.1 to 22.0), flow 20.0 cm/s.",
+          "test_family": null,
+          "distance": 0.0105,
+          "similarity": null
+        }
+      ],
+      "total_in_group": 1
+    }
+  ],
+  "smoke_detection": [],
+  "earth_vs_space": {
+    "available": true,
+    "baseline_1g": {
+      "records": [
+        {
+          "experiment_id": "WSTF-013",
+          "source_investigation": "WSTF 1g ground (Hirsch 2011)",
+          "psi_id": null,
+          "doi": null,
+          "gravity_level": "1g (ground)",
+          "gravity_bucket": "1g",
+          "material_id": "pmma",
+          "material_variant": "rod, extruded",
+          "fuel_material": "PMMA, extruded, 1/4-in. dia rod",
+          "evidence_type": "flammability_limit_1g_MOC_ULOI",
+          "configuration": "upward burning; Chemical igniter",
+          "oxygen_pct": null,
+          "oxygen_basis": null,
+          "pressure_kpa": 101.35,
+          "airflow_cm_s": null,
+          "airflow_note": null,
+          "outcome_type": "threshold",
+          "outcome_variable": "MOC",
+          "outcome_value": 19.0,
+          "outcome_unit": "% O2",
+          "outcome_class": null,
+          "uloi_pct": 19.5,
+          "flame_behavior_notes": null,
+          "quality_flags": [],
+          "source_ref": "Hirsch, Juarez, Peyton, Harper, Olson (2011), Selected Parametric Effects on Materials Flammability Limits, NASA White Sands Test Facility, NTRS 20110008636, Table 2, p.5",
+          "source_file": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "source_row": 13,
+          "license": "US Government work",
+          "pair_id": null,
+          "finding_ids": [],
+          "flammability_relevant": true,
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "display_kind": "threshold",
+          "display_text": "MOC = 19.0 % O2; ULOI = 19.5 % O2 (1g, upward, NASA-STD-6001 Test 1) — PMMA, extruded, 1/4-in. dia rod; 101.35 kPa.",
+          "test_family": "NASA_STD_6001_T1_upward",
+          "distance": null,
+          "similarity": null
+        },
+        {
+          "experiment_id": "WSTF-014",
+          "source_investigation": "WSTF 1g ground (Hirsch 2011)",
+          "psi_id": null,
+          "doi": null,
+          "gravity_level": "1g (ground)",
+          "gravity_bucket": "1g",
+          "material_id": "pmma",
+          "material_variant": "rod, extruded",
+          "fuel_material": "PMMA, extruded, 1/4-in. dia rod",
+          "evidence_type": "flammability_limit_1g_MOC_ULOI",
+          "configuration": "upward burning; Hot-wire",
+          "oxygen_pct": null,
+          "oxygen_basis": null,
+          "pressure_kpa": 101.35,
+          "airflow_cm_s": null,
+          "airflow_note": null,
+          "outcome_type": "threshold",
+          "outcome_variable": "MOC",
+          "outcome_value": 18.0,
+          "outcome_unit": "% O2",
+          "outcome_class": null,
+          "uloi_pct": 18.9,
+          "flame_behavior_notes": null,
+          "quality_flags": [],
+          "source_ref": "Hirsch, Juarez, Peyton, Harper, Olson (2011), Selected Parametric Effects on Materials Flammability Limits, NASA White Sands Test Facility, NTRS 20110008636, Table 2, p.5",
+          "source_file": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "source_row": 14,
+          "license": "US Government work",
+          "pair_id": null,
+          "finding_ids": [],
+          "flammability_relevant": true,
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "display_kind": "threshold",
+          "display_text": "MOC = 18.0 % O2; ULOI = 18.9 % O2 (1g, upward, NASA-STD-6001 Test 1) — PMMA, extruded, 1/4-in. dia rod; 101.35 kPa.",
+          "test_family": "NASA_STD_6001_T1_upward",
+          "distance": null,
+          "similarity": null
+        },
+        {
+          "experiment_id": "WSTF-043",
+          "source_investigation": "WSTF 1g ground (Hirsch 2011)",
+          "psi_id": null,
+          "doi": null,
+          "gravity_level": "1g (ground)",
+          "gravity_bucket": "1g",
+          "material_id": "pmma",
+          "material_variant": "rod, unspecified",
+          "fuel_material": "PMMA rod, 1/4-in. dia",
+          "evidence_type": "flammability_limit_1g_MOC_ULOI",
+          "configuration": "upward burning; Extruded, hot-wire",
+          "oxygen_pct": null,
+          "oxygen_basis": null,
+          "pressure_kpa": 101.35,
+          "airflow_cm_s": null,
+          "airflow_note": null,
+          "outcome_type": "threshold",
+          "outcome_variable": "MOC",
+          "outcome_value": 18.0,
+          "outcome_unit": "% O2",
+          "outcome_class": null,
+          "uloi_pct": 18.9,
+          "flame_behavior_notes": null,
+          "quality_flags": [],
+          "source_ref": "Hirsch, Juarez, Peyton, Harper, Olson (2011), Selected Parametric Effects on Materials Flammability Limits, NASA White Sands Test Facility, NTRS 20110008636, Table 7, p.7",
+          "source_file": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "source_row": 43,
+          "license": "US Government work",
+          "pair_id": null,
+          "finding_ids": [],
+          "flammability_relevant": true,
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "display_kind": "threshold",
+          "display_text": "MOC = 18.0 % O2; ULOI = 18.9 % O2 (1g, upward, NASA-STD-6001 Test 1) — PMMA rod, 1/4-in. dia; 101.35 kPa.",
+          "test_family": "NASA_STD_6001_T1_upward",
+          "distance": null,
+          "similarity": null
+        },
+        {
+          "experiment_id": "WSTF-044",
+          "source_investigation": "WSTF 1g ground (Hirsch 2011)",
+          "psi_id": null,
+          "doi": null,
+          "gravity_level": "1g (ground)",
+          "gravity_bucket": "1g",
+          "material_id": "pmma",
+          "material_variant": "rod, unspecified",
+          "fuel_material": "PMMA rod, 1/4-in. dia",
+          "evidence_type": "flammability_limit_1g_MOC_ULOI",
+          "configuration": "upward burning; Cast, hot-wire",
+          "oxygen_pct": null,
+          "oxygen_basis": null,
+          "pressure_kpa": 101.35,
+          "airflow_cm_s": null,
+          "airflow_note": null,
+          "outcome_type": "threshold",
+          "outcome_variable": "MOC",
+          "outcome_value": 14.0,
+          "outcome_unit": "% O2",
+          "outcome_class": null,
+          "uloi_pct": 15.7,
+          "flame_behavior_notes": null,
+          "quality_flags": [],
+          "source_ref": "Hirsch, Juarez, Peyton, Harper, Olson (2011), Selected Parametric Effects on Materials Flammability Limits, NASA White Sands Test Facility, NTRS 20110008636, Table 7, p.7",
+          "source_file": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "source_row": 44,
+          "license": "US Government work",
+          "pair_id": null,
+          "finding_ids": [],
+          "flammability_relevant": true,
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+          "display_kind": "threshold",
+          "display_text": "MOC = 14.0 % O2; ULOI = 15.7 % O2 (1g, upward, NASA-STD-6001 Test 1) — PMMA rod, 1/4-in. dia; 101.35 kPa.",
+          "test_family": "NASA_STD_6001_T1_upward",
+          "distance": null,
+          "similarity": null
+        }
+      ],
+      "moc_values": [
+        {
+          "experiment_id": "WSTF-013",
+          "moc_pct": 19.0,
+          "uloi_pct": 19.5,
+          "pressure_kpa": 101.35,
+          "variant": "rod, extruded",
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+        },
+        {
+          "experiment_id": "WSTF-014",
+          "moc_pct": 18.0,
+          "uloi_pct": 18.9,
+          "pressure_kpa": 101.35,
+          "variant": "rod, extruded",
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+        },
+        {
+          "experiment_id": "WSTF-043",
+          "moc_pct": 18.0,
+          "uloi_pct": 18.9,
+          "pressure_kpa": 101.35,
+          "variant": "rod, unspecified",
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+        },
+        {
+          "experiment_id": "WSTF-044",
+          "moc_pct": 14.0,
+          "uloi_pct": 15.7,
+          "pressure_kpa": 101.35,
+          "variant": "rod, unspecified",
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+        },
+        {
+          "experiment_id": "WSTF-045",
+          "moc_pct": 19.0,
+          "uloi_pct": 19.5,
+          "pressure_kpa": 101.35,
+          "variant": "rod, unspecified",
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+        },
+        {
+          "experiment_id": "WSTF-050",
+          "moc_pct": 20.0,
+          "uloi_pct": 21.9,
+          "pressure_kpa": 101.35,
+          "variant": "rod, unspecified [PMMA not named in cell; inferred from investigation context]",
+          "source_url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+        }
+      ],
+      "test_note": "NASA-STD-6001 Test 1 (upward) MOC/ULOI — not comparable to LOI (downward, ASTM D2863)"
+    },
+    "microgravity_evidence": [
+      {
+        "experiment_id": "BASS-115",
+        "source_investigation": "BASS",
+        "psi_id": "PSI-26",
+        "doi": "10.60555/58h4-dy80",
+        "gravity_level": "microgravity",
+        "gravity_bucket": "microgravity",
+        "material_id": "pmma",
+        "material_variant": "sphere",
+        "fuel_material": "pmma sphere",
+        "evidence_type": "solid_burn_test",
+        "configuration": null,
+        "oxygen_pct": 21.18,
+        "oxygen_basis": "O2 volume fraction x100",
+        "pressure_kpa": 100.95,
+        "airflow_cm_s": null,
+        "airflow_note": "air display steps: ",
+        "outcome_type": "observation_text",
+        "outcome_variable": null,
+        "outcome_value": null,
+        "outcome_unit": null,
+        "outcome_class": null,
+        "uloi_pct": null,
+        "flame_behavior_notes": "stagnation ignition in air. Dynamic flow changes planned after igntion. Good ignition, good dynamics from dim blue to sooty tail. Bracketing was on - 2 brackets plus dark frames.",
+        "quality_flags": [],
+        "source_ref": "PSI-26 'As Run Test Matrix' workbook, row 128",
+        "source_file": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+        "source_row": 128,
+        "license": "CC0-1.0",
+        "pair_id": null,
+        "finding_ids": [
+          "RG-05",
+          "RG-06",
+          "RG-08",
+          "RG-10",
+          "RG-11",
+          "RG-12",
+          "RG-13",
+          "RG-14",
+          "RG-16",
+          "RG-17"
+        ],
+        "flammability_relevant": true,
+        "source_url": "https://doi.org/10.60555/58h4-dy80",
+        "display_kind": "observation",
+        "display_text": "Observation: pmma sphere; O2 21.18% (O2 volume fraction x100), 100.95 kPa. See verbatim notes.",
+        "test_family": null,
+        "distance": null,
+        "similarity": null
+      },
+      {
+        "experiment_id": "BASS-116",
+        "source_investigation": "BASS",
+        "psi_id": "PSI-26",
+        "doi": "10.60555/58h4-dy80",
+        "gravity_level": "microgravity",
+        "gravity_bucket": "microgravity",
+        "material_id": "pmma",
+        "material_variant": "sphere",
+        "fuel_material": "pmma sphere",
+        "evidence_type": "solid_burn_test",
+        "configuration": null,
+        "oxygen_pct": 21.18,
+        "oxygen_basis": "O2 volume fraction x100",
+        "pressure_kpa": 100.95,
+        "airflow_cm_s": null,
+        "airflow_note": "air display steps: ",
+        "outcome_type": "observation_text",
+        "outcome_variable": null,
+        "outcome_value": null,
+        "outcome_unit": null,
+        "outcome_class": null,
+        "uloi_pct": null,
+        "flame_behavior_notes": "same as previous, with continuous pictures. Dropped out los for test, got playback of expt video but lost over theshoulder view for most of test. Up to fan 73 down to 39. Limit pot setting about 0.28. 149 total pics -27-2extras for camera check.",
+        "quality_flags": [],
+        "source_ref": "PSI-26 'As Run Test Matrix' workbook, row 129",
+        "source_file": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+        "source_row": 129,
+        "license": "CC0-1.0",
+        "pair_id": null,
+        "finding_ids": [
+          "RG-05",
+          "RG-06",
+          "RG-08",
+          "RG-10",
+          "RG-11",
+          "RG-12",
+          "RG-13",
+          "RG-14",
+          "RG-16",
+          "RG-17"
+        ],
+        "flammability_relevant": true,
+        "source_url": "https://doi.org/10.60555/58h4-dy80",
+        "display_kind": "observation",
+        "display_text": "Observation: pmma sphere; O2 21.18% (O2 volume fraction x100), 100.95 kPa. See verbatim notes.",
+        "test_family": null,
+        "distance": null,
+        "similarity": null
+      },
+      {
+        "experiment_id": "BASS-029",
+        "source_investigation": "BASS",
+        "psi_id": "PSI-26",
+        "doi": "10.60555/58h4-dy80",
+        "gravity_level": "microgravity",
+        "gravity_bucket": "microgravity",
+        "material_id": "pmma",
+        "material_variant": "sphere [PMMA not named in cell; inferred from investigation context]",
+        "fuel_material": "1 cm sphere",
+        "evidence_type": "solid_burn_test",
+        "configuration": null,
+        "oxygen_pct": 20.89,
+        "oxygen_basis": "O2 volume fraction x100",
+        "pressure_kpa": 100.11,
+        "airflow_cm_s": null,
+        "airflow_note": "air display steps: 9.75, 0",
+        "outcome_type": "observation_text",
+        "outcome_variable": null,
+        "outcome_value": null,
+        "outcome_unit": null,
+        "outcome_class": null,
+        "uloi_pct": null,
+        "flame_behavior_notes": "Joe 1st day, ignited at 9.75 cm/s, flame mostly envelope by end of ignition, turned flow slowly to 42, so lots of vapor jetting and soot. At fan off, flame turns blue, and oscilates before extinction.",
+        "quality_flags": [],
+        "source_ref": "PSI-26 'As Run Test Matrix' workbook, row 33",
+        "source_file": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+        "source_row": 33,
+        "license": "CC0-1.0",
+        "pair_id": null,
+        "finding_ids": [
+          "RG-05",
+          "RG-06",
+          "RG-08",
+          "RG-10",
+          "RG-11",
+          "RG-12",
+          "RG-13",
+          "RG-14",
+          "RG-16",
+          "RG-17"
+        ],
+        "flammability_relevant": true,
+        "source_url": "https://doi.org/10.60555/58h4-dy80",
+        "display_kind": "observation",
+        "display_text": "Observation: 1 cm sphere; O2 20.89% (O2 volume fraction x100), 100.11 kPa. See verbatim notes.",
+        "test_family": null,
+        "distance": null,
+        "similarity": null
+      }
+    ],
+    "one_g_not_conservative": null,
+    "banner": null,
+    "banner_sources": [],
+    "comparison_text": "Whether the 1g test is conservative here is undetermined until BASS notes are human-labelled (see /api/validation).",
+    "correction_model_status": "not_configured",
+    "correction_model_message": "Correction model not configured",
+    "empty_state_message": null
+  },
+  "estimate": null,
+  "nearest_evidence": [
+    {
+      "gravity_bucket": "microgravity",
+      "record": {
+        "experiment_id": "BASS-115",
+        "source_investigation": "BASS",
+        "psi_id": "PSI-26",
+        "doi": "10.60555/58h4-dy80",
+        "gravity_level": "microgravity",
+        "gravity_bucket": "microgravity",
+        "material_id": "pmma",
+        "material_variant": "sphere",
+        "fuel_material": "pmma sphere",
+        "evidence_type": "solid_burn_test",
+        "configuration": null,
+        "oxygen_pct": 21.18,
+        "oxygen_basis": "O2 volume fraction x100",
+        "pressure_kpa": 100.95,
+        "airflow_cm_s": null,
+        "airflow_note": "air display steps: ",
+        "outcome_type": "observation_text",
+        "outcome_variable": null,
+        "outcome_value": null,
+        "outcome_unit": null,
+        "outcome_class": null,
+        "uloi_pct": null,
+        "flame_behavior_notes": "stagnation ignition in air. Dynamic flow changes planned after igntion. Good ignition, good dynamics from dim blue to sooty tail. Bracketing was on - 2 brackets plus dark frames.",
+        "quality_flags": [],
+        "source_ref": "PSI-26 'As Run Test Matrix' workbook, row 128",
+        "source_file": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+        "source_row": 128,
+        "license": "CC0-1.0",
+        "pair_id": null,
+        "finding_ids": [
+          "RG-05",
+          "RG-06",
+          "RG-08",
+          "RG-10",
+          "RG-11",
+          "RG-12",
+          "RG-13",
+          "RG-14",
+          "RG-16",
+          "RG-17"
+        ],
+        "flammability_relevant": true,
+        "source_url": "https://doi.org/10.60555/58h4-dy80",
+        "display_kind": "observation",
+        "display_text": "Observation: pmma sphere; O2 21.18% (O2 volume fraction x100), 100.95 kPa. See verbatim notes.",
+        "test_family": null,
+        "distance": null,
+        "similarity": null
+      },
+      "delta_o2_pct": 0.18,
+      "delta_pressure_kpa": -0.35,
+      "note": "Nearest tested record at this gravity bucket; shown for context, not as a prediction."
+    },
+    {
+      "gravity_bucket": "1g",
+      "record": {
+        "experiment_id": "SAF2-2-8-1G",
+        "source_investigation": "Saffire-II",
+        "psi_id": "PSI-99",
+        "doi": "10.60555/2chp-m469",
+        "gravity_level": "1g (ground)",
+        "gravity_bucket": "1g",
+        "material_id": "pmma",
+        "material_variant": "unspecified",
+        "fuel_material": "PMMA",
+        "evidence_type": "large_scale_burn_test",
+        "configuration": "Concurrent flow, 1g comparison",
+        "oxygen_pct": null,
+        "oxygen_basis": null,
+        "pressure_kpa": null,
+        "airflow_cm_s": null,
+        "airflow_note": null,
+        "outcome_type": "measured",
+        "outcome_variable": "flame_spread_rate",
+        "outcome_value": null,
+        "outcome_unit": null,
+        "outcome_class": null,
+        "uloi_pct": null,
+        "flame_behavior_notes": "1g burn length: Complete; 1g spread: Acceleratory",
+        "quality_flags": [
+          "1g columns of the same flight row; 1g test O2/flow not given in table"
+        ],
+        "source_ref": "PSI-99 Saffire-II experimental table, sample 2-8",
+        "source_file": "PSI-99 experimental table",
+        "source_row": 8,
+        "license": "CC0-1.0",
+        "pair_id": "PAIR-SAF2-2-8",
+        "finding_ids": [
+          "RG-08",
+          "RG-17"
+        ],
+        "flammability_relevant": true,
+        "source_url": "https://doi.org/10.60555/2chp-m469",
+        "display_kind": "result",
+        "display_text": "flame_spread_rate = not available — PMMA; conditions not recorded.",
+        "test_family": null,
+        "distance": null,
+        "similarity": null
+      },
+      "delta_o2_pct": null,
+      "delta_pressure_kpa": null,
+      "note": "Nearest tested record at this gravity bucket; shown for context, not as a prediction."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RG-05",
+      "claim": "The safety margin once assumed for microgravity came from quiescent tests and may not hold in real spacecraft, where ventilation flow strengthens flames.",
+      "page": 18,
+      "section": "Solid-Fuel Combustion/Material Flammability",
+      "safety_area": "prevention"
+    },
+    {
+      "id": "RG-06",
+      "claim": "At the low flow speeds of microgravity or partial gravity, some materials burn at lower oxygen concentrations than they do in normal gravity.",
+      "page": 18,
+      "section": "Solid-Fuel Combustion/Material Flammability",
+      "safety_area": "prevention"
+    },
+    {
+      "id": "RG-08",
+      "claim": "In slow airflow a flame can spread upstream, into the incoming air, which is the opposite of what happens in normal gravity.",
+      "page": 18,
+      "section": "Solid-Fuel Combustion/Material Flammability (also p.31)",
+      "safety_area": "prevention"
+    },
+    {
+      "id": "RG-10",
+      "claim": "BASS ran in the ISS glovebox from March 2012, normally in cabin air, and later used nitrogen to reach oxygen levels as low as 17 percent.",
+      "page": 19,
+      "section": "Solid-Fuel Combustion/Material Flammability",
+      "safety_area": "prevention"
+    }
+  ],
+  "investigations": [
+    {
+      "accession": "PSI-26",
+      "acronym": "BASS",
+      "title": "Burning and Suppression of Solids",
+      "doi": "10.60555/58h4-dy80",
+      "objective": "The two main objectives for BASS are to: 1.) Begin to bridge the gap between the normal gravity NASA-STD-6001 Test#1 method, ground-based microgravity tests, and actual material flammability in microgravity. The relation between these can be investigated by observing flames burning for the longer times available in flight. Practical, realistic (thicker) fuels in typical geometries will be examined, including wake flames which have characteristics of a fire burning behind another object (for example, a fire burning in tight area which may not be easily accessible). 2.) Assess the effectiveness of an inert, gaseous extinguishing agent (similar to that used on ISS) in putting out flames over different materials, geometries, preheating, and flow.",
+      "hypothesis": "BASS experiments were based on the hypothesis that materials in microgravity, with adequate ventilation, burn as well if not better than the same material in normal gravity with other conditions being identical (pressure, oxygen concentration, temperature, etc.) To test this hypothesis with any but the thinnest materials requires extended microgravity time - longer than available in drop towers or parabolic aircraft.",
+      "landing_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-26"
+    },
+    {
+      "accession": "PSI-99",
+      "acronym": "SAFFIRE-II",
+      "title": "Spacecraft Fire Experiment-II",
+      "doi": "10.60555/2chp-m469",
+      "objective": "The objectives of SAFFIRE-II are to determine how rapidly a large scale fire grows in low-gravity and to investigate the low-g flammability limits compared to those obtained in NASA's normal gravity material flammability screening test.",
+      "hypothesis": "This investigation hypothesizes that due to large differences between fire behavior in normal and reduced gravity, the use of terrestrial fires and fire standards to design spacecraft fire safety systems presents an inherent risk to the vehicle because of the significant level of uncertainty. While this approach has been successful thus far, the uncertainty and risk will increase as exploration missions venture further from earth with considerably longer transit times for a safe return. There is a significant lack of microgravity data available for spacecraft designers on which to base their fire safety designs and procedures. To address this knowledge gap, this investigation proposed to conduct large-scale fire safety experiments in an expendable spacecraft without risk to a crew.",
+      "landing_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-99"
+    }
+  ],
+  "scatter_points": [
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-001",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-002",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-003",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-004",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-005",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-006",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-007",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-008",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-009",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-010",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-011",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-012",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-013",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-014",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-015",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-016",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.5,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-017",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-018",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-019",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-020",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-021",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-022",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-027",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-028",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-029",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-030",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-031",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-032",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.9,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-033",
+      "is_requested_point": false
+    },
+    {
+      "o2": 19.1,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-034",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-035",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.1,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-036",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-037",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-038",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-039",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-040",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-041",
+      "is_requested_point": false
+    },
+    {
+      "o2": 19.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-042",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-043",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.9,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-044",
+      "is_requested_point": false
+    },
+    {
+      "o2": 19.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-045",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-046",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-047",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-048",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-049",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-050",
+      "is_requested_point": false
+    },
+    {
+      "o2": 14.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-051",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.1,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-052",
+      "is_requested_point": false
+    },
+    {
+      "o2": 14.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-053",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-054",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-055",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-056",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.5,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-057",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-058",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-059",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-060",
+      "is_requested_point": false
+    },
+    {
+      "o2": 13.6,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-061",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.9,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-062",
+      "is_requested_point": false
+    },
+    {
+      "o2": 14.6,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-063",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-064",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.1,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-065",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-066",
+      "is_requested_point": false
+    },
+    {
+      "o2": 14.5,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-067",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.1,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-068",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-069",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-070",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.5,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-071",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.9,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-072",
+      "is_requested_point": false
+    },
+    {
+      "o2": 15.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-073",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-074",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-075",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-076",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-077",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.5,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-078",
+      "is_requested_point": false
+    },
+    {
+      "o2": 19.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-079",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.9,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-080",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-081",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.6,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-082",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-083",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.5,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-084",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.7,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-085",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.6,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-086",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.4,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-087",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-088",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-089",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-090",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-091",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.5,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-092",
+      "is_requested_point": false
+    },
+    {
+      "o2": 19.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-093",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-094",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-095",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.8,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-096",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-097",
+      "is_requested_point": false
+    },
+    {
+      "o2": 18.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-098",
+      "is_requested_point": false
+    },
+    {
+      "o2": 19.0,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-099",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.9,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-100",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.2,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-103",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.3,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "conditions_only",
+      "experiment_id": "BASS2-107",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.1,
+      "pressure_kpa": 98.29,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-002",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.1,
+      "pressure_kpa": 98.29,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-003",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-006",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-007",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-008",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.89,
+      "pressure_kpa": 100.32,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-009",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.89,
+      "pressure_kpa": 100.32,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-010",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.89,
+      "pressure_kpa": 100.32,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-011",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.7,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-015",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.7,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-016",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.7,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-017",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.7,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-018",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.7,
+      "pressure_kpa": 99.7,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-019",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.17,
+      "pressure_kpa": 98.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-020",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.17,
+      "pressure_kpa": 98.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-021",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.17,
+      "pressure_kpa": 98.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-022",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.17,
+      "pressure_kpa": 98.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-023",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.18,
+      "pressure_kpa": 99.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-025",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.18,
+      "pressure_kpa": 99.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-026",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.18,
+      "pressure_kpa": 99.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-027",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.18,
+      "pressure_kpa": 99.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-028",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.89,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-029",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.89,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-030",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.89,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-031",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.89,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-032",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.75,
+      "pressure_kpa": 98.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-033",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.75,
+      "pressure_kpa": 98.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-034",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.75,
+      "pressure_kpa": 98.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-035",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.75,
+      "pressure_kpa": 98.9,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-036",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.98,
+      "pressure_kpa": 98.94,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-039",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.98,
+      "pressure_kpa": 98.94,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-040",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.89,
+      "pressure_kpa": 100.01,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-041",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.89,
+      "pressure_kpa": 100.01,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-042",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.22,
+      "pressure_kpa": 100.06,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-049",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.38,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-050",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.38,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-051",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.38,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-052",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.38,
+      "pressure_kpa": 100.11,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-053",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.51,
+      "pressure_kpa": 102.1,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-059",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.58,
+      "pressure_kpa": 102.21,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-060",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.58,
+      "pressure_kpa": 102.21,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-061",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.58,
+      "pressure_kpa": 102.21,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-062",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.58,
+      "pressure_kpa": 102.21,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-063",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.58,
+      "pressure_kpa": 102.21,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-064",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.58,
+      "pressure_kpa": 100.38,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-067",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.93,
+      "pressure_kpa": 98.56,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-076",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.93,
+      "pressure_kpa": 98.56,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-077",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.07,
+      "pressure_kpa": 98.29,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-080",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.07,
+      "pressure_kpa": 98.29,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-081",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.1,
+      "pressure_kpa": 99.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-082",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.1,
+      "pressure_kpa": 99.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-083",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.1,
+      "pressure_kpa": 99.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-084",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.1,
+      "pressure_kpa": 99.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-085",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.1,
+      "pressure_kpa": 99.5,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-085-r95",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.11,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-086",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.3,
+      "pressure_kpa": 100.31,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-089",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.1,
+      "pressure_kpa": 100.31,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-090",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.1,
+      "pressure_kpa": 100.31,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-091",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.53,
+      "pressure_kpa": 98.29,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-090-r103",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.53,
+      "pressure_kpa": 98.29,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-091-r104",
+      "is_requested_point": false
+    },
+    {
+      "o2": 20.5,
+      "pressure_kpa": 98.29,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-092",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.67,
+      "pressure_kpa": 98.89,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-093",
+      "is_requested_point": false
+    },
+    {
+      "o2": 16.67,
+      "pressure_kpa": 98.89,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-094",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.8,
+      "pressure_kpa": 98.89,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-095",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": 98.89,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-096",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": 98.89,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-097",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.34,
+      "pressure_kpa": 99.6,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-098",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.34,
+      "pressure_kpa": 99.6,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-099",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.2,
+      "pressure_kpa": 98.99,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-104",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.2,
+      "pressure_kpa": 98.99,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-105",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.1,
+      "pressure_kpa": 98.99,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-106",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.13,
+      "pressure_kpa": 98.99,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-107",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.17,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-108",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.17,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-109",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.24,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-110",
+      "is_requested_point": false
+    },
+    {
+      "o2": 17.24,
+      "pressure_kpa": 99.3,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-111",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.18,
+      "pressure_kpa": 100.95,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-115",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.18,
+      "pressure_kpa": 100.95,
+      "gravity": "microgravity",
+      "outcome": "observation_text",
+      "experiment_id": "BASS-116",
+      "is_requested_point": false
+    },
+    {
+      "o2": 22.05,
+      "pressure_kpa": null,
+      "gravity": "microgravity",
+      "outcome": "measured",
+      "experiment_id": "SAF2-2-8-UG",
+      "is_requested_point": false
+    },
+    {
+      "o2": 21.0,
+      "pressure_kpa": 101.3,
+      "gravity": "requested",
+      "outcome": null,
+      "experiment_id": null,
+      "is_requested_point": true
+    }
+  ],
+  "summary_text": "PMMA (acrylic): 53 record(s) with an outcome for PMMA (acrylic) at the same gravity bucket matched within ±1.5% O2 and ±20 kPa (pressure only when known). Records are listed with their sources; flags are shown next to the values they affect.",
+  "summary_source": "template",
+  "warnings": [
+    "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",
+    "Variants differ in behaviour: extruded vs cast PMMA have different 1g MOC (Hirsch 2011 Table 7)."
+  ],
+  "gaps": []
+}

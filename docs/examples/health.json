@@ -1,0 +1,16 @@
+{
+  "status": "ok",
+  "mock": true,
+  "db": {
+    "connected": false,
+    "note": "MOCK=1"
+  },
+  "vector_index": {
+    "name": "evidence_vector",
+    "queryable": null
+  },
+  "embedding_model": {
+    "name": "all-MiniLM-L6-v2",
+    "dims": 384
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "_note": "Shape only. No correction model is configured, so MODEL_ESTIMATE cannot be produced and no values are shown.",
+  "verdict": "MODEL_ESTIMATE",
+  "verdict_label": "Model estimate — not tested",
+  "verdict_tier": "amber",
+  "estimate": {
+    "kind": "model_estimate",
+    "value": "<from configured model>",
+    "error": "<LOO MAE>",
+    "citation": "<correction_models.yaml>"
+  }
+}

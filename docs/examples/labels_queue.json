@@ -1,0 +1,25 @@
+{
+  "total": 2,
+  "items": [
+    {
+      "experiment_id": "BASS-001",
+      "material_id": "sibal",
+      "oxygen_pct": 22.1,
+      "pressure_kpa": 98.29,
+      "flame_behavior_notes": "Nice symmetric burn, some soot at 10 cm/s, Steady spreading, flame seems to reach a steady length. Decreasing flow shrinks flame and changes to mostly blue, but still spreading. Gets very dim near end of sample as it shrinks and extinguishes at burnout. Don noted the fiberglass matrix was still intact after the burn.",
+      "suggested_label": null,
+      "suggestion_rule": null,
+      "status": "unlabelled"
+    },
+    {
+      "experiment_id": "BASS-002",
+      "material_id": "pmma",
+      "oxygen_pct": 22.1,
+      "pressure_kpa": 98.29,
+      "flame_behavior_notes": "Don noted significant vapor jetting. Flame not very long , but very sooty. Don set up a 2nd still camera taking pictures 1/s at F7, Aperture priority, spot metering on center of sphere in brackets of 3. Don noted equatorial division between 'charred' front like coating on meterorites, and matt black sooty rear hemispheres. Broke igniter. 2 minute burn.",
+      "suggested_label": null,
+      "suggestion_rule": null,
+      "status": "unlabelled"
+    }
+  ]
+}

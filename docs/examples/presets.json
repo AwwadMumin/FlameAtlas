@@ -1,0 +1,70 @@
+{
+  "presets": [
+    {
+      "id": "iss",
+      "name": "ISS / sea-level air",
+      "pressure_psia": 14.7,
+      "pressure_kpa": 101.35,
+      "o2_pct": 21.0,
+      "gravity": "microgravity",
+      "source": "PSI-20 BRE objective text"
+    },
+    {
+      "id": "intermediate",
+      "name": "Intermediate exploration atmosphere",
+      "pressure_psia": 10.2,
+      "pressure_kpa": 70.33,
+      "o2_pct": 26.5,
+      "gravity": "varies",
+      "source": "PSI-20 BRE objective text"
+    },
+    {
+      "id": "exploration",
+      "name": "Exploration atmosphere (lunar habitat)",
+      "pressure_psia": 8.2,
+      "pressure_kpa": 56.54,
+      "o2_pct": 34.0,
+      "gravity": "lunar 1/6 g",
+      "source": "PSI-20 BRE objective text; FM2 page (lunar habitat atmospheres)"
+    },
+    {
+      "id": "cev_cert",
+      "name": "CEV cabin materials certification",
+      "pressure_psia": 10.2,
+      "pressure_kpa": 70.33,
+      "o2_pct": 30.0,
+      "gravity": "n/a",
+      "source": "Hirsch et al. 2010, Pressure Flammability Thresholds in Oxygen of Selected Aerospace Materials, NTRS 20100028155"
+    }
+  ],
+  "gravity_levels": [
+    {
+      "key": "earth",
+      "g": 1.0,
+      "bucket": "1g",
+      "has_direct_data": true,
+      "note": null
+    },
+    {
+      "key": "moon",
+      "g": 0.165,
+      "bucket": "none",
+      "has_direct_data": false,
+      "note": "No direct data: nearest µg and 1g evidence only. "
+    },
+    {
+      "key": "mars",
+      "g": 0.38,
+      "bucket": "none",
+      "has_direct_data": false,
+      "note": "No direct data: nearest µg and 1g evidence only. Mars 0.38 g is general knowledge; cite a NASA source if shown."
+    },
+    {
+      "key": "orbit",
+      "g": 0.0,
+      "bucket": "microgravity",
+      "has_direct_data": true,
+      "note": null
+    }
+  ]
+}

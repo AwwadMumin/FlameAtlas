@@ -1,0 +1,14 @@
+{
+  "labels_confirmed": 0,
+  "labels_total_needed": 2,
+  "old_method_test": {},
+  "saffire_pairs": [],
+  "correction_model": {
+    "status": "not_configured",
+    "message": "Correction model not configured"
+  },
+  "caveats": [
+    "No confirmed human labels yet; counts appear after labelling."
+  ],
+  "empty_state_message": "No confirmed labels yet. Label BASS notes via /api/admin/labels."
+}

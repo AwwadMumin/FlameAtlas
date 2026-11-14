@@ -1,0 +1,40 @@
+{
+  "verdict": "NO_DIRECT_EVIDENCE",
+  "verdict_label": "No direct evidence",
+  "verdict_tier": "grey",
+  "verdict_reason": "Material is not in the data. Microgravity verdict is always 'no direct evidence' for unknown materials unless a correction model is configured and the input is inside its valid range (not configured).",
+  "empty_state_message": "Unknown material. Optionally provide polymer family, char yield (%), known LOI (with test standard) and thickness.",
+  "material": null,
+  "material_resolved_as": null,
+  "requested": {
+    "material_query": "Zorbium-7",
+    "material_variant": null,
+    "preset_id": null,
+    "oxygen_pct": null,
+    "pressure_kpa": null,
+    "gravity": "mars",
+    "airflow_cm_s": null,
+    "thickness_mm": null,
+    "question": null,
+    "unknown_material_props": null
+  },
+  "matched_tolerances": {
+    "o2_pct": 1.5,
+    "pressure_kpa": 20.0,
+    "text": "matched within ±1.5% O2 and ±20 kPa (pressure only when known)"
+  },
+  "evidence_groups": [],
+  "smoke_detection": [],
+  "earth_vs_space": null,
+  "estimate": null,
+  "nearest_evidence": [],
+  "findings": [],
+  "investigations": [],
+  "scatter_points": [],
+  "summary_text": "Unknown material: no data and no properties supplied.",
+  "summary_source": "template",
+  "warnings": [
+    "Material not found in the NASA data set."
+  ],
+  "gaps": []
+}

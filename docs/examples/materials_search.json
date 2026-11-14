@@ -1,0 +1,120 @@
+{
+  "query": "acrylic",
+  "matches": [
+    {
+      "material": {
+        "material_id": "pmma",
+        "name_en": "PMMA (acrylic)",
+        "name_ar": "أكريليك (PMMA)",
+        "kind": "solid polymer",
+        "chemical_family": "polymethyl methacrylate",
+        "aliases": [
+          "PMMA",
+          "acrylic",
+          "plexiglas",
+          "perspex",
+          "polymethyl methacrylate",
+          "أكريليك",
+          "بليكسي"
+        ],
+        "variants": [
+          {
+            "variant": "film",
+            "n_records": 17,
+            "inferred": false
+          },
+          {
+            "variant": "film [PMMA not named in cell; inferred from investigation context]",
+            "n_records": 5,
+            "inferred": true
+          },
+          {
+            "variant": "rod, black [PMMA not named in cell; inferred from investigation context]",
+            "n_records": 26,
+            "inferred": true
+          },
+          {
+            "variant": "rod, clear",
+            "n_records": 4,
+            "inferred": false
+          },
+          {
+            "variant": "rod, clear [PMMA not named in cell; inferred from investigation context]",
+            "n_records": 24,
+            "inferred": true
+          },
+          {
+            "variant": "rod, extruded",
+            "n_records": 2,
+            "inferred": false
+          },
+          {
+            "variant": "rod, unspecified",
+            "n_records": 3,
+            "inferred": false
+          },
+          {
+            "variant": "rod, unspecified [PMMA not named in cell; inferred from investigation context]",
+            "n_records": 2,
+            "inferred": true
+          },
+          {
+            "variant": "slab",
+            "n_records": 28,
+            "inferred": false
+          },
+          {
+            "variant": "sphere",
+            "n_records": 20,
+            "inferred": false
+          },
+          {
+            "variant": "sphere [PMMA not named in cell; inferred from investigation context]",
+            "n_records": 32,
+            "inferred": true
+          },
+          {
+            "variant": "unspecified",
+            "n_records": 22,
+            "inferred": false
+          }
+        ],
+        "oxygen_pct_range": [
+          13.6,
+          22.58
+        ],
+        "pressure_kpa_range": [
+          98.29,
+          102.21
+        ],
+        "moc_pct_range_1g": [
+          14.0,
+          21.0
+        ],
+        "uloi_pct_range_1g": [
+          15.7,
+          21.9
+        ],
+        "gravity_levels": [
+          "1g (ground)",
+          "microgravity"
+        ],
+        "has_microgravity_evidence": true,
+        "has_1g_evidence": true,
+        "cross_gravity_group": "XG-pmma",
+        "warnings": [
+          "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",
+          "Variants differ in behaviour: extruded vs cast PMMA have different 1g MOC (Hirsch 2011 Table 7)."
+        ],
+        "dois": [
+          "10.60555/2chp-m469",
+          "10.60555/4qc4-de67",
+          "10.60555/58h4-dy80"
+        ]
+      },
+      "score": 1.0,
+      "match_type": "exact"
+    }
+  ],
+  "empty_state_message": null
+}

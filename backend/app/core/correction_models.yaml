@@ -1,0 +1,13 @@
+# Pluggable ΔO2 correction models (FLARE-style). NO coefficients are shipped.
+# The team enters them from the paper. Until a model has status: configured
+# AND all required fields below, the API reports "Correction model not configured".
+models:
+  - id: flare_delta_o2
+    status: not_configured        # not_configured | configured
+    citation: null                # full paper citation
+    page: null                    # page/table the equation comes from
+    equation: null                # human-readable equation
+    inputs: []                    # e.g. [moc_1g_pct, airflow_cm_s]
+    coefficients: {}              # name: value, copied from the paper
+    valid_range: {}               # e.g. {airflow_cm_s: [min, max], oxygen_pct: [min, max]}
+    error_note: null

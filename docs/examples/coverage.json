@@ -1,0 +1,13 @@
+{
+  "material_id": "pmma",
+  "o2_axis": [],
+  "pressure_axis": [
+    "<60",
+    "60-80",
+    "80-95",
+    ">95"
+  ],
+  "grids": {},
+  "preset_overlays": [],
+  "empty_state_message": "Populated in Phase 5 (shape defined here)."
+}

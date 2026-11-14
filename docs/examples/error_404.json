@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "not_found",
+    "message": "Unknown material_id 'xyz'",
+    "details": {
+      "material_id": "xyz"
+    }
+  }
+}
