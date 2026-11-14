@@ -82,12 +82,24 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--uri", default=s.mongodb_uri); ap.add_argument("--db", default=s.mongodb_db)
     ap.add_argument("--embed", action="store_true"); ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--if-empty", action="store_true", help="skip when the DB already holds the full embedded data set and a queryable vector index")
     a = ap.parse_args()
     mats, exps, cards = load_files()
     print("validated:", validate(mats, exps, cards))
     if a.dry_run:
         print("dry run: nothing written.")
         return 0
+    if a.if_empty:
+        from pymongo import MongoClient as _MC
+        d = _MC(a.uri, serverSelectionTimeoutMS=5000)[a.db]
+        try:
+            ready = (d.experiments.count_documents({}) == len(exps) and d.evidence_cards.count_documents({"embedding": {"$exists": True}}) == len(cards)
+                     and any(i["name"] == "evidence_vector" and i.get("queryable") for i in d.evidence_cards.list_search_indexes()))
+        except Exception:  # noqa: BLE001
+            ready = False
+        if ready:
+            print("data already loaded and embedded: nothing to do")
+            return 0
     if a.embed:
         for i in range(0, len(cards), 64):
             batch = cards[i:i + 64]

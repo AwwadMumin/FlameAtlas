@@ -6,6 +6,11 @@ from app.core.config import Settings
 def check(s: Settings) -> dict:
     out = {"mock": s.mock, "db": {"connected": False}, "vector_index": {"name": "evidence_vector", "queryable": None},
            "embedding_model": {"name": s.embed_model, "dims": s.embed_dims, "loaded": False}}
+    try:
+        from app.services import embeddings
+        out["embedding_model"]["loaded"] = embeddings.is_loaded()
+    except Exception:  # noqa: BLE001
+        pass
     if s.mock:
         out["db"]["note"] = "MOCK=1: no database used"
         return out

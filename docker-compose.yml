@@ -1,3 +1,18 @@
+# Mission Lens backend: MongoDB (atlas-local, supports $vectorSearch) + one-shot data loader + API.
+#   cp .env.example .env && docker compose up --build      ->  http://localhost:8000/docs
+x-backend: &backend
+  build: ./backend
+  env_file: [.env.example]
+  environment:
+    MONGODB_URI: mongodb://mongo:27017/?directConnection=true
+  volumes:
+    - ./data:/app/data
+    - ./docs:/app/docs
+    - hf_cache:/hf
+    - ./backend/app:/app/app
+    - ./backend/tests:/app/tests
+    - ./backend/scripts:/app/scripts
+
 services:
   mongo:
     image: mongodb/mongodb-atlas-local:latest
@@ -7,15 +22,21 @@ services:
       test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ping:1})"]
       interval: 5s
       retries: 20
+
+  loader:            # loads + embeds the 872 records and creates the vector index; no-op when already done
+    <<: *backend
+    command: ["python", "scripts/load_to_mongo.py", "--embed", "--if-empty"]
+    depends_on:
+      mongo: {condition: service_healthy}
+    restart: "no"
+
   backend:
-    build: ./backend
-    env_file: [.env.example]
-    environment:
-      MONGODB_URI: mongodb://mongo:27017/?directConnection=true
-    volumes: ["./data:/app/data", "./docs:/app/docs", "hf_cache:/hf", "./backend/app:/app/app", "./backend/tests:/app/tests", "./backend/scripts:/app/scripts"]
+    <<: *backend
     ports: ["8000:8000"]
     depends_on:
       mongo: {condition: service_healthy}
+      loader: {condition: service_completed_successfully}
+
 volumes:
   mongo_data:
   hf_cache:
