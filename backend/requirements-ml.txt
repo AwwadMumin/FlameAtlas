@@ -1,3 +1,4 @@
-# Phase 1: embeddings (installed in the image later)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1
 sentence-transformers==3.3.1
 anthropic==0.40.0
