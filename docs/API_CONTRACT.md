@@ -35,6 +35,10 @@ Full example responses: `docs/examples/<name>.json` (generated from the real NAS
 - `evidence_groups[].total_in_group` includes `tested_at` rows; `verdict_reason` states the count of rows with an outcome.
 - For 1g MOC records `oxygen_pct` is null by design (the MOC is `outcome_value`); show MOC/ULOI as given, never as LOI.
 
+- `scatter_points`: plot `o2` (x) vs `pressure_kpa` (y, may be null = pressure not stated), colour by `gravity`; 1g points are MOC thresholds. Highlight the single point with `is_requested_point`.
+- `GET /api/demo-scenarios`: POST each `request` to `/api/assess` as is. Postman: `docs/postman_collection.json`.
+- Unknown `preset_id` → 422; blank `material_query` → 422.
+
 ## Endpoints
 | Method & path | Response model | Example file(s) |
 |---|---|---|

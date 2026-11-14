@@ -16,7 +16,7 @@ client = TestClient(app)
 MODEL_FOR = {
     "presets": M.PresetsResponse, "materials_search": M.MaterialSearchResponse, "materials_search_empty": M.MaterialSearchResponse,
     "material_detail": M.MaterialDetailResponse, "material_evidence": M.MaterialEvidenceResponse,
-    "assess_evidence": M.AssessResponse, "assess_no_direct_1g_only": M.AssessResponse, "assess_no_direct_moon": M.AssessResponse,
+    "assess_evidence": M.AssessResponse, "assess_sibal_iss": M.AssessResponse, "assess_no_direct_1g_only": M.AssessResponse, "assess_no_direct_moon": M.AssessResponse,
     "assess_unknown_material": M.AssessResponse, "assess_unknown_empty": M.AssessResponse,
     "coverage": M.CoverageResponse, "next_experiments": M.NextExperimentsResponse, "labels_queue": M.LabelQueueResponse,
     "label_saved": M.LabelOut, "validation": M.ValidationResponse, "health": M.HealthResponse,

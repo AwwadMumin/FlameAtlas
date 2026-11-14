@@ -5,6 +5,7 @@ import datetime as dt
 from collections import Counter
 
 from app.core.config import get_settings
+from app.core.errors import ApiError
 from app.models.api import (Estimate, AssessRequest, AssessResponse, Finding, GapCell, InvestigationCard, ScatterPoint, Verdict, VERDICT_META)
 from app.services import correction, earth_to_space, evidence as ev, materials, store
 from app.services.records import gravity_bucket, to_record
@@ -40,6 +41,8 @@ def _scatter(rows, o2, p) -> list[ScatterPoint]:
     pts = [ScatterPoint(o2=e["oxygen_pct"], pressure_kpa=e.get("pressure_kpa"), gravity=gravity_bucket(e["gravity_level"]),
                         outcome=e.get("outcome_class") or e.get("outcome_type"), experiment_id=e["experiment_id"])
            for e in rows if e.get("oxygen_pct") is not None]
+    pts += [ScatterPoint(o2=e["outcome_value"], pressure_kpa=e.get("pressure_kpa"), gravity="1g", outcome="MOC threshold (1g, upward)",
+                         experiment_id=e["experiment_id"]) for e in rows if e.get("outcome_variable") == "MOC" and e.get("outcome_value") is not None]
     pts.append(ScatterPoint(o2=o2, pressure_kpa=p, gravity="requested", outcome=None, is_requested_point=True))
     return pts
 
@@ -48,6 +51,8 @@ def run(req: AssessRequest) -> AssessResponse:
     o2, p = req.oxygen_pct, req.pressure_kpa
     if req.preset_id:
         pr = _presets().get(req.preset_id)
+        if pr is None:
+            raise ApiError(422, "validation_error", f"Unknown preset_id '{req.preset_id}'", {"allowed": list(_presets())})
         if pr:
             o2 = o2 if o2 is not None else pr["o2_pct"]
             p = p if p is not None else round(pr["pressure_psia"] * PSI_TO_KPA, 2)

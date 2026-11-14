@@ -9,7 +9,7 @@ from fastapi import APIRouter, Query
 from app.core.config import get_settings
 from app.core.errors import ApiError
 from app.models import api as M
-from app.services import assess as assess_svc, catalog, health as health_svc
+from app.services import assess as assess_svc, catalog, demo, health as health_svc
 
 router = APIRouter(prefix="/api")
 ERR = {404: {"model": M.ErrorResponse}, 422: {"model": M.ErrorResponse}}
@@ -75,13 +75,15 @@ def assess(req: M.AssessRequest):
     if not MOCK():
         return assess_svc.run(req)
     q = req.material_query.lower()
-    known = q in {"pmma", "acrylic", "أكريليك", "pet"}
+    known = q in {"pmma", "acrylic", "أكريليك", "pet", "sibal"}
     if not known:
         return example("assess_unknown_material" if req.unknown_material_props else "assess_unknown_empty")
     if req.gravity in ("moon", "mars"):
         return example("assess_no_direct_moon")
     if q == "pet":
         return example("assess_no_direct_1g_only")
+    if q == "sibal":
+        return example("assess_sibal_iss")
     return example("assess_evidence")
 
 
@@ -112,7 +114,7 @@ def labels_save(body: M.LabelIn):
 
 @router.get("/demo-scenarios", response_model=M.DemoScenariosResponse)
 def demo_scenarios():
-    return serve("demo_scenarios", "Phase 4")
+    return example("demo_scenarios") if MOCK() else demo.scenarios()
 
 
 @router.get("/about", response_model=M.AboutResponse)

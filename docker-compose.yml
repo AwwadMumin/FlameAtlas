@@ -12,7 +12,7 @@ services:
     env_file: [.env.example]
     environment:
       MONGODB_URI: mongodb://mongo:27017/?directConnection=true
-    volumes: ["./data:/app/data", "./docs:/app/docs:ro", "hf_cache:/hf", "./backend/app:/app/app", "./backend/tests:/app/tests", "./backend/scripts:/app/scripts"]
+    volumes: ["./data:/app/data", "./docs:/app/docs", "hf_cache:/hf", "./backend/app:/app/app", "./backend/tests:/app/tests", "./backend/scripts:/app/scripts"]
     ports: ["8000:8000"]
     depends_on:
       mongo: {condition: service_healthy}

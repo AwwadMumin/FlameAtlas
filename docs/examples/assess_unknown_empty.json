@@ -2,7 +2,7 @@
   "verdict": "NO_DIRECT_EVIDENCE",
   "verdict_label": "No direct evidence",
   "verdict_tier": "grey",
-  "verdict_reason": "Material is not in the data. Microgravity verdict is always 'no direct evidence' for unknown materials unless a correction model is configured and the input is inside its valid range (not configured).",
+  "verdict_reason": "Material is not in the data. The microgravity verdict for unknown materials is 'no direct evidence' unless a correction model is configured and the input is inside its valid range; the correction model is not configured.",
   "empty_state_message": "Unknown material. Optionally provide polymer family, char yield (%), known LOI (with test standard) and thickness.",
   "material": null,
   "material_resolved_as": null,
@@ -21,7 +21,7 @@
   "matched_tolerances": {
     "o2_pct": 1.5,
     "pressure_kpa": 20.0,
-    "text": "matched within ±1.5% O2 and ±20 kPa (pressure only when known)"
+    "text": "matched within ±1.5% O2 and ±20 kPa (pressure compared only when the record states it)"
   },
   "evidence_groups": [],
   "smoke_detection": [],

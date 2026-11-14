@@ -4,7 +4,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class Verdict(str, Enum):
@@ -187,6 +187,15 @@ class AssessRequest(BaseModel):
     thickness_mm: float | None = None
     question: str | None = None
     unknown_material_props: UnknownMaterialProps | None = None
+
+
+    @field_validator("material_query")
+    @classmethod
+    def _strip(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            raise ValueError("material_query must not be blank")
+        return v
 
 
 class Tolerances(BaseModel):

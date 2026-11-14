@@ -219,7 +219,8 @@
   ],
   "provenance": {
     "built_from": "flame_in_freefall_knowledge.json (Team Orion; NASA PSI tables + NASA workbooks + NASA WSTF paper)",
-    "note": "Names in Arabic, aliases and chemical_family are search helpers written by the dataset builder, not NASA data. Every experiment carries source_file + source_row + doi so the app can show the original row. Missing cells stay null; nothing is inferred."
+    "note": "Names in Arabic, aliases and chemical_family are search helpers written by the dataset builder, not NASA data. Every experiment carries source_file + source_row + doi so the app can show the original row. Missing cells stay null; nothing is inferred.",
+    "version": "orion-1.0"
   },
   "licenses": [
     "CC0-1.0",

@@ -112,7 +112,9 @@
   "stats": {
     "records_total": 185,
     "records_microgravity": 177,
-    "records_1g": 8
+    "records_1g": 8,
+    "records_smoke_only": 0,
+    "records_with_outcome": 87
   },
   "warnings": [
     "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",
