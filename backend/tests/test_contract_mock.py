@@ -8,7 +8,9 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.models import api as M
 
-EX = Path(__file__).resolve().parents[2] / "docs" / "examples"
+from app.core.config import get_settings
+
+EX = get_settings().docs_dir / "examples"
 client = TestClient(app)
 
 MODEL_FOR = {
@@ -66,7 +68,7 @@ def test_cors_header():
 
 def test_no_numbers_invented_in_examples():
     """Every record in the assess example exists verbatim in experiments.json."""
-    data = {e["experiment_id"]: e for e in json.loads((EX.parents[1] / "data" / "experiments.json").read_text())}
+    data = {e["experiment_id"]: e for e in json.loads((get_settings().data_dir / "experiments.json").read_text())}
     d = json.loads((EX / "assess_evidence.json").read_text())
     for g in d["evidence_groups"]:
         for rec in g["records"]:

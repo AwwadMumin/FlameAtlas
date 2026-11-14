@@ -1,3 +1,3 @@
 import os
 
-os.environ.setdefault("MOCK", "1")
+os.environ["MOCK"] = "1"  # tests of the contract always run in mock mode
