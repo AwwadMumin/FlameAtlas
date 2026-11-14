@@ -5,8 +5,8 @@ import datetime as dt
 from collections import Counter
 
 from app.core.config import get_settings
-from app.models.api import (AssessRequest, AssessResponse, Finding, GapCell, InvestigationCard, ScatterPoint, Verdict, VERDICT_META)
-from app.services import earth_to_space, evidence as ev, materials, store
+from app.models.api import (Estimate, AssessRequest, AssessResponse, Finding, GapCell, InvestigationCard, ScatterPoint, Verdict, VERDICT_META)
+from app.services import correction, earth_to_space, evidence as ev, materials, store
 from app.services.records import gravity_bucket, to_record
 
 PSI_TO_KPA = 6.894757
@@ -81,6 +81,21 @@ def run(req: AssessRequest) -> AssessResponse:
     else:
         v, reason = Verdict.NO_DIRECT_EVIDENCE, f"No tested record for {m.name_en} at {r.bucket} {tol.text}."
 
+    est = None
+    if v == Verdict.NO_DIRECT_EVIDENCE and r.bucket == "microgravity" and o2 is not None:
+        mocs = earth_to_space._moc_rows(r.rows)
+        moc = min(mocs, key=lambda e: ev.distance(e, o2, p, flow)) if mocs else None
+        cr = correction.estimate({"moc_1g_pct": moc["outcome_value"] if moc else None, "airflow_cm_s": flow, "pressure_kpa": p,
+                                  "thickness_mm": req.thickness_mm, "oxygen_pct": o2})
+        if cr.status == "configured" and cr.message:
+            warnings.append(cr.message)
+        if cr.applicable:
+            v = Verdict.MODEL_ESTIMATE
+            est = Estimate(kind="model_estimate", label="Model estimate — not tested", value=cr.value, unit=cr.unit, error=cr.error,
+                           error_unit=cr.error_unit, inputs={**cr.inputs, "moc_source": moc["experiment_id"] if moc else None},
+                           equation=cr.model["equation"], citation=cr.model["citation"], page=cr.model["page"])
+            reason = (f"No tested record at these conditions. In-domain model estimate of the microgravity limit: {cr.value}% O2 "
+                      f"(± {cr.error} {cr.error_unit}); model: {cr.model['citation']}, p. {cr.model['page']}. Not tested.")
     meta = VERDICT_META[v]
     shown = r.shown if v == Verdict.EVIDENCE else []
     groups = ev.group(shown, o2, p, flow, r.sims)
@@ -92,7 +107,7 @@ def run(req: AssessRequest) -> AssessResponse:
         verdict=v, verdict_label=meta["label"], verdict_tier=meta["tier"], verdict_reason=reason,
         empty_state_message=None if v == Verdict.EVIDENCE else "No tested data for this material at these conditions. Nearest evidence is shown instead.",
         material=m, material_resolved_as=f"{match.match_type} match ({match.score})", requested=requested, matched_tolerances=tol,
-        evidence_groups=groups, smoke_detection=smoke, earth_vs_space=earth_to_space.build(r.rows, o2, p, flow), estimate=None,
+        evidence_groups=groups, smoke_detection=smoke, earth_vs_space=earth_to_space.build(r.rows, o2, p, flow), estimate=est,
         nearest_evidence=near, findings=_findings(ctx), investigations=_investigations(ctx), scatter_points=_scatter(r.rows, o2, p),
         summary_text=summary, summary_source="template", warnings=warnings, gaps=gaps)
     log(req, resp)
@@ -106,7 +121,7 @@ def template_summary(name: str, v: Verdict, reason: str, groups, near) -> str:
         if top:
             s += f" Closest record {top.experiment_id}: {top.display_text} Source: {top.source_ref}."
         return s
-    s = f"{name}: NO DIRECT EVIDENCE. {reason}"
+    s = f"{name}: {'MODEL ESTIMATE (not tested)' if v == Verdict.MODEL_ESTIMATE else 'NO DIRECT EVIDENCE'}. {reason}"
     if near:
         n = near[0]
         s += f" Nearest {n.gravity_bucket} record {n.record.experiment_id}: {n.record.display_text} Source: {n.record.source_ref}."

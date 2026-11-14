@@ -1,3 +1,4 @@
+import os
 from functools import lru_cache
 from pathlib import Path
 
@@ -32,6 +33,12 @@ class Settings(BaseSettings):
     top_n_per_group: int = 8
     material_vector_threshold: float = 0.80   # auto-resolve; lower scores are suggestions only
     material_suggest_threshold: float = 0.65
+
+    correction_models_path: Path = Path(__file__).resolve().parent / "correction_models.yaml"
+    derived_dir: Path = Path(os.environ.get("DATA_DIR", ROOT / "data")) / "derived"
+    # Van Krevelen LOI = a + b * CR (formula given in the team brief; 1g downward LOI, not a microgravity limit)
+    vk_intercept: float = 17.5
+    vk_slope: float = 0.40
 
     anthropic_api_key: str | None = None
     llm_model: str = "claude-sonnet-5-5"
