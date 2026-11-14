@@ -22,7 +22,8 @@
       "known_loi_pct": null,
       "known_loi_standard": null,
       "thickness_mm": null
-    }
+    },
+    "use_llm": true
   },
   "matched_tolerances": {
     "o2_pct": 1.5,
@@ -99,6 +100,7 @@
   "scatter_points": [],
   "summary_text": "Unknown material: no direct evidence. LOI (downward, 1g) estimate — Van Krevelen, not tested: 29.5% O2 from char yield 30.0% (LOI = 17.5 + 0.4 × CR).",
   "summary_source": "template",
+  "summary_fallback_reason": null,
   "warnings": [
     "Material not found in the NASA data set.",
     "The Van Krevelen value is an empirical 1g LOI estimate. It is not a microgravity flammability limit and not NASA-STD-6001 MOC."

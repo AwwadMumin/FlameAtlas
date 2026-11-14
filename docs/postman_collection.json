@@ -356,7 +356,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"material_query\": \"acrylic\",\n  \"material_variant\": null,\n  \"preset_id\": \"iss\",\n  \"oxygen_pct\": 21.0,\n  \"pressure_kpa\": 101.35,\n  \"gravity\": \"orbit\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": \"will it self-extinguish?\",\n  \"unknown_material_props\": null\n}",
+          "raw": "{\n  \"material_query\": \"acrylic\",\n  \"material_variant\": null,\n  \"preset_id\": \"iss\",\n  \"oxygen_pct\": 21.0,\n  \"pressure_kpa\": 101.35,\n  \"gravity\": \"orbit\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": \"will it self-extinguish?\",\n  \"unknown_material_props\": null,\n  \"use_llm\": true\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -388,7 +388,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"material_query\": \"SIBAL\",\n  \"material_variant\": null,\n  \"preset_id\": \"iss\",\n  \"oxygen_pct\": 21.0,\n  \"pressure_kpa\": 101.35,\n  \"gravity\": \"orbit\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": null,\n  \"unknown_material_props\": null\n}",
+          "raw": "{\n  \"material_query\": \"SIBAL\",\n  \"material_variant\": null,\n  \"preset_id\": \"iss\",\n  \"oxygen_pct\": 21.0,\n  \"pressure_kpa\": 101.35,\n  \"gravity\": \"orbit\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": null,\n  \"unknown_material_props\": null,\n  \"use_llm\": true\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -420,7 +420,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"material_query\": \"PET\",\n  \"material_variant\": null,\n  \"preset_id\": \"exploration\",\n  \"oxygen_pct\": 34.0,\n  \"pressure_kpa\": 56.54,\n  \"gravity\": \"moon\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": null,\n  \"unknown_material_props\": null\n}",
+          "raw": "{\n  \"material_query\": \"PET\",\n  \"material_variant\": null,\n  \"preset_id\": \"exploration\",\n  \"oxygen_pct\": 34.0,\n  \"pressure_kpa\": 56.54,\n  \"gravity\": \"moon\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": null,\n  \"unknown_material_props\": null,\n  \"use_llm\": true\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -452,7 +452,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"material_query\": \"Zorbium-7\",\n  \"material_variant\": null,\n  \"preset_id\": \"exploration\",\n  \"oxygen_pct\": 34.0,\n  \"pressure_kpa\": 56.54,\n  \"gravity\": \"mars\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": null,\n  \"unknown_material_props\": {\n    \"polymer_family\": \"polyester\",\n    \"char_yield_pct\": 30.0,\n    \"known_loi_pct\": null,\n    \"known_loi_standard\": null,\n    \"thickness_mm\": null\n  }\n}",
+          "raw": "{\n  \"material_query\": \"Zorbium-7\",\n  \"material_variant\": null,\n  \"preset_id\": \"exploration\",\n  \"oxygen_pct\": 34.0,\n  \"pressure_kpa\": 56.54,\n  \"gravity\": \"mars\",\n  \"airflow_cm_s\": null,\n  \"thickness_mm\": null,\n  \"question\": null,\n  \"unknown_material_props\": {\n    \"polymer_family\": \"polyester\",\n    \"char_yield_pct\": 30.0,\n    \"known_loi_pct\": null,\n    \"known_loi_standard\": null,\n    \"thickness_mm\": null\n  },\n  \"use_llm\": true\n}",
           "options": {
             "raw": {
               "language": "json"

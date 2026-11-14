@@ -45,6 +45,10 @@ Full example responses: `docs/examples/<name>.json` (generated from the real NAS
 - **Coverage grid:** `grids[bucket][pressure_idx][o2_idx]`; axes `o2_axis` (lower edge of each 1% bin) and `pressure_axis`; the last pressure row `"not stated"` holds records without pressure. Draw `preset_overlays[]` as markers at (`o2_index`, `pressure_index`).
 - **Next experiments:** always label "Suggested test (not a result)"; `bordering_evidence` = experiment ids to link via `/api/experiments/{id}`.
 
+## Notes (Phase 6)
+- `summary_source`: `template` (deterministic, always available) or `llm_checked` (LLM text whose numbers were verified against the retrieved records). Show `summary_fallback_reason` (when present) as a small "LLM text rejected" hint, not as an error.
+- Send `"use_llm": false` to skip the LLM (faster; the template is returned in < 100 ms). With the LLM on, expect several extra seconds.
+
 ## Endpoints
 | Method & path | Response model | Example file(s) |
 |---|---|---|

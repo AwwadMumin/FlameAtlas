@@ -48,6 +48,13 @@ def _scatter(rows, o2, p) -> list[ScatterPoint]:
 
 
 def run(req: AssessRequest) -> AssessResponse:
+    from app.services import summary
+    resp = summary.finalize(_assess(req), req)
+    log(req, resp)
+    return resp
+
+
+def _assess(req: AssessRequest) -> AssessResponse:
     o2, p = req.oxygen_pct, req.pressure_kpa
     if req.preset_id:
         pr = _presets().get(req.preset_id)
@@ -115,7 +122,6 @@ def run(req: AssessRequest) -> AssessResponse:
         evidence_groups=groups, smoke_detection=smoke, earth_vs_space=earth_to_space.build(r.rows, o2, p, flow), estimate=est,
         nearest_evidence=near, findings=_findings(ctx), investigations=_investigations(ctx), scatter_points=_scatter(r.rows, o2, p),
         summary_text=summary, summary_source="template", warnings=warnings, gaps=gaps)
-    log(req, resp)
     return resp
 
 

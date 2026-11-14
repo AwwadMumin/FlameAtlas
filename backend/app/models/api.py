@@ -187,7 +187,7 @@ class AssessRequest(BaseModel):
     thickness_mm: float | None = None
     question: str | None = None
     unknown_material_props: UnknownMaterialProps | None = None
-
+    use_llm: bool = Field(True, description="Allow the optional LLM summary (used only when ANTHROPIC_API_KEY is set; always number-checked)")
 
     @field_validator("material_query")
     @classmethod
@@ -301,6 +301,7 @@ class AssessResponse(BaseModel):
     scatter_points: list[ScatterPoint] = []
     summary_text: str
     summary_source: Literal["llm_checked", "template"]
+    summary_fallback_reason: str | None = Field(None, description="Why the LLM text was not used (only set when an LLM attempt was rejected or failed)")
     warnings: list[str] = []
     gaps: list[GapCell] = []
 

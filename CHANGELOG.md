@@ -28,3 +28,8 @@ Contract changes after Phase 2 must be listed here and in `docs/API_CONTRACT.md`
 - `GET /api/coverage/{material_id}`: `pressure_axis` has a 5th entry `"not stated"` (records without a pressure cannot be placed in a pressure bin); grids are `grids[gravity_bucket][pressure_idx][o2_idx] = {outcomes, conditions_only}`; `preset_overlays[]` give indices + cell counts. 1g MOC rows are placed at O2 = the MOC value.
 - `GET /api/next-experiments?preset=&limit=`: "Suggested test (not a result)"; solids only; empty µg-outcome cells within ±3 O2 bins of a preset's own pressure bin, ranked 0.5·closeness + 0.3·materials affected + 0.2·(1g exists, µg does not). Weights are in config.
 - Record `display_text` now appends the verbatim note when a measured row has no numeric value (Saffire).
+
+## 0.6.0 — Phase 6 (additive)
+- Optional LLM summary (`services/summary.py`). Used only when `ANTHROPIC_API_KEY` is set, `use_llm` is true (new optional request field, default true) and MOCK is off. Model `claude-opus-5-5` (env `LLM_MODEL`), effort `low`, server-side refusal fallback on.
+- The text is accepted only if it passes the guard: every number exists in the context given to the model (record fields, request values, tolerances, counts in `verdict_reason`); no spelled-out numbers; identifiers containing digits must exist in the context; the verdict label is stated; an estimate is labelled "not tested". Otherwise `summary_source = "template"` and the new field `summary_fallback_reason` says why. Refusal, `max_tokens`, timeout and any API error also fall back; assess never fails because of the LLM.
+- `AssessResponse.summary_fallback_reason` (string | null): set only when an LLM attempt was rejected or failed.

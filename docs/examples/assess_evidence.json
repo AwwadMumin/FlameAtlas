@@ -125,7 +125,8 @@
     "airflow_cm_s": null,
     "thickness_mm": null,
     "question": "will it self-extinguish?",
-    "unknown_material_props": null
+    "unknown_material_props": null,
+    "use_llm": true
   },
   "matched_tolerances": {
     "o2_pct": 1.5,
@@ -2727,6 +2728,7 @@
   ],
   "summary_text": "PMMA (acrylic): EVIDENCE. 53 tested record(s) for PMMA (acrylic) at microgravity, matched within ±1.5% O2 and ±20 kPa (pressure compared only when the record states it). Closest record BASS-096: Observation: pmma slab opposed; O2 21.0% (O2 volume fraction x100), 98.89 kPa, flow 9.0 cm/s. See verbatim notes. Source: PSI-26 'As Run Test Matrix' workbook, row 109.",
   "summary_source": "template",
+  "summary_fallback_reason": null,
   "warnings": [
     "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",
     "Variants differ in behaviour: extruded vs cast PMMA have different 1g MOC (Hirsch 2011 Table 7)."
