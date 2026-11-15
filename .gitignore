@@ -9,3 +9,4 @@ __pycache__/
 data/raw/*
 !data/raw/MANIFEST.json
 .env.atlas
+.env.gemini

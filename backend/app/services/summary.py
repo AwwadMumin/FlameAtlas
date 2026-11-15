@@ -25,11 +25,14 @@ Hard rules:
 3. State the verdict exactly as `verdict_label` and keep its meaning: "No direct evidence" means there are no tested records at these conditions; "Model estimate - not tested" must say it was not tested. Never say a material is safe or will behave a certain way without a record that shows it.
 4. Records with display_kind "tested_at" show conditions only (no outcome); records with display_kind "smoke" are not burn evidence. Mention warnings and quality_flags that affect a value you cite.
 5. Cite records by experiment_id. If something is not in the context, say "not available".
-6. Plain text, no markdown, at most 120 words."""
+6. You only see a few retrieved records, not the whole database. Never claim something is the lowest, highest, minimum, maximum, only, always, never, safe or guaranteed unless the context says so; say "in the retrieved records" instead.
+7. Plain text, no markdown, at most 120 words."""
 
 _FORMULAS = re.compile(r"\b(?:CO2|O2|N2|H2O|CH4|CO)\b")
 _IDENT = re.compile(r"\b[A-Za-z][A-Za-z0-9]*(?:-[A-Za-z0-9]+)+\b|\b10\.\d{4,9}/\S+")      # BASS-096, PSI-26, RG-05, NASA-STD-6001, DOI
 _ONE_G = re.compile(r"\b1\s?g\b|\b0\s?g\b|µg", re.I)
+# The model sees only a handful of retrieved records, never the whole database: a superlative or absolute is a claim about data it has not seen.
+_ABSOLUTE = re.compile(r"\b(lowest|highest|minimum|maximum|smallest|largest|always|never|every|none|safe|safely|guaranteed)\b", re.I)
 _NUM = re.compile(r"\d+(?:\.\d+)?")
 _WORDS = re.compile(r"\b(two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|(?:thir|four|fif|six|seven|eight|nine)teen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety"
                     r"|hundred|thousand|million|dozen|half|double|triple|twice|thrice)\b", re.I)
@@ -64,6 +67,9 @@ def check_free(text: str, context_json: str) -> str | None:
     w = _WORDS.search(_strip(t))
     if w:
         return f"spelled-out number '{w.group(0)}'"
+    for m in _ABSOLUTE.finditer(t):
+        if m.group(1).lower() not in ctx_low:
+            return f"unsupported absolute/superlative '{m.group(1)}' (the AI only sees the retrieved records)"
     return None
 
 
@@ -121,8 +127,54 @@ def get_client():
     return anthropic.Anthropic(api_key=s.anthropic_api_key, timeout=s.llm_timeout_s, max_retries=1)
 
 
+def provider() -> str | None:
+    """Which LLM would be used right now ('anthropic' | 'gemini'), or None when no key is configured."""
+    s = get_settings()
+    want = (s.llm_provider or "auto").lower()
+    if want in ("auto", "anthropic") and s.anthropic_api_key:
+        return "anthropic"
+    if want in ("auto", "gemini") and s.gemini_api_key:
+        return "gemini"
+    return None
+
+
+def llm_available(use_llm: bool = True) -> bool:
+    return bool(use_llm and not get_settings().mock and provider())
+
+
+def _gemini(system: str, user: str) -> str:
+    """One Gemini call over REST (no extra dependency). The key travels in a header, never in the URL or in error text."""
+    import urllib.error
+    import urllib.request
+    s = get_settings()
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{s.gemini_model}:generateContent"
+    body = {"systemInstruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": [{"text": user}]}],
+            "generationConfig": {"maxOutputTokens": s.llm_max_tokens, "temperature": 0.2}}
+    req = urllib.request.Request(url, data=json.dumps(body).encode(), method="POST", headers={"content-type": "application/json", "x-goog-api-key": s.gemini_api_key or ""})
+    try:
+        with urllib.request.urlopen(req, timeout=s.llm_timeout_s) as r:  # noqa: S310 (fixed https URL)
+            d = json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Gemini HTTP {e.code}") from None
+    return _gemini_text(d)
+
+
+def _gemini_text(d: dict) -> str:
+    if (d.get("promptFeedback") or {}).get("blockReason"):
+        raise RuntimeError(f"Gemini blocked the prompt ({d['promptFeedback']['blockReason']})")
+    cands = d.get("candidates") or []
+    if not cands:
+        raise RuntimeError("Gemini returned no candidates")
+    c = cands[0]
+    if c.get("finishReason") not in (None, "STOP"):
+        raise RuntimeError(f"Gemini stopped early ({c.get('finishReason')})")
+    return "".join(p.get("text", "") for p in (c.get("content") or {}).get("parts", []) if not p.get("thought"))
+
+
 def complete(system: str, user: str) -> str:
-    """One Claude call. Raises on refusal or API errors (callers fall back to their template)."""
+    """One LLM call (Anthropic or Gemini). Raises on refusal or API errors (callers fall back to their template)."""
+    if provider() == "gemini":
+        return _gemini(system, user)
     s = get_settings()
     # Claude Opus 5.5: thinking is always on (parameter omitted); no sampling params; effort is the depth control;
     # server-side refusal fallback opted in by default.
@@ -144,7 +196,7 @@ def generate(context_json: str, question: str | None) -> str:
 def finalize(resp: AssessResponse, req: AssessRequest) -> AssessResponse:
     """Replace the template summary with a checked LLM summary when possible. Never raises."""
     s = get_settings()
-    if not (s.anthropic_api_key and req.use_llm) or s.mock:
+    if not llm_available(req.use_llm):
         return resp
     try:
         ctx = json.dumps(build_context(resp), ensure_ascii=False, default=str)

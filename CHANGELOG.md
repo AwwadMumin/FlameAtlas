@@ -1,6 +1,10 @@
 # Changelog
 Contract changes after Phase 2 must be listed here and in `docs/API_CONTRACT.md`.
 
+## 1.6.0
+
+- Gemini as an alternative LLM (`GEMINI_API_KEY`, `GEMINI_MODEL`, `LLM_PROVIDER`), same number guard. `/api/health` gains `llm` (provider/model). `/api/ask` shows the record list when the AI has nothing to add.
+
 ## 1.5.0
 
 - `GET /api/materials` (all materials). `ExperimentListItem` gains `quality_flags` and `flammability_relevant`.

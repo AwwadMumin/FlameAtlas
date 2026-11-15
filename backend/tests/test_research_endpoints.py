@@ -116,3 +116,13 @@ def test_llm_guard_rejects_invented_numbers_and_falls_back(live, monkeypatch):
         assert d["summary_source"] == "llm_checked" and d["summary_fallback_reason"] is None
     finally:
         s.anthropic_api_key = None
+
+
+def test_ask_uses_record_list_when_llm_has_nothing_to_add(live, monkeypatch):
+    s = get_settings(); s.anthropic_api_key = "test-key"
+    try:
+        monkeypatch.setattr(summary, "complete", lambda system, user: "not available in the retrieved records")
+        a = live.post("/api/ask", json={"question": "acrylic limit", "experiment_ids": ["WSTF-013"]}).json()
+        assert a["answer_source"] == "template" and "WSTF-013" in a["answer"] and "found nothing to add" in a["answer_fallback_reason"]
+    finally:
+        s.anthropic_api_key = None

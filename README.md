@@ -60,7 +60,7 @@ flowchart LR
     LAB[("MongoDB<br/>outcome_labels · derived_docs")] <--> VAL
     LAB --> E2S
     YAML["correction_models.yaml<br/>(team enters coefficients)"] --> COR
-    SUM -. "optional, ANTHROPIC_API_KEY" .-> LLM["Claude (number-checked)"]
+    SUM -. "optional key" .-> LLM["Gemini or Claude (number-checked)"]
     DATA["data/*.json<br/>NASA PSI + WSTF + guide<br/>(read-only inputs)"] -->|load_to_mongo.py --embed| DB
 ```
 
@@ -131,7 +131,7 @@ docker compose exec backend python scripts/build_validation.py     # stores the 
 
 **Enter correction-model coefficients:** edit `backend/app/core/correction_models.yaml` (status `configured`, citation, page, equation, formula, inputs, coefficients, valid_range) from the paper, then run `build_validation.py` to measure the error. Outside `valid_range` the answer stays `NO_DIRECT_EVIDENCE`.
 
-**Optional LLM summary:** set `ANTHROPIC_API_KEY` in `.env` (`LLM_MODEL` to change the model; default `claude-opus-5-5`). Not needed for anything else.
+**Optional LLM phrasing** (assess summary, `/api/compare`, `/api/ask`): set `GEMINI_API_KEY` (free key from aistudio.google.com/apikey; model `gemini-2.5-flash`, `GEMINI_MODEL` to change) or `ANTHROPIC_API_KEY` (`LLM_MODEL`, default `claude-opus-5-5`). `LLM_PROVIDER=auto|anthropic|gemini` picks one. Every text is checked number-by-number against the records and falls back to the template on any mismatch. Not needed for anything else; `/api/health` shows which provider is active.
 
 **Switching the embedding model** means re-embedding: change `EMBED_MODEL` and `EMBED_DIMS`, then `docker compose down -v` and `up` again.
 

@@ -3,9 +3,16 @@ from __future__ import annotations
 from app.core.config import Settings
 
 
+def _llm(s: Settings) -> dict:
+    from app.services import summary
+    p = summary.provider()
+    return {"provider": p, "model": s.gemini_model if p == "gemini" else s.llm_model if p == "anthropic" else None,
+            "note": "AI phrasing is optional and number-checked; without a key every text is generated from the records"}
+
+
 def check(s: Settings) -> dict:
     out = {"mock": s.mock, "db": {"connected": False}, "vector_index": {"name": "evidence_vector", "queryable": None},
-           "embedding_model": {"name": s.embed_model, "dims": s.embed_dims, "loaded": False}}
+           "embedding_model": {"name": s.embed_model, "dims": s.embed_dims, "loaded": False}, "llm": _llm(s)}
     try:
         from app.services import embeddings
         out["embedding_model"]["loaded"] = embeddings.is_loaded()

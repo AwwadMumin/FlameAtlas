@@ -20,5 +20,7 @@ services:
         value: "*"
       - key: ADMIN_TOKEN     # protects POST /api/admin/labels (choose a long random string)
         sync: false
+      - key: GEMINI_API_KEY   # optional: free Gemini key from aistudio.google.com/apikey enables the number-checked AI phrasing
+        sync: false
       - key: ANTHROPIC_API_KEY   # optional: enables the number-checked LLM summary
         sync: false

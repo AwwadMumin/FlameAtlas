@@ -192,8 +192,7 @@ def compare(req: M.CompareRequest) -> M.ComparisonResponse:
     n_ok = sum(1 for i in items[1:] if i.comparable)
     tmpl = _compare_template(ref, items, len(others), n_ok)
     text, src, reason = tmpl, "template", None
-    s = get_settings()
-    if s.anthropic_api_key and req.use_llm and not s.mock:
+    if summary.llm_available(req.use_llm):
         ctx = json.dumps({"reference": ref["experiment_id"], "counts": {"compared": len(others), "comparable": n_ok},
                           "records": [summary._rec(r) for r in recs], "items": [i.model_dump() for i in items],
                           "limitations": [{"id": L.id, "title": L.title, "description": L.description} for L in lims.values()]}, ensure_ascii=False, default=str)
@@ -220,14 +219,14 @@ def _compare_template(ref: dict, items: list[M.CompareItem], n: int, n_ok: int) 
 
 COMPARE_PROMPT = """You write a short comparison note for a spacecraft fire-safety engineer from a JSON context of NASA microgravity combustion records and pre-computed comparability results.
 Hard rules: use ONLY facts in the context; copy numbers exactly; write numbers as digits; never convert units, estimate, interpolate, or call two records comparable when `items` says they are not.
-Mention the limitations that matter. Cite records by experiment_id. 1g MOC/ULOI (upward) and LOI (downward) are different quantities. Plain text, at most 110 words."""
+Mention the limitations that matter. Cite records by experiment_id. 1g MOC/ULOI (upward) and LOI (downward) are different quantities. Never call a value the lowest, highest, minimum, maximum, always or never unless the context says so. Plain text, at most 110 words."""
 
 
 # ---------------------------------------------------------------- ask
 ASK_PROMPT = """You answer a spacecraft fire-safety engineer's question from a JSON context of retrieved NASA microgravity combustion records.
 Hard rules: use ONLY facts in the context; copy numbers exactly as written; write numbers as digits; never estimate, interpolate, or convert units. Data exist only for microgravity and 1g.
 Records with display_kind "tested_at" show conditions only (no outcome); "smoke" records are not burn evidence. If the context does not answer the question, say "not available in the retrieved records".
-Cite records by experiment_id. Plain text, at most 120 words."""
+Cite records by experiment_id. You only see a few retrieved records, not the whole database: never call a value the lowest, highest, minimum, maximum, only, always, never or safe unless the context says so; say "in the retrieved records". Plain text, at most 120 words."""
 
 
 _O2 = re.compile(r"(\d{1,2}(?:\.\d+)?)\s*(?:%|percent)", re.I)
@@ -291,12 +290,13 @@ def ask(req: M.AskRequest) -> M.AskResponse:
     lead = "No direct evidence for Moon or Mars gravity. " if _MOON_MARS.search(req.question) else ""
     tmpl = (lead + f"{len(recs)} record(s) matched your question" + (f" ({'; '.join(used)})" if used else "") + " (retrieval only, not a prediction):\n" + "\n".join(lines))
     text, src, reason = tmpl, "template", None
-    s = get_settings()
-    if s.anthropic_api_key and req.use_llm and not s.mock:
+    if summary.llm_available(req.use_llm):
         ctx = json.dumps({"question": req.question, "counts": {"records": len(recs)}, "records": [summary._rec(r) for r in recs]}, ensure_ascii=False, default=str)
         try:
             out = summary.complete(ASK_PROMPT, f"Context (JSON):\n{ctx}\n\nWrite the answer.")
             reason = summary.check_free(out, ctx)
+            if reason is None and out.strip().lower().startswith("not available") and len(out.strip()) < 80:
+                reason = "the AI found nothing to add to the retrieved records (record list shown instead)"
             if reason is None:
                 text, src = out.strip(), "llm_checked"
             else:

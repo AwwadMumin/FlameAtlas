@@ -407,6 +407,7 @@ class HealthResponse(BaseModel):
     db: dict[str, Any]
     vector_index: dict[str, Any]
     embedding_model: dict[str, Any]
+    llm: dict[str, Any] = Field(default_factory=dict, description="Optional AI phrasing: provider/model in use, or provider null (template text only)")
 
 
 class ExperimentDetailResponse(BaseModel):
