@@ -13,7 +13,7 @@ export default function Atmosphere() {
     if (!context) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const finePointer = window.matchMedia('(pointer: fine)');
-    let width = 0, height = 0, dpr = 1, frame = 0, animation = 0, last = 0;
+    let width = 0, height = 0, dpr = 1, animation = 0, last = 0;
     let visible = !document.hidden;
     let pointer = { x: -1000, y: -1000, active: false };
     type Star = { x: number; y: number; r: number; phase: number; speed: number };
@@ -103,7 +103,7 @@ export default function Atmosphere() {
     function tick(t: number) {
       if (!visible || reducedMotion.matches) return;
       // Cap to ~30 fps for low CPU/GPU overhead.
-      if (t - last > 32) { last = t; frame++; draw(t / 1000); }
+      if (t - last > 32) { last = t; draw(t / 1000); }
       animation = requestAnimationFrame(tick);
     }
     function move(event: PointerEvent) {

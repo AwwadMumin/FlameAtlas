@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { askResearch, compareExperiments, fetchExperiments, type Answer, type ComparisonResult, type Experiment } from './api';
 import Atmosphere from './Atmosphere';
 import { usePathname, useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 type Page = 'explore' | 'compare' | 'ask';
 const DEMO: Experiment[] = [
@@ -18,7 +19,7 @@ export default function App() {
   const router = useRouter();
   const pathname = usePathname();
   const page: Page = pathname === '/ranker' ? 'compare' : pathname === '/ask' ? 'ask' : 'explore';
-  const [mode,setMode] = useState<'live'|'demo'>('demo');
+  const [mode, setMode] = useState<'live' | 'demo'>('demo');
   const [restored,setRestored] = useState(false);
   const [data,setData] = useState<Experiment[]>([]);
   const [loading,setLoading] = useState(false);
@@ -37,36 +38,127 @@ export default function App() {
   const [searched,setSearched] = useState(false);
 
   useEffect(() => {
+  const restoreSession = () => {
     try {
       const savedMode = window.sessionStorage.getItem('flame-atlas-mode');
-      if (savedMode === 'live' || savedMode === 'demo') setMode(savedMode);
-      const savedSelected = JSON.parse(window.sessionStorage.getItem('flame-atlas-selected') || '[]');
-      if (Array.isArray(savedSelected) && savedSelected.every((v: unknown) => typeof v === 'string')) setSelected(savedSelected);
-    } catch { /* Storage can be unavailable in private browsing. */ }
-    setRestored(true);
-  }, []);
+
+      if (savedMode === 'live' || savedMode === 'demo') {
+        setMode(savedMode);
+      }
+
+      const savedSelected = JSON.parse(
+        window.sessionStorage.getItem('flame-atlas-selected') || '[]'
+      );
+
+      if (
+        Array.isArray(savedSelected) &&
+        savedSelected.every((v: unknown) => typeof v === 'string')
+      ) {
+        setSelected(savedSelected);
+      }
+    } catch {
+      // Storage may be unavailable.
+    } finally {
+      setRestored(true);
+    }
+  };
+
+  restoreSession();
+}, []);
   useEffect(() => { if (!restored) return; try { window.sessionStorage.setItem('flame-atlas-mode', mode); } catch {} }, [mode,restored]);
   useEffect(() => { if (!restored) return; try { window.sessionStorage.setItem('flame-atlas-selected', JSON.stringify(selected)); } catch {} }, [selected,restored]);
-  useEffect(()=>{ if(mode !== 'live') return; let active=true; setLoading(true); setError('');
-    fetchExperiments().then(items=>{if(active)setData(items);}).catch(e=>{if(active){setData([]);setError(e.message);}}).finally(()=>{if(active)setLoading(false);});
-    return ()=>{active=false;};
-  },[mode]);
+  useEffect(() => {
+  if (mode !== 'live') return;
+
+  let active = true;
+
+  const loadExperiments = async () => {
+    try {
+      const items = await fetchExperiments();
+
+      if (!active) return;
+
+      setData(items);
+      setError('');
+    } catch (err) {
+      if (!active) return;
+
+      setData([]);
+      setError(
+        err instanceof Error ? err.message : 'Failed to load experiments'
+      );
+    } finally {
+      if (active) {
+        setLoading(false);
+      }
+    }
+  };
+
+  loadExperiments();
+
+  return () => {
+    active = false;
+  };
+}, [mode]);
   const records = mode === 'demo' ? DEMO : data;
-  const filtered = useMemo(()=>records.filter(r=>{
-    const text = `${r.program} ${r.title} ${r.material} ${r.summary} ${r.source_id||''}`.toLowerCase();
-    return (!query || text.includes(query.toLowerCase()) || /[?]/.test(query)) && (material==='All materials'||r.material===material) && (gravity==='All gravity'||r.gravity===gravity);
-  }),[records,query,material,gravity]);
+  const filtered = useMemo(() => {
+  const searchTerm = query.trim().toLowerCase();
+
+  return records.filter((r) => {
+    const text = [
+      r.program,
+      r.title,
+      r.material,
+      r.summary,
+      r.source_id ?? '',
+    ].join(' ').toLowerCase();
+
+    const matchesSearch =
+      searchTerm === '' || text.includes(searchTerm);
+
+    const matchesMaterial =
+      material === 'All materials' || r.material === material;
+
+    const matchesGravity =
+      gravity === 'All gravity' || r.gravity === gravity;
+
+    return matchesSearch && matchesMaterial && matchesGravity;
+  });
+  }, [records, query, material, gravity]);
   const chosen = records.filter(r=>selected.includes(r.id));
   const navigate=(p:Page)=>{router.push(p==='explore'?'/explorer':p==='compare'?'/ranker':'/ask');setActionError('');window.scrollTo({top:0,behavior:'smooth'});};
   const toggle=(id:string)=>setSelected(current=>current.includes(id)?current.filter(x=>x!==id):[...current,id]);
   async function runComparison(){navigate('compare');setComparison(null);if(mode==='demo')return;setCompareLoading(true);try{setComparison(await compareExperiments(selected));}catch(e){setActionError((e as Error).message);}finally{setCompareLoading(false);}}
-  async function submitQuestion(e:React.FormEvent){e.preventDefault();if(!question.trim())return;setAnswer(null);setActionError('');if(mode==='demo'){setActionError('AI answers require the research backend. Switch to Live data after your team connects the API.');return;}setAsking(true);try{setAnswer(await askResearch(question,selected));}catch(e){setActionError((e as Error).message);}finally{setAsking(false);}}
+  async function submitQuestion(e:React.FormEvent){e.preventDefault();const cleanQuestion = question.trim();
+
+if (!cleanQuestion) {
+  setActionError('Please enter a research question.');
+  return;
+}
+
+if (cleanQuestion.length > 1000) {
+  setActionError('Your question must be 1000 characters or fewer.');
+  return;
+}setAnswer(null);setActionError('');if(mode==='demo'){setActionError('AI answers require the research backend. Switch to Live data after your team connects the API.');return;}setAsking(true);try{setAnswer(await askResearch(cleanQuestion, selected));}catch(e){setActionError((e as Error).message);}finally{setAsking(false);}}
   return <div className="shell">
     <Atmosphere />
     <header className="topbar">
-      <button className="brand" onClick={()=>navigate('explore')} aria-label="Flame Atlas home"><span className="brand-mark"><img src="/flame-atlas-logo.png" alt="Flame Atlas logo"/></span><span><strong>FLAME ATLAS</strong><small>COMBUSTION RESEARCH INTELLIGENCE</small></span></button>
+      <button className="brand" onClick={()=>navigate('explore')} aria-label="Flame Atlas home"><span className="brand-mark"><Image src="/flame-atlas-logo.png" alt="Flame Atlas logo" width={48}
+       height={48}/></span><span><strong>FLAME ATLAS</strong><small>COMBUSTION RESEARCH INTELLIGENCE</small></span></button>
       <nav aria-label="Main navigation">{(['explore','compare','ask'] as Page[]).map(p=><button key={p} className={page===p?'active':''} onClick={()=>navigate(p)}>{labels[p]}{p==='compare'&&selected.length>0?<em>{selected.length}</em>:null}</button>)}</nav>
-      <div className="mode-switch" aria-label="Data mode"><button className={mode==='live'?'chosen':''} onClick={()=>{setMode('live');setSelected([]);setComparison(null);setAnswer(null);}}>Live</button><button className={mode==='demo'?'chosen':''} onClick={()=>{setMode('demo');setSelected([]);setComparison(null);setAnswer(null);}}>Preview</button></div>
+      <div className="mode-switch" aria-label="Data mode"><button
+  className={mode === 'live' ? 'chosen' : ''}
+  onClick={() => {
+    setLoading(true);
+    setError('');
+    setMode('live');
+    setSelected([]);
+    setComparison(null);
+    setAnswer(null);
+  }}
+>
+  Live
+</button><button className={mode==='demo'?'chosen':''} onClick={()=>{setMode('demo');setSelected([]);setComparison(null);setAnswer(null);}}>Preview</button></div>
     </header>
     <main className="workspace">
       <div className="workspace-heading"><div><div className="overline">FLAME ATLAS <span>/</span> RESEARCH WORKSPACE</div><h1>{labels[page]}</h1><p>{page==='explore'?'Explore combustion experiments, inspect research conditions, and trace original evidence.':page==='compare'?'Evaluate experimental conditions and compare scientifically compatible evidence.':'Ask research questions and inspect the citations behind every answer.'}</p></div><div className="workspace-status"><span className={mode==='live'?'dot':'dot amber'}/>{mode==='live'?(loading?'Connecting to research API':error?'Research API unavailable':data.length?'Research API connected':'Research API · no records'):'Interface preview'}</div></div>
@@ -80,13 +172,55 @@ export default function App() {
         <section className="below-grid"><div className="panel insight"><div className="panel-title"><div><span className="overline">RESEARCH WORKFLOW</span><h2>From evidence to insight</h2></div></div><div className="workflow"><span>01 <strong>Find evidence</strong></span><b>→</b><span>02 <strong>Compare conditions</strong></span><b>→</b><span>03 <strong>Ask with citations</strong></span></div><p>Explore NASA source records, select experiments with relevant conditions, and send your evidence context to the AI research assistant.</p></div><div className="panel source-info"><div className="panel-title"><div><span className="overline">SOURCE PROVENANCE</span><h2>Traceable research</h2></div></div><p>Original publications, experiment metadata, source links, and citation identifiers appear alongside results when provided by the data service.</p><button className="inline-link" onClick={()=>navigate('ask')}>Open research assistant ↗</button></div></section>
       </>}
       {page==='compare'&&<><section className="panel compare-head"><div><span className="overline">SCENARIO ANALYSIS</span><h2>Selected experiment context</h2><p>Compare materials, gravity conditions, oxygen levels, and airflow before interpreting results.</p></div><button className="btn outline" onClick={()=>navigate('explore')}>← Back to catalog</button></section>{chosen.length===0?<div className="panel empty"><h3>No experiments selected</h3><p>Select two or more records from the Evidence Explorer to begin.</p><button className="btn primary" onClick={()=>navigate('explore')}>Explore evidence →</button></div>:<><div className="panel results"><div className="panel-title"><h2>Conditions matrix</h2><span>{chosen.length} selected</span></div><div className="table-wrap"><table><thead><tr><th>EXPERIMENT</th><th>MATERIAL</th><th>GRAVITY</th><th>OXYGEN</th><th>AIRFLOW</th><th>RECORD</th></tr></thead><tbody>{chosen.map(r=><tr key={r.id}><td><strong>{r.program}</strong><small className="table-sub">{r.title}</small></td><td>{r.material}</td><td>{r.gravity}</td><td className="numeric">{format(r.oxygen)}</td><td className="numeric">{format(r.airflow)}</td><td><button className="inline-link" onClick={()=>setDetail(r)}>Inspect ↗</button></td></tr>)}</tbody></table></div></div><section className="panel analysis"><span className="overline">SCIENTIFIC COMPARABILITY</span><h2>Evidence assessment</h2>{compareLoading?<p>Evaluating source conditions…</p>:comparison?<><p>{comparison.summary}</p><div className="analysis-grid">{comparison.items.map(item=><div key={item.experiment_id}><strong>{item.experiment_id}</strong><span>{item.comparable?'Comparable':'Context only'}</span><p>{item.reason}</p></div>)}</div></>:<p>{mode==='demo'?'Preview records demonstrate the comparison workflow. Source-based scientific assessment becomes available with the research backend.':'Run the comparison service to evaluate whether selected measurements are scientifically compatible.'}</p>}<section className="scientific-limitations" aria-labelledby="limitations-heading"><div className="limitations-heading"><div><span className="overline">RESEARCH TRANSPARENCY</span><h3 id="limitations-heading">Scientific Limitations &amp; Interpretation</h3></div><span className="limitation-count">{comparison?.limitations?.length ?? 0} source-derived limitations</span></div>
-{comparison?.limitations?.length ? <div className="limitations-list">{comparison.limitations.map(limit=><article key={limit.id} className="limitation-item"><div className="limitation-meta"><span>{limit.category.replace(/_/g,' ')}</span>{limit.severity&&<span>{limit.severity}</span>}</div><h4>{limit.title}</h4><p>{limit.description}</p>{!!limit.affected_experiment_ids?.length&&<small>Affected records: {limit.affected_experiment_ids.join(', ')}</small>}{!!limit.source_ids?.length&&<small>Evidence IDs: {limit.source_ids.join(', ')}</small>}{!!limit.source_urls?.length&&<div className="limitation-links">{limit.source_urls.filter(url=>/^https?:\/\//i.test(url)).map((url,i)=><a key={`${url}-${i}`} href={url} target="_blank" rel="noreferrer">View supporting source {i+1} ↗</a>)}</div>}</article>)}</div> : <div className="limitation-empty"><strong>{comparison?'No limitations returned by the comparison service':'Awaiting source-based assessment'}</strong><p>{comparison?'This does not establish that the evidence has no limitations. The research backend must return assessed limitations, or explicitly report that the review is incomplete.':'When experiments are compared, the backend should supply evidence-specific constraints on conditions, coverage, uncertainty, methodology and interpretation.'}</p></div>}
+{comparison?.limitations?.length ? <div className="limitations-list">{comparison.limitations.map(limit=><article key={limit.id} className="limitation-item"><div className="limitation-meta"><span>{limit.category.replace(/_/g,' ')}</span>{limit.severity&&<span>{limit.severity}</span>}</div><h4>{limit.title}</h4><p>{limit.description}</p>{!!limit.affected_experiment_ids?.length&&<small>Affected records: {limit.affected_experiment_ids.join(', ')}</small>}{!!limit.source_ids?.length&&<small>Evidence IDs: {limit.source_ids.join(', ')}</small>}{!!limit.source_urls?.length&&<div className="limitation-links">{limit.source_urls.filter(url => safeSourceUrl(url) !== null).map((url,i)=><a key={`${url}-${i}`} href={safeSourceUrl(url)!} target="_blank" rel="noreferrer">View supporting source {i+1} ↗</a>)}</div>}</article>)}</div> : <div className="limitation-empty"><strong>{comparison?'No limitations returned by the comparison service':'Awaiting source-based assessment'}</strong><p>{comparison?'This does not establish that the evidence has no limitations. The research backend must return assessed limitations, or explicitly report that the review is incomplete.':'When experiments are compared, the backend should supply evidence-specific constraints on conditions, coverage, uncertainty, methodology and interpretation.'}</p></div>}
 {comparison?.methodology&&<div className="methodology"><strong>Comparison methodology</strong><p>{comparison.methodology}</p></div>}
-{comparison?.sources?.length ? <div className="comparison-sources"><strong>Supporting research sources</strong>{comparison.sources.map((source,i)=><div key={`${source.source_id}-${i}`}><span>{source.title} · {source.source_id}</span>{source.url&&<a href={source.url} target="_blank" rel="noreferrer">Original source ↗</a>}</div>)}</div>:null}
+{comparison?.sources?.length ? <div className="comparison-sources"><strong>Supporting research sources</strong>{comparison.sources.map((source,i)=><div key={`${source.source_id}-${i}`}><span>{source.title} · {source.source_id}</span>{safeSourceUrl(source.url) && (
+  <a
+    href={safeSourceUrl(source.url)!}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Original source ↗
+  </a>
+)}</div>)}</div>:null}
 {comparison?.generated_at&&<small className="analysis-timestamp">Assessment generated: {comparison.generated_at}</small>}</section><div className="actions"><button className="btn outline" onClick={()=>setSelected([])}>Clear selection</button><button className="btn primary" onClick={()=>{setQuestion('');navigate('ask');}}>Ask about these records →</button></div>{actionError&&<p className="form-error">{actionError}</p>}</section></>}</>}
-      {page==='ask'&&<div className="ask-grid"><section className="panel chat"><div className="panel-title"><div><span className="overline">AI RESEARCH ASSISTANT</span><h2>Research conversation</h2></div><span>Source-linked answers</span></div><div className="chat-content">{!answer?<div className="chat-welcome"><div className="chat-symbol">✳</div><h2>Ask the evidence.</h2><p>Investigate microgravity flame spread, compare experimental conditions, and follow each conclusion back to its source.</p><div className="suggestions">{['How does airflow influence flame spread in microgravity?','What conditions must match for a valid comparison?','Summarize the selected experiments.'].map(q=><button key={q} onClick={()=>setQuestion(q)}>{q} ↗</button>)}</div></div>:<div className="answer"><span className="overline">RESEARCH RESPONSE</span><h3>{question}</h3><p>{answer.answer}</p>{answer.limitations&&<div className="answer-limit"><strong>Interpretation notes</strong><p>{answer.limitations}</p></div>}</div>}</div><form className="chat-form" onSubmit={submitQuestion}><textarea aria-label="Research question" placeholder="Ask a scientific question about the evidence…" value={question} onChange={e=>setQuestion(e.target.value)} rows={3}/><div><small>{selected.length} experiments in research context</small><button className="btn primary" disabled={!question.trim()||asking}>{asking?'Analyzing…':'Ask Flame Atlas →'}</button></div></form>{actionError&&<p className="form-error">{actionError}</p>}</section><aside className="panel citations"><div className="panel-title"><div><span className="overline">EVIDENCE CONTEXT</span><h2>Sources & citations</h2></div></div>{answer?.citations?.length?<div className="citation-list">{answer.citations.map((c,i)=><article key={`${c.source_id}-${i}`}><span>[{i+1}]</span><div><strong>{c.title}</strong><small>{c.source_id}</small>{c.url&&<a href={c.url} target="_blank" rel="noreferrer">Open original source ↗</a>}</div></article>)}</div>:chosen.length?<div className="citation-list">{chosen.map((r,i)=><article key={r.id}><span>{String(i+1).padStart(2,'0')}</span><div><strong>{r.title}</strong><small>{r.program}</small>{r.source_url&&<a href={r.source_url} target="_blank" rel="noreferrer">Original source ↗</a>}</div></article>)}</div>:<div className="citation-empty"><strong>Evidence context</strong><p>Select records in Evidence Explorer or ask a question to retrieve cited sources from the research service.</p></div>}</aside></div>}
+      {page==='ask'&&<div className="ask-grid"><section className="panel chat"><div className="panel-title"><div><span className="overline">AI RESEARCH ASSISTANT</span><h2>Research conversation</h2></div><span>Source-linked answers</span></div><div className="chat-content">{!answer?<div className="chat-welcome"><div className="chat-symbol">✳</div><h2>Ask the evidence.</h2><p>Investigate microgravity flame spread, compare experimental conditions, and follow each conclusion back to its source.</p><div className="suggestions">{['How does airflow influence flame spread in microgravity?','What conditions must match for a valid comparison?','Summarize the selected experiments.'].map(q=><button key={q} onClick={()=>setQuestion(q)}>{q} ↗</button>)}</div></div>:<div className="answer"><span className="overline">RESEARCH RESPONSE</span><h3>{question}</h3><p>{answer.answer}</p>{answer.limitations&&<div className="answer-limit"><strong>Interpretation notes</strong><p>{answer.limitations}</p></div>}</div>}</div><form className="chat-form" onSubmit={submitQuestion}><textarea aria-label="Research question" placeholder="Ask a scientific question about the evidence…" value={question} onChange={e=>setQuestion(e.target.value)} maxLength={1000} rows={3}/><div><small>{selected.length} experiments in research context</small><button className="btn primary" disabled={!question.trim()||asking}>{asking?'Analyzing…':'Ask Flame Atlas →'}</button></div></form>{actionError&&<p className="form-error">{actionError}</p>}</section><aside className="panel citations"><div className="panel-title"><div><span className="overline">EVIDENCE CONTEXT</span><h2>Sources & citations</h2></div></div>{answer?.citations?.length?<div className="citation-list">{answer.citations.map((c,i)=><article key={`${c.source_id}-${i}`}><span>[{i+1}]</span><div><strong>{c.title}</strong><small>{c.source_id}</small>{safeSourceUrl(c.url) && (
+  <a href={safeSourceUrl(c.url)!} target="_blank" rel="noopener noreferrer">
+    Open original source ↗
+  </a>
+)}</div></article>)}</div>:chosen.length?<div className="citation-list">{chosen.map((r,i)=><article key={r.id}><span>{String(i+1).padStart(2,'0')}</span><div><strong>{r.title}</strong><small>{r.program}</small>{safeSourceUrl(r.source_url) && (
+  <a href={safeSourceUrl(r.source_url)!} target="_blank" rel="noopener noreferrer">
+    Original source ↗
+  </a>
+)}</div></article>)}</div>:<div className="citation-empty"><strong>Evidence context</strong><p>Select records in Evidence Explorer or ask a question to retrieve cited sources from the research service.</p></div>}</aside></div>}
     </main>
-    {detail&&<div className="modal-backdrop" onMouseDown={()=>setDetail(null)}><aside className="detail-drawer" role="dialog" aria-modal="true" aria-label="Experiment details" onMouseDown={e=>e.stopPropagation()}><div className="drawer-top"><span className="overline">EXPERIMENT RECORD</span><button aria-label="Close details" onClick={()=>setDetail(null)}>✕</button></div><h2>{detail.title}</h2><p>{detail.summary}</p><div className="detail-fields">{[['Program',detail.program],['Material',detail.material],['Gravity regime',detail.gravity],['Oxygen concentration',format(detail.oxygen)],['Airflow velocity',format(detail.airflow)],['Publication year',format(detail.year)],['Source ID',format(detail.source_id)]].map(([key,val])=><div key={key}><span>{key}</span><strong>{val}</strong></div>)}</div>{detail.source_url?<a className="btn primary" href={detail.source_url} target="_blank" rel="noreferrer">Open original source ↗</a>:<p className="drawer-note">Original source link will be supplied by the research data service.</p>}<button className="btn outline" onClick={()=>toggle(detail.id)}>{selected.includes(detail.id)?'Remove from comparison':'Add to comparison'}</button></aside></div>}
+    {detail&&<div className="modal-backdrop" onMouseDown={()=>setDetail(null)}><aside className="detail-drawer" role="dialog" aria-modal="true" aria-label="Experiment details" onMouseDown={e=>e.stopPropagation()}><div className="drawer-top"><span className="overline">EXPERIMENT RECORD</span><button aria-label="Close details" onClick={()=>setDetail(null)}>✕</button></div><h2>{detail.title}</h2><p>{detail.summary}</p><div className="detail-fields">{[['Program',detail.program],['Material',detail.material],['Gravity regime',detail.gravity],['Oxygen concentration',format(detail.oxygen)],['Airflow velocity',format(detail.airflow)],['Publication year',format(detail.year)],['Source ID',format(detail.source_id)]].map(([key,val])=><div key={key}><span>{key}</span><strong>{val}</strong></div>)}</div>{safeSourceUrl(detail.source_url) ? (
+  <a
+    className="btn primary"
+    href={safeSourceUrl(detail.source_url)!}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Open original source ↗
+  </a>
+) : (
+  <p className="drawer-note">
+    Original source link will be supplied by the research data service.
+  </p>
+)}<button className="btn outline" onClick={()=>toggle(detail.id)}>{selected.includes(detail.id)?'Remove from comparison':'Add to comparison'}</button></aside></div>}
     <footer className="footer"><span>FLAME ATLAS <b>·</b> Microgravity Combustion Research</span><span>NASA Space Apps Challenge · 2026</span></footer>
   </div>;
 }
+const safeSourceUrl = (url: string | null | undefined): string | null => {
+  if (!url) return null;
+
+  try {
+    const parsed = new URL(url);
+
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:'
+      ? parsed.href
+      : null;
+  } catch {
+    return null;
+  }
+};
