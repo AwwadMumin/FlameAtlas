@@ -4,6 +4,7 @@ import ConditionsBar from './ConditionsBar';
 import MaterialAnswer from './MaterialAnswer';
 import { DEFAULT_CONDITIONS, type Conditions } from './material-logic';
 import { listPresets, searchMaterials } from './materials-api';
+import Spinner from './Spinner';
 import { useKeyed } from './use-keyed';
 import s from './MaterialAnswer.module.css';
 
@@ -19,7 +20,7 @@ export default function MaterialSearchAnswer({ query }: { query: string }) {
   const target = chosen && chosen.q === q ? chosen.name : top?.confident ? top.material.name_en : null;
   return <section className="panel" style={{ padding: 24, marginBottom: 20 }} aria-label="Material answer">
     <div className={s.eyebrow}>MATERIAL ANSWER</div>
-    {search.loading && <p className={s.muted}>Checking whether “{q}” is a material…</p>}
+    {search.loading && <p className={s.muted} style={{ display: 'flex', alignItems: 'center', gap: 12 }}><Spinner inline size={20} label="Searching" /> Checking whether “{q}” is a material…</p>}
     {search.error && <p className={s.err}>{search.error}</p>}
     {search.data && !target && <>
       {matches.length > 0

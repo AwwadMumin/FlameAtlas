@@ -3,6 +3,7 @@ import { assessMaterial, type AssessResult, type BurnPrediction, type EvidenceRe
 import { conditionsKey, pct, statusOf, STATUS_LABEL, toAssessBody, type Conditions } from './material-logic';
 import { safeSourceUrl } from './safe-url';
 import { useKeyed } from './use-keyed';
+import Spinner from './Spinner';
 import s from './MaterialAnswer.module.css';
 
 const TIER = { tested: 'green', estimate: 'amber', none: 'grey' } as const;
@@ -75,7 +76,7 @@ export function AnswerBody({ r }: { r: AssessResult }) {
 export default function MaterialAnswer({ query, conditions }: { query: string; conditions: Conditions }) {
   const key = query.trim() ? `${query.trim()}|${conditionsKey(conditions)}` : null;
   const { data, error, loading } = useKeyed(key, () => assessMaterial(toAssessBody(query, conditions)));
-  if (loading) return <section className={`${s.card} ${s.grey}`}><p className={s.muted}>Looking up “{query}”… (the free server can take up to a minute to wake)</p></section>;
+  if (loading) return <section className={`${s.card} ${s.grey}`}><p className={s.muted} style={{ display: 'flex', alignItems: 'center', gap: 12 }}><Spinner inline size={22} label="Looking up material" /> Looking up “{query}”… (the free server can take up to a minute to wake)</p></section>;
   if (error) return <section className={`${s.card} ${s.grey}`}><p className={s.err}>{error}</p></section>;
   return data ? <AnswerBody r={data} /> : null;
 }

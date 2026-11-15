@@ -4,6 +4,7 @@ import ConditionsBar from './ConditionsBar';
 import MaterialAnswer, { RecordItem } from './MaterialAnswer';
 import { conditionsKey, DEFAULT_CONDITIONS, filterMaterials, pct, recordCount, statusOf, STATUS_LABEL, toAssessBody, type Conditions, type Status } from './material-logic';
 import { assessMaterial, listMaterials, listPresets, materialEvidence, type MaterialCard } from './materials-api';
+import Spinner from './Spinner';
 import { useKeyed } from './use-keyed';
 import a from './MaterialAnswer.module.css';
 import s from './MaterialsPage.module.css';
@@ -56,7 +57,7 @@ export default function MaterialsPage({ live, onGoLive }: { live: boolean; onGoL
   }, [list, ck, cond]);
 
   if (!live) return <div className="panel empty"><h3>The Materials page needs live data</h3><p>It answers for every material using the research API.</p><button className="btn primary" onClick={onGoLive}>Switch to Live →</button></div>;
-  if (mats.loading) return <div className="panel empty"><h3>Loading materials…</h3><p>The free server can take up to a minute to wake.</p></div>;
+  if (mats.loading) return <div className="panel empty"><Spinner label="Loading materials" /><h3>Loading materials…</h3><p>The free server can take up to a minute to wake.</p></div>;
   if (mats.error || !list) return <div className="panel empty"><h3>Research API unavailable</h3><small>{mats.error}</small></div>;
 
   const cell = (m: MaterialCard) => cells[`${ck}|${m.material_id}`];
@@ -91,7 +92,7 @@ export default function MaterialsPage({ live, onGoLive }: { live: boolean; onGoL
             <td><strong>{m.name_en}</strong><span className={s.sub}>{m.name_ar}</span></td>
             <td>{m.chemical_family ?? '—'}</td>
             <td>{recordCount(m)} records<span className={s.sub}>{m.has_microgravity_evidence ? 'µg ' : ''}{m.has_1g_evidence ? '1g' : ''}{!m.has_microgravity_evidence && !m.has_1g_evidence ? 'no tested outcomes' : ''}</span></td>
-            <td>{!c ? <span className={`${s.badge} ${s.wait}`}>loading…</span> : 'error' in c ? <span className={`${s.badge} ${s.wait}`} title={c.error}>unavailable</span>
+            <td>{!c ? <span className={`${s.badge} ${s.wait}`}><Spinner inline size={12} label="Loading" /> loading…</span> : 'error' in c ? <span className={`${s.badge} ${s.wait}`} title={c.error}>unavailable</span>
               : <><span className={`${s.badge} ${s[c.status]}`}>{STATUS_LABEL[c.status]}</span>
                 <span className={s.sub}>{c.status === 'tested' ? `${c.n} matched record${c.n === 1 ? '' : 's'}` : c.p !== null && c.lo !== null && c.hi !== null ? (c.informative ? `${pct(c.p)} sustained burn (95% ${pct(c.lo)}–${pct(c.hi)})` : `too uncertain to call (95% ${pct(c.lo)}–${pct(c.hi)})`) : 'no estimate applies'}</span></>}</td>
             <td><button className="inline-link" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : m.material_id)}>{isOpen ? 'Hide ↑' : 'Details ↓'}</button></td>
