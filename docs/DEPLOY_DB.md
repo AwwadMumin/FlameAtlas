@@ -36,3 +36,20 @@ separate piece of work, not a setting.
 5. Check `https://<service>.onrender.com/api/health`: expect 31 / 970 / 970 and `vector_index.queryable: true`. Swagger is at `/docs`.
 
 The data is already loaded in Atlas (see above); the service does not load or drop anything on start.
+
+## Free hosting: Hugging Face Spaces (no card)
+
+Render's plan that fits torch + the embedding model is paid. A Hugging Face Space (Docker SDK, free CPU, 16 GB RAM) runs the same API.
+
+1. Create an account and a new Space: **Create new Space → SDK: Docker → Blank**, visibility Public or Private.
+2. Space **Settings → Variables and secrets**: secret `MONGODB_URI` (Atlas string), variable `MONGODB_DB` = `ignis_mu`, optional secret `ANTHROPIC_API_KEY`, variable `CORS_ORIGINS` = the frontend origin (or `*` while developing).
+3. Stage the files and push them to the Space (it is a separate git repo; use a HF access token with write role as the password):
+   ```bash
+   bash backend/scripts/make_hf_space.sh ../mission-lens-space
+   cd ../mission-lens-space && git init -b main && git add . && git commit -m deploy
+   git remote add space https://huggingface.co/spaces/<user>/<space> && git push space main --force
+   ```
+4. After the build (~5 min) open `https://<user>-<space>.hf.space/api/health` (31 / 970 / 970, vector index queryable) and `/docs`.
+5. Atlas Network Access must allow `0.0.0.0/0` (Spaces have no fixed IP). Free Spaces sleep after about 2 days without traffic and wake on the next request.
+
+The staged copy contains no `.env` files and no `data/raw`. Tested as a non-root user against Atlas.
