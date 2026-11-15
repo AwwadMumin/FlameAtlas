@@ -32,7 +32,7 @@
       },
       {
         "variant": "rod, clear",
-        "n_records": 4,
+        "n_records": 10,
         "inferred": false
       },
       {
@@ -74,6 +74,16 @@
         "variant": "unspecified",
         "n_records": 22,
         "inferred": false
+      },
+      {
+        "variant": "rod, black",
+        "n_records": 89,
+        "inferred": false
+      },
+      {
+        "variant": "rod (colour not stated in table)",
+        "n_records": 3,
+        "inferred": false
       }
     ],
     "oxygen_pct_range": [
@@ -106,15 +116,16 @@
     "dois": [
       "10.60555/2chp-m469",
       "10.60555/4qc4-de67",
-      "10.60555/58h4-dy80"
+      "10.60555/58h4-dy80",
+      "10.1038/s41598-017-18398-4"
     ]
   },
   "stats": {
-    "records_total": 185,
-    "records_microgravity": 177,
-    "records_1g": 8,
+    "records_total": 283,
+    "records_microgravity": 229,
+    "records_1g": 54,
     "records_smoke_only": 0,
-    "records_with_outcome": 87
+    "records_with_outcome": 176
   },
   "warnings": [
     "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",

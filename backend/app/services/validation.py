@@ -8,16 +8,17 @@ from typing import Any
 from app.core.config import get_settings
 from app.models.api import ValidationResponse
 from app.services import correction, labels, store
-from app.services.earth_to_space import _compatible, _moc_rows
+from app.services.earth_to_space import _compatible, _moc_rows, procedure
 from app.services.records import gravity_bucket, source_url, to_record
 
 BURN = {"sustained_burn"}
 NON_BURN = {"no_ignition", "brief_then_self_extinguished"}   # extinguished_by_flow_or_N2 / hardware_issue / unclear are NOT counted either way
 DEFINITION = ("A microgravity (µg) record under-predicts hazard when a confirmed 'sustained_burn' happened at an O2 below the 1g MOC (NASA-STD-6001 Test 1, upward). "
               "STRICT = below the LOWEST pressure-compatible MOC row (below every 1g result). VARIANT-DEPENDENT = below the highest but not the lowest row: the 1g result "
-              "depends on the variant/pressure tested, so this is reported separately and never blended into the strict count. The opposite error is a µg non-burn "
+              "depends on the TEST CONFIGURATION (ignition mode, burn-length criterion, geometry, cast vs extruded; Hirsch et al. 2011), so this is reported separately and never blended into the strict count. The opposite error is a µg non-burn "
               "('no_ignition' or 'brief_then_self_extinguished') above the 1g MOC (strict = above the HIGHEST row). Pressure-compatible = within the configured tolerance, "
-              "or either pressure not stated. MOC (upward) is never converted to or compared as LOI (downward).")
+              "or either pressure not stated. A third count compares only with rows whose configuration states the STANDARD Test 1 procedure (chemical igniter / standard mounting, "
+              "6-in criterion): that is what a standard 1g test would have concluded. MOC (upward) is never converted to or compared as LOI (downward).")
 
 
 def _by_material() -> dict[str, list[dict]]:
@@ -39,7 +40,7 @@ def old_method_test(conf: dict[str, dict], by_mat: dict[str, list[dict]]) -> dic
         if not mocs or not lab:
             continue
         c = {"n_evaluated": 0, "burn_below_moc_strict": 0, "burn_below_moc_variant_dependent": 0, "nonburn_above_moc_strict": 0,
-             "nonburn_above_moc_variant_dependent": 0, "other": 0}
+             "nonburn_above_moc_variant_dependent": 0, "burn_below_standard_moc": 0, "nonburn_above_standard_moc": 0, "other": 0}
         for e in lab:
             comp = [m for m in mocs if _compatible(e, m)]
             if not comp:
@@ -47,6 +48,11 @@ def old_method_test(conf: dict[str, dict], by_mat: dict[str, list[dict]]) -> dic
             c["n_evaluated"] += 1
             lo, hi = min(comp, key=lambda m: m["outcome_value"]), max(comp, key=lambda m: m["outcome_value"])
             l, o2 = conf[e["experiment_id"]], e["oxygen_pct"]
+            std = [m for m in comp if procedure(m) == "standard"]
+            if std and l["label"] in BURN and o2 < min(m["outcome_value"] for m in std):
+                c["burn_below_standard_moc"] += 1
+            if std and l["label"] in NON_BURN and o2 > max(m["outcome_value"] for m in std):
+                c["nonburn_above_standard_moc"] += 1
             hit = None
             if l["label"] in BURN and o2 < hi["outcome_value"]:
                 hit = ("burn_below_moc", "strict" if o2 < lo["outcome_value"] else "variant_dependent", lo if o2 < lo["outcome_value"] else hi)
@@ -67,6 +73,7 @@ def old_method_test(conf: dict[str, dict], by_mat: dict[str, list[dict]]) -> dic
     return {"definition": DEFINITION, "materials_evaluated": [p["material_id"] for p in per], "per_material": per, "n_evaluated": tot("n_evaluated"),
             "n_burn_below_moc": tot("burn_below_moc_strict"), "n_burn_below_moc_variant_dependent": tot("burn_below_moc_variant_dependent"),
             "n_nonburn_above_moc": tot("nonburn_above_moc_strict"), "n_nonburn_above_moc_variant_dependent": tot("nonburn_above_moc_variant_dependent"),
+            "n_burn_below_standard_moc": tot("burn_below_standard_moc"), "n_nonburn_above_standard_moc": tot("nonburn_above_standard_moc"),
             "cases": cases}
 
 
@@ -141,6 +148,7 @@ def markdown(v: ValidationResponse) -> str:
     if o["n_evaluated"] or o["per_material"]:
         L += [f"- µg records evaluated: **{o['n_evaluated']}** across {len(o['per_material'])} material(s): {', '.join(o['materials_evaluated'])}",
               f"- Sustained burn below EVERY 1g MOC row (strict): **{o['n_burn_below_moc']}**; below some rows only (variant-dependent): **{o['n_burn_below_moc_variant_dependent']}**",
+              f"- Sustained burn below the STANDARD-procedure 1g MOC (what a standard Test 1 would conclude): **{o['n_burn_below_standard_moc']}**; non-burn above it: **{o['n_nonburn_above_standard_moc']}**",
               f"- Non-burn above EVERY 1g MOC row (strict): **{o['n_nonburn_above_moc']}**; above some rows only (variant-dependent): **{o['n_nonburn_above_moc_variant_dependent']}**", "",
               "| material | evaluated | burn < MOC strict | burn < MOC variant-dep. | non-burn > MOC strict | non-burn > MOC variant-dep. | other |", "|---|---|---|---|---|---|---|"]
         L += [f"| {p['material_id']} | {p['n_evaluated']} | {p['burn_below_moc_strict']} | {p['burn_below_moc_variant_dependent']} | {p['nonburn_above_moc_strict']} | "

@@ -2,6 +2,7 @@
 import os
 
 import pytest
+from helpers import EXPECTED
 
 pymongo = pytest.importorskip("pymongo")
 from app.core.config import get_settings  # noqa: E402
@@ -11,15 +12,15 @@ try:
     c = pymongo.MongoClient(s.mongodb_uri, serverSelectionTimeoutMS=1500)
     c.admin.command("ping")
     db = c[s.mongodb_db]
-    LOADED = db.evidence_cards.count_documents({}) == 872
+    LOADED = db.evidence_cards.count_documents({}) == EXPECTED["cards"]
 except Exception:
     LOADED = False
 pytestmark = pytest.mark.skipif(not LOADED, reason="Mongo not loaded")
 
 
 def test_counts_and_embeddings():
-    assert db.materials.count_documents({}) == 31 and db.experiments.count_documents({}) == 872
-    assert db.evidence_cards.count_documents({"embedding": {"$exists": True}}) == 872
+    assert db.materials.count_documents({}) == EXPECTED["materials"] and db.experiments.count_documents({}) == EXPECTED["experiments"]
+    assert db.evidence_cards.count_documents({"embedding": {"$exists": True}}) == EXPECTED["cards"]
     assert len(db.evidence_cards.find_one()["embedding"]) == s.embed_dims == 384
 
 

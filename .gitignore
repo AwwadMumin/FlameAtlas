@@ -4,3 +4,7 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 .venv/
+
+# raw primary-source files: keep MANIFEST.json, not the (large) files; re-create with backend/scripts/fetch_raw.py
+data/raw/*
+!data/raw/MANIFEST.json

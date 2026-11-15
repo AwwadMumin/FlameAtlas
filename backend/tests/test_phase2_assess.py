@@ -2,6 +2,7 @@
 import re
 
 import pytest
+from helpers import EXPECTED
 from fastapi.testclient import TestClient
 
 pymongo = pytest.importorskip("pymongo")
@@ -12,7 +13,7 @@ from app.core.config import get_settings  # noqa: E402
 def live():
     from app.services import store
     try:
-        if store.get_db().experiments.count_documents({}) != 872:
+        if store.get_db().experiments.count_documents({}) != EXPECTED["experiments"]:
             pytest.skip("Mongo not loaded")
     except Exception:
         pytest.skip("Mongo unavailable")

@@ -11,6 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.core.config import get_settings  # noqa: E402
+from app.services import extra_sources  # noqa: E402
 
 DATA = get_settings().data_dir
 EMBED_DIMS = 384  # all-MiniLM-L6-v2; must equal Settings.embed_dims
@@ -21,10 +22,16 @@ def embed(texts):
     return _e(texts)
 
 
-def load_files():
+def load_files(with_extras=True):
     mats = json.loads((DATA / "materials.json").read_text(encoding="utf-8"))["materials"]
     exps = json.loads((DATA / "experiments.json").read_text(encoding="utf-8"))
     cards = json.loads((DATA / "evidence_cards.json").read_text(encoding="utf-8"))
+    if with_extras:                                   # extra sources (e.g. Link 2018 tables) are merged in memory; the input files stay untouched
+        extra = extra_sources.extras(DATA)
+        names = {m["material_id"]: m["name_en"] for m in mats}
+        exps = exps + extra
+        cards = cards + [extra_sources.make_card(e, names[e["material_id"]]) for e in extra]
+        extra_sources.patch_materials(mats, extra)
     return mats, exps, cards
 
 
@@ -82,9 +89,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--uri", default=s.mongodb_uri); ap.add_argument("--db", default=s.mongodb_db)
     ap.add_argument("--embed", action="store_true"); ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--no-extras", action="store_true", help="load only the 5 base input files")
+    ap.add_argument("--confirm-drop", action="store_true", help="REQUIRED for a non-local database: the three collections are dropped and rebuilt")
     ap.add_argument("--if-empty", action="store_true", help="skip when the DB already holds the full embedded data set and a queryable vector index")
     a = ap.parse_args()
-    mats, exps, cards = load_files()
+    mats, exps, cards = load_files(not a.no_extras)
     print("validated:", validate(mats, exps, cards))
     if a.dry_run:
         print("dry run: nothing written.")
@@ -107,6 +116,10 @@ def main():
                 c["embedding"] = v
         print("embedded", sum("embedding" in c for c in cards), "cards")
     from pymongo import MongoClient, ASCENDING, TEXT
+    from urllib.parse import urlparse
+    host = urlparse(a.uri).hostname or ""
+    if host not in ("localhost", "127.0.0.1", "mongo") and not a.confirm_drop:
+        sys.exit(f"Refusing to drop and reload collections in database '{a.db}' on remote host '{host}'. Re-run with --confirm-drop if that is intended.")
     db = MongoClient(a.uri)[a.db]
     for name, docs in (("materials", mats), ("experiments", exps), ("evidence_cards", cards)):
         db[name].drop()

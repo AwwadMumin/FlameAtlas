@@ -2,7 +2,7 @@
   "labels_confirmed": 0,
   "labels_total_needed": 121,
   "old_method_test": {
-    "definition": "A microgravity (µg) record under-predicts hazard when a confirmed 'sustained_burn' happened at an O2 below the 1g MOC (NASA-STD-6001 Test 1, upward). STRICT = below the LOWEST pressure-compatible MOC row (below every 1g result). VARIANT-DEPENDENT = below the highest but not the lowest row: the 1g result depends on the variant/pressure tested, so this is reported separately and never blended into the strict count. The opposite error is a µg non-burn ('no_ignition' or 'brief_then_self_extinguished') above the 1g MOC (strict = above the HIGHEST row). Pressure-compatible = within the configured tolerance, or either pressure not stated. MOC (upward) is never converted to or compared as LOI (downward).",
+    "definition": "A microgravity (µg) record under-predicts hazard when a confirmed 'sustained_burn' happened at an O2 below the 1g MOC (NASA-STD-6001 Test 1, upward). STRICT = below the LOWEST pressure-compatible MOC row (below every 1g result). VARIANT-DEPENDENT = below the highest but not the lowest row: the 1g result depends on the TEST CONFIGURATION (ignition mode, burn-length criterion, geometry, cast vs extruded; Hirsch et al. 2011), so this is reported separately and never blended into the strict count. The opposite error is a µg non-burn ('no_ignition' or 'brief_then_self_extinguished') above the 1g MOC (strict = above the HIGHEST row). Pressure-compatible = within the configured tolerance, or either pressure not stated. A third count compares only with rows whose configuration states the STANDARD Test 1 procedure (chemical igniter / standard mounting, 6-in criterion): that is what a standard 1g test would have concluded. MOC (upward) is never converted to or compared as LOI (downward).",
     "materials_evaluated": [],
     "per_material": [],
     "n_evaluated": 0,
@@ -10,6 +10,8 @@
     "n_burn_below_moc_variant_dependent": 0,
     "n_nonburn_above_moc": 0,
     "n_nonburn_above_moc_variant_dependent": 0,
+    "n_burn_below_standard_moc": 0,
+    "n_nonburn_above_standard_moc": 0,
     "cases": []
   },
   "saffire_pairs": [

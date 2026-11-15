@@ -208,6 +208,8 @@ class OneGBaseline(BaseModel):
     records: list[EvidenceRecord]
     moc_values: list[dict[str, Any]] = Field(description="[{experiment_id, moc_pct, uloi_pct, pressure_kpa, variant, source_url}] verbatim; never converted to LOI")
     test_note: str = "NASA-STD-6001 Test 1 (upward) MOC/ULOI — not comparable to LOI (downward, ASTM D2863)"
+    standard_moc_values: list[float] = Field(default_factory=list, description="MOC % O2 of rows whose configuration states the standard Test 1 procedure")
+    procedure_note: str | None = Field(None, description="Which rows are 'standard' and why (source: Hirsch et al. 2011)")
 
 
 class EarthVsSpace(BaseModel):

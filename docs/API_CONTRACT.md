@@ -49,6 +49,11 @@ Full example responses: `docs/examples/<name>.json` (generated from the real NAS
 - `summary_source`: `template` (deterministic, always available) or `llm_checked` (LLM text whose numbers were verified against the retrieved records). Show `summary_fallback_reason` (when present) as a small "LLM text rejected" hint, not as an error.
 - Send `"use_llm": false` to skip the LLM (faster; the template is returned in < 100 ms). With the LLM on, expect several extra seconds.
 
+## Notes (1.1.0)
+- `earth_vs_space.baseline_1g.moc_values[]` carry `procedure` (`standard` / `non_standard` / `not_stated`) and `configuration`. Show the standard rows first and the other configurations visibly labelled; never present the 1g MOC as a single number unless only one row exists. `procedure_note` explains the rule (source: Hirsch et al. 2011).
+- The red banner now says which comparator it used ("standard-procedure" or "lowest (no row states the standard procedure)").
+- `/api/validation.old_method_test`: three views, never blended: strict (beyond every row), configuration-dependent (key `*_variant_dependent`), and `n_*_standard_moc` (versus the standard procedure only).
+
 ## Endpoints
 | Method & path | Response model | Example file(s) |
 |---|---|---|

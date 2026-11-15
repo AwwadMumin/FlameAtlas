@@ -3,6 +3,7 @@ import json
 from types import SimpleNamespace
 
 import pytest
+from helpers import EXPECTED
 from fastapi.testclient import TestClient
 
 from app.core.config import get_settings
@@ -13,7 +14,7 @@ from app.services import summary
 def live():
     from app.services import store
     try:
-        if store.get_db().experiments.count_documents({}) != 872:
+        if store.get_db().experiments.count_documents({}) != EXPECTED["experiments"]:
             pytest.skip("Mongo not loaded")
     except Exception:
         pytest.skip("Mongo unavailable")
