@@ -8,3 +8,4 @@ __pycache__/
 # raw primary-source files: keep MANIFEST.json, not the (large) files; re-create with backend/scripts/fetch_raw.py
 data/raw/*
 !data/raw/MANIFEST.json
+.env.atlas
