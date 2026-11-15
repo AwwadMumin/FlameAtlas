@@ -1,5 +1,5 @@
 {
-  "total": 121,
+  "total": 120,
   "items": [
     {
       "experiment_id": "BASS-001",
@@ -30,14 +30,14 @@
       "labelled_by": null
     },
     {
-      "experiment_id": "BASS-003",
-      "material_id": "pmma",
-      "oxygen_pct": 22.1,
+      "experiment_id": "BASS-004",
+      "material_id": "sibal",
+      "oxygen_pct": 21.9,
       "pressure_kpa": 98.29,
-      "flame_behavior_notes": "Very bright sooty ball. Lots of vapor jetting. N2 on at 1 minute. Blew off stagnation region but N2 did not extinguish wake, even with air flow off. Don turned off air, then N2 after some seconds. Wake flame sooty and wind-blown. Only extinguishes when all flow stops. N2 is entraining air to flame zone. Don noted that there was no soot on the sphere, just the 'char layer'. ~ 2 minute total burn.",
-      "suggested_label": "extinguished_by_flow_or_N2",
-      "suggestion_rule": "extinguished_by_flow_or_N2: N2 / fan / flow ended the flame",
-      "suggested_quote": "N2 on at 1 minute.",
+      "flame_behavior_notes": "~ 40 s burn, Don asked if images were too saturated, Paul said OK. Don set up 2nd still camera for additional images.",
+      "suggested_label": "sustained_burn",
+      "suggestion_rule": "sustained_burn: steady / sustained spread or long burn",
+      "suggested_quote": "~ 40 s burn, Don asked if images were too saturated, Paul said OK.",
       "status": "suggested",
       "label": null,
       "quote": null,

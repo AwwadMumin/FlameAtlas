@@ -4,7 +4,9 @@ from __future__ import annotations
 import json
 from typing import Any, Literal
 
-from fastapi import APIRouter, Query
+import hmac
+
+from fastapi import APIRouter, Header, Query
 
 from app.core.config import get_settings
 from app.core.errors import ApiError
@@ -40,6 +42,11 @@ def health():
 @router.get("/presets", response_model=M.PresetsResponse, responses=ERR)
 def presets():
     return example("presets") if MOCK() else catalog.presets()
+
+
+@router.get("/materials", response_model=M.MaterialListResponse)
+def materials_list():
+    return example("materials_list") if MOCK() else catalog.list_materials()
 
 
 @router.get("/materials/search", response_model=M.MaterialSearchResponse, responses=ERR)
@@ -109,7 +116,10 @@ def labels_queue(status: Literal["pending", "unlabelled", "suggested", "confirme
 
 
 @router.post("/admin/labels", response_model=M.LabelOut, responses=ERR)
-def labels_save(body: M.LabelIn):
+def labels_save(body: M.LabelIn, x_admin_token: str | None = Header(None)):
+    tok = get_settings().admin_token
+    if tok and not (x_admin_token and hmac.compare_digest(x_admin_token, tok)):
+        raise ApiError(401, "unauthorized", "A valid X-Admin-Token header is required to save labels")
     return example("label_saved") if MOCK() else labels_svc.save_label(body)
 
 

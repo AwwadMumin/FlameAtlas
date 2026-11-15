@@ -1,6 +1,11 @@
 # Changelog
 Contract changes after Phase 2 must be listed here and in `docs/API_CONTRACT.md`.
 
+## 1.5.0
+
+- `GET /api/materials` (all materials). `ExperimentListItem` gains `quality_flags` and `flammability_relevant`.
+- `POST /api/admin/labels` requires header `X-Admin-Token` when `ADMIN_TOKEN` is set (human labels drive the red banner, so the public deployment must set it).
+
 ## 1.4.0
 
 - New endpoints for the frontend (`src/components/api.ts`): `GET /api/experiments`, `POST /api/compare`, `POST /api/ask`. Additive; nothing existing changed.

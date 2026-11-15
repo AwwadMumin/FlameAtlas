@@ -70,6 +70,7 @@ Full example responses: `docs/examples/<name>.json` (generated from the real NAS
 | POST `/api/admin/labels` | body `LabelIn` → `LabelOut` | `label_saved` |
 | GET `/api/demo-scenarios` | `DemoScenariosResponse` (each `request` can be POSTed to `/api/assess` as is) | `demo_scenarios` |
 | GET `/api/about` | `AboutResponse` (investigations, provenance, licenses, incidents, earth benefits) | `about` |
+| GET `/api/materials` | `MaterialListResponse` (all 31 materials, for pickers) | `materials_list` |
 | GET `/api/experiments?material=&gravity=&q=&include_smoke=&limit=&offset=` | `ExperimentListResponse` (`{experiments[], total, returned}`; each item is the frontend's `Experiment` shape + `material_id`, `evidence_type`, `display_kind`) | `experiments_list` |
 | POST `/api/compare` | body `{experiment_ids[2..12], use_llm}` → `ComparisonResponse` (first id = reference; `items[]`, `limitations[]`, `methodology`, `sources[]`) | `compare` |
 | POST `/api/ask` | body `{question, experiment_ids[], use_llm}` → `AskResponse` (`answer`, `limitations`, `citations[]`, `records[]`) | `ask` |

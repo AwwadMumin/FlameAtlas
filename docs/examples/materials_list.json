@@ -1,0 +1,1366 @@
+{
+  "materials": [
+    {
+      "material_id": "cotton",
+      "name_en": "Cotton (lampwick)",
+      "name_ar": "قطن (فتيل)",
+      "kind": "natural fiber",
+      "chemical_family": "cellulose",
+      "aliases": [
+        "cotton",
+        "lampwick",
+        "wick",
+        "قطن",
+        "فتيل"
+      ],
+      "variants": [
+        {
+          "variant": "lampwick",
+          "n_records": 26,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/2np7-jv14",
+        "10.60555/gd4k-8h62"
+      ]
+    },
+    {
+      "material_id": "dbp",
+      "name_en": "DBP (dibutyl phthalate)",
+      "name_ar": "ثنائي بوتيل الفثالات",
+      "kind": "liquid",
+      "chemical_family": "phthalate ester",
+      "aliases": [
+        "DBP",
+        "dibutyl phthalate"
+      ],
+      "variants": [
+        {
+          "variant": "liquid",
+          "n_records": 20,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/gd4k-8h62"
+      ]
+    },
+    {
+      "material_id": "dodecane_isododecane",
+      "name_en": "Dodecane/iso-dodecane mixture",
+      "name_ar": "خليط دوديكان",
+      "kind": "liquid fuel mixture",
+      "chemical_family": "alkane mixture",
+      "aliases": [
+        "dodecane isododecane"
+      ],
+      "variants": [
+        {
+          "variant": "[.60]/[.40]",
+          "n_records": 41,
+          "inferred": false
+        },
+        {
+          "variant": "[.75]/[.25]",
+          "n_records": 24,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        17.0,
+        21.0
+      ],
+      "pressure_kpa_range": [
+        50.66,
+        506.62
+      ],
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/m6pj-a914"
+      ]
+    },
+    {
+      "material_id": "epoxy_glass",
+      "name_en": "Epoxy/glass laminate",
+      "name_ar": "إيبوكسي مع ألياف زجاج",
+      "kind": "composite",
+      "chemical_family": "epoxy/fiberglass",
+      "aliases": [
+        "epoxy glass",
+        "G-10",
+        "FR-4",
+        "fiberglass laminate"
+      ],
+      "variants": [
+        {
+          "variant": "laminate",
+          "n_records": 2,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        16.0,
+        23.0
+      ],
+      "uloi_pct_range_1g": [
+        17.9,
+        23.6
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "ethanol",
+      "name_en": "Ethanol",
+      "name_ar": "إيثانول",
+      "kind": "liquid fuel",
+      "chemical_family": "alcohol",
+      "aliases": [
+        "ethanol",
+        "alcohol",
+        "إيثانول",
+        "كحول"
+      ],
+      "variants": [
+        {
+          "variant": "pure",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/byp8-h018"
+      ]
+    },
+    {
+      "material_id": "ethylene",
+      "name_en": "Ethylene (gas)",
+      "name_ar": "إيثيلين",
+      "kind": "gaseous fuel",
+      "chemical_family": "alkene",
+      "aliases": [
+        "ethylene",
+        "C2H4",
+        "إيثيلين"
+      ],
+      "variants": [
+        {
+          "variant": "100% C2H4",
+          "n_records": 8,
+          "inferred": false
+        },
+        {
+          "variant": "100%C2H4",
+          "n_records": 3,
+          "inferred": false
+        },
+        {
+          "variant": "50% C2H4",
+          "n_records": 5,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [
+        "ACME BRE is a gas burner that emulates burning solids; not a solid material test."
+      ],
+      "dois": [
+        "10.60555/vb93-3y72"
+      ]
+    },
+    {
+      "material_id": "heptane_isooctane",
+      "name_en": "Heptane/isooctane mixture",
+      "name_ar": "خليط هبتان وأيزو أوكتان",
+      "kind": "liquid fuel mixture",
+      "chemical_family": "alkane mixture",
+      "aliases": [
+        "heptane isooctane"
+      ],
+      "variants": [
+        {
+          "variant": "50/50",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/byp8-h018"
+      ]
+    },
+    {
+      "material_id": "isooctane",
+      "name_en": "Isooctane",
+      "name_ar": "أيزو أوكتان",
+      "kind": "liquid fuel",
+      "chemical_family": "alkane",
+      "aliases": [
+        "isooctane",
+        "iso-octane"
+      ],
+      "variants": [
+        {
+          "variant": "pure",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/byp8-h018"
+      ]
+    },
+    {
+      "material_id": "methane",
+      "name_en": "Methane (gas)",
+      "name_ar": "ميثان",
+      "kind": "gaseous fuel",
+      "chemical_family": "alkane",
+      "aliases": [
+        "methane",
+        "CH4",
+        "ميثان"
+      ],
+      "variants": [
+        {
+          "variant": "100% CH4",
+          "n_records": 2,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [
+        "ACME BRE is a gas burner that emulates burning solids; not a solid material test."
+      ],
+      "dois": [
+        "10.60555/vb93-3y72"
+      ]
+    },
+    {
+      "material_id": "methanol",
+      "name_en": "Methanol",
+      "name_ar": "ميثانول",
+      "kind": "liquid fuel",
+      "chemical_family": "alcohol",
+      "aliases": [
+        "methanol",
+        "methyl alcohol",
+        "ميثانول"
+      ],
+      "variants": [
+        {
+          "variant": "pure",
+          "n_records": 157,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        12.0,
+        34.0
+      ],
+      "pressure_kpa_range": [
+        70.17,
+        309.27
+      ],
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/mbq8-0451"
+      ]
+    },
+    {
+      "material_id": "n_decane",
+      "name_en": "n-Decane",
+      "name_ar": "ديكان",
+      "kind": "liquid fuel",
+      "chemical_family": "alkane",
+      "aliases": [
+        "decane",
+        "n-decane"
+      ],
+      "variants": [
+        {
+          "variant": "pure",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/byp8-h018"
+      ]
+    },
+    {
+      "material_id": "n_dodecane",
+      "name_en": "n-Dodecane",
+      "name_ar": "دوديكان",
+      "kind": "liquid fuel",
+      "chemical_family": "alkane",
+      "aliases": [
+        "dodecane",
+        "C12H26"
+      ],
+      "variants": [
+        {
+          "variant": "pure",
+          "n_records": 22,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        17.0,
+        21.0
+      ],
+      "pressure_kpa_range": [
+        101.33,
+        202.65
+      ],
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/m6pj-a914"
+      ]
+    },
+    {
+      "material_id": "n_heptane",
+      "name_en": "n-Heptane",
+      "name_ar": "هبتان",
+      "kind": "liquid fuel",
+      "chemical_family": "alkane",
+      "aliases": [
+        "heptane",
+        "n-heptane",
+        "هبتان"
+      ],
+      "variants": [
+        {
+          "variant": "pure",
+          "n_records": 118,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        13.0,
+        34.0
+      ],
+      "pressure_kpa_range": [
+        70.39,
+        309.29
+      ],
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/byp8-h018",
+        "10.60555/mbq8-0451"
+      ]
+    },
+    {
+      "material_id": "n_octane",
+      "name_en": "n-Octane",
+      "name_ar": "أوكتان",
+      "kind": "liquid fuel",
+      "chemical_family": "alkane",
+      "aliases": [
+        "octane",
+        "n-octane"
+      ],
+      "variants": [
+        {
+          "variant": "pure",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/byp8-h018"
+      ]
+    },
+    {
+      "material_id": "nbr",
+      "name_en": "NBR (nitrile rubber)",
+      "name_ar": "مطاط النتريل",
+      "kind": "elastomer",
+      "chemical_family": "nitrile butadiene rubber",
+      "aliases": [
+        "NBR",
+        "nitrile rubber",
+        "Buna-N"
+      ],
+      "variants": [
+        {
+          "variant": "unspecified",
+          "n_records": 2,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        16.1,
+        16.1
+      ],
+      "uloi_pct_range_1g": [
+        16.5,
+        16.6
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "nomex",
+      "name_en": "Nomex",
+      "name_ar": "نومكس",
+      "kind": "aramid fabric",
+      "chemical_family": "meta-aramid",
+      "aliases": [
+        "Nomex",
+        "Nomex III",
+        "aramid",
+        "flight suit fabric",
+        "نومكس"
+      ],
+      "variants": [
+        {
+          "variant": "blend",
+          "n_records": 4,
+          "inferred": false
+        },
+        {
+          "variant": "natural III",
+          "n_records": 5,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        21.0,
+        22.53
+      ],
+      "pressure_kpa_range": [
+        98.5,
+        102.1
+      ],
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/4qc4-de67",
+        "10.60555/58h4-dy80"
+      ]
+    },
+    {
+      "material_id": "polyamide",
+      "name_en": "PA (nylon)",
+      "name_ar": "نايلون",
+      "kind": "solid polymer",
+      "chemical_family": "polyamide",
+      "aliases": [
+        "nylon",
+        "PA",
+        "Zytel",
+        "نايلون"
+      ],
+      "variants": [
+        {
+          "variant": "Zytel 42",
+          "n_records": 2,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        21.0,
+        24.1
+      ],
+      "uloi_pct_range_1g": [
+        21.6,
+        24.5
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "peek",
+      "name_en": "PEEK",
+      "name_ar": "بيك",
+      "kind": "solid polymer",
+      "chemical_family": "polyether ether ketone",
+      "aliases": [
+        "PEEK"
+      ],
+      "variants": [
+        {
+          "variant": "unspecified",
+          "n_records": 2,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        20.1,
+        21.1
+      ],
+      "uloi_pct_range_1g": [
+        20.8,
+        22.0
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "pei",
+      "name_en": "PEI (Ultem)",
+      "name_ar": "بولي إيثر إيميد (Ultem)",
+      "kind": "solid polymer",
+      "chemical_family": "polyetherimide",
+      "aliases": [
+        "PEI",
+        "Ultem",
+        "polyetherimide"
+      ],
+      "variants": [
+        {
+          "variant": "ultem sheet",
+          "n_records": 2,
+          "inferred": false
+        },
+        {
+          "variant": "unspecified",
+          "n_records": 6,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        21.89,
+        22.53
+      ],
+      "pressure_kpa_range": [
+        70.33,
+        102.1
+      ],
+      "moc_pct_range_1g": [
+        21.0,
+        24.0
+      ],
+      "uloi_pct_range_1g": [
+        21.9,
+        26.5
+      ],
+      "gravity_levels": [
+        "1g (ground)",
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": true,
+      "cross_gravity_group": "XG-pei",
+      "warnings": [
+        "\"ultem sheet\" (BASS) mapped to PEI because Ultem is a PEI trade name (builder knowledge, verify)."
+      ],
+      "dois": [
+        "10.60555/58h4-dy80"
+      ]
+    },
+    {
+      "material_id": "pet",
+      "name_en": "PET",
+      "name_ar": "بولي إيثيلين تيريفثاليت",
+      "kind": "solid polymer",
+      "chemical_family": "polyester",
+      "aliases": [
+        "PET",
+        "polyester",
+        "Mylar"
+      ],
+      "variants": [
+        {
+          "variant": "unspecified",
+          "n_records": 6,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        70.33,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        15.0,
+        21.0
+      ],
+      "uloi_pct_range_1g": [
+        15.8,
+        22.6
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "pmma",
+      "name_en": "PMMA (acrylic)",
+      "name_ar": "أكريليك (PMMA)",
+      "kind": "solid polymer",
+      "chemical_family": "polymethyl methacrylate",
+      "aliases": [
+        "PMMA",
+        "acrylic",
+        "plexiglas",
+        "perspex",
+        "polymethyl methacrylate",
+        "أكريليك",
+        "بليكسي"
+      ],
+      "variants": [
+        {
+          "variant": "film",
+          "n_records": 17,
+          "inferred": false
+        },
+        {
+          "variant": "film [PMMA not named in cell; inferred from investigation context]",
+          "n_records": 5,
+          "inferred": true
+        },
+        {
+          "variant": "rod, black [PMMA not named in cell; inferred from investigation context]",
+          "n_records": 26,
+          "inferred": true
+        },
+        {
+          "variant": "rod, clear",
+          "n_records": 10,
+          "inferred": false
+        },
+        {
+          "variant": "rod, clear [PMMA not named in cell; inferred from investigation context]",
+          "n_records": 24,
+          "inferred": true
+        },
+        {
+          "variant": "rod, extruded",
+          "n_records": 2,
+          "inferred": false
+        },
+        {
+          "variant": "rod, unspecified",
+          "n_records": 3,
+          "inferred": false
+        },
+        {
+          "variant": "rod, unspecified [PMMA not named in cell; inferred from investigation context]",
+          "n_records": 2,
+          "inferred": true
+        },
+        {
+          "variant": "slab",
+          "n_records": 28,
+          "inferred": false
+        },
+        {
+          "variant": "sphere",
+          "n_records": 20,
+          "inferred": false
+        },
+        {
+          "variant": "sphere [PMMA not named in cell; inferred from investigation context]",
+          "n_records": 32,
+          "inferred": true
+        },
+        {
+          "variant": "unspecified",
+          "n_records": 22,
+          "inferred": false
+        },
+        {
+          "variant": "rod, black",
+          "n_records": 89,
+          "inferred": false
+        },
+        {
+          "variant": "rod (colour not stated in table)",
+          "n_records": 3,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        13.6,
+        22.58
+      ],
+      "pressure_kpa_range": [
+        98.29,
+        102.21
+      ],
+      "moc_pct_range_1g": [
+        14.0,
+        21.0
+      ],
+      "uloi_pct_range_1g": [
+        15.7,
+        21.9
+      ],
+      "gravity_levels": [
+        "1g (ground)",
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": true,
+      "cross_gravity_group": "XG-pmma",
+      "warnings": [
+        "Variants marked [PMMA not named in cell] are BASS/BASS-II samples listed only by shape (rod, film, sphere); PMMA is inferred from the investigation, not stated in that cell.",
+        "Variants differ in behaviour: extruded vs cast PMMA have different 1g MOC (Hirsch 2011 Table 7)."
+      ],
+      "dois": [
+        "10.60555/2chp-m469",
+        "10.60555/4qc4-de67",
+        "10.60555/58h4-dy80",
+        "10.1038/s41598-017-18398-4"
+      ]
+    },
+    {
+      "material_id": "polyimide",
+      "name_en": "Polyimide (Kapton / PI)",
+      "name_ar": "بولي إيميد (كابتون)",
+      "kind": "solid polymer",
+      "chemical_family": "polyimide",
+      "aliases": [
+        "Kapton",
+        "PI",
+        "polyimide",
+        "كابتون"
+      ],
+      "variants": [
+        {
+          "variant": "Kapton film",
+          "n_records": 36,
+          "inferred": false
+        },
+        {
+          "variant": "PI (form per condition column)",
+          "n_records": 6,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        25.0,
+        27.0
+      ],
+      "uloi_pct_range_1g": [
+        26.3,
+        28.7
+      ],
+      "gravity_levels": [
+        "1g (ground)",
+        "microgravity"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [
+        "Kapton (SAME smoke tests) and WSTF \"PI\" are grouped as polyimide; form of WSTF PI not stated in the table."
+      ],
+      "dois": [
+        "10.60555/2np7-jv14",
+        "10.60555/gd4k-8h62"
+      ]
+    },
+    {
+      "material_id": "pom",
+      "name_en": "POM (acetal)",
+      "name_ar": "أسيتال (POM)",
+      "kind": "solid polymer",
+      "chemical_family": "polyoxymethylene",
+      "aliases": [
+        "POM",
+        "acetal",
+        "Delrin",
+        "Acetron"
+      ],
+      "variants": [
+        {
+          "variant": "Acetron GP",
+          "n_records": 2,
+          "inferred": false
+        },
+        {
+          "variant": "Delrin",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        11.0,
+        12.0
+      ],
+      "uloi_pct_range_1g": [
+        12.3,
+        12.9
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "pp",
+      "name_en": "PP (polypropylene)",
+      "name_ar": "بولي بروبيلين",
+      "kind": "solid polymer",
+      "chemical_family": "polypropylene",
+      "aliases": [
+        "PP",
+        "polypropylene"
+      ],
+      "variants": [
+        {
+          "variant": "unspecified",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        16.0,
+        16.0
+      ],
+      "uloi_pct_range_1g": [
+        17.6,
+        17.6
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "propanol_glycerol",
+      "name_en": "Propanol/glycerol mixture",
+      "name_ar": "بروبانول مع جليسرين",
+      "kind": "liquid fuel mixture",
+      "chemical_family": "alcohol mixture",
+      "aliases": [
+        "propanol glycerol"
+      ],
+      "variants": [
+        {
+          "variant": "Propanol (80%) Glycerol (20%) (mixture)",
+          "n_records": 1,
+          "inferred": false
+        },
+        {
+          "variant": "Propanol (95%) Glycerol (5%) (mixture)",
+          "n_records": 1,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/byp8-h018"
+      ]
+    },
+    {
+      "material_id": "ptfe",
+      "name_en": "PTFE (Teflon)",
+      "name_ar": "تفلون",
+      "kind": "solid polymer",
+      "chemical_family": "polytetrafluoroethylene",
+      "aliases": [
+        "Teflon",
+        "PTFE",
+        "تفلون"
+      ],
+      "variants": [
+        {
+          "variant": "Teflon",
+          "n_records": 23,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/2np7-jv14",
+        "10.60555/gd4k-8h62"
+      ]
+    },
+    {
+      "material_id": "pvc",
+      "name_en": "PVC",
+      "name_ar": "بي في سي",
+      "kind": "solid polymer",
+      "chemical_family": "polyvinyl chloride",
+      "aliases": [
+        "PVC",
+        "vinyl"
+      ],
+      "variants": [
+        {
+          "variant": "sheet",
+          "n_records": 2,
+          "inferred": false
+        },
+        {
+          "variant": "unspecified",
+          "n_records": 2,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        35.0,
+        40.0
+      ],
+      "uloi_pct_range_1g": [
+        40.1,
+        45.2
+      ],
+      "gravity_levels": [
+        "1g (ground)"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": true,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": []
+    },
+    {
+      "material_id": "polyurethane_foam",
+      "name_en": "Pyrell polyurethane foam",
+      "name_ar": "فوم بولي يوريثان (Pyrell)",
+      "kind": "foam",
+      "chemical_family": "polyurethane",
+      "aliases": [
+        "Pyrell",
+        "polyurethane foam",
+        "PU foam",
+        "فوم",
+        "اسفنج"
+      ],
+      "variants": [
+        {
+          "variant": "Pyrell",
+          "n_records": 20,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": null,
+      "pressure_kpa_range": null,
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": false,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [],
+      "dois": [
+        "10.60555/2np7-jv14"
+      ]
+    },
+    {
+      "material_id": "sibal",
+      "name_en": "SIBAL (cotton-fiberglass fabric)",
+      "name_ar": "قماش سيبال (قطن وألياف زجاج)",
+      "kind": "composite fabric",
+      "chemical_family": "cotton/fiberglass blend",
+      "aliases": [
+        "SIBAL",
+        "cotton-fiberglass",
+        "cotton fiberglass fabric",
+        "سيبال"
+      ],
+      "variants": [
+        {
+          "variant": "fabric",
+          "n_records": 45,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        16.4,
+        22.72
+      ],
+      "pressure_kpa_range": [
+        98.29,
+        101.72
+      ],
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "1g (ground)",
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": true,
+      "cross_gravity_group": "XG-sibal",
+      "warnings": [],
+      "dois": [
+        "10.60555/040q-4h36",
+        "10.60555/0t15-1z43",
+        "10.60555/2chp-m469",
+        "10.60555/4qc4-de67",
+        "10.60555/58h4-dy80"
+      ]
+    },
+    {
+      "material_id": "silicone",
+      "name_en": "Silicone",
+      "name_ar": "سيليكون",
+      "kind": "elastomer",
+      "chemical_family": "silicone (MQ = methyl silicone rubber)",
+      "aliases": [
+        "silicone",
+        "MQ",
+        "silicone rubber",
+        "سيليكون"
+      ],
+      "variants": [
+        {
+          "variant": "MQ silicone rubber",
+          "n_records": 5,
+          "inferred": false
+        },
+        {
+          "variant": "MQ silicone rubber, 0.024 in. thick",
+          "n_records": 2,
+          "inferred": false
+        },
+        {
+          "variant": "MQ silicone rubber, 0.040 in. thick",
+          "n_records": 4,
+          "inferred": false
+        },
+        {
+          "variant": "MQ silicone rubber, 0.060 in. thick",
+          "n_records": 2,
+          "inferred": false
+        },
+        {
+          "variant": "MQ silicone rubber, 0.25 in. thick",
+          "n_records": 5,
+          "inferred": false
+        },
+        {
+          "variant": "saffire/SAME sample",
+          "n_records": 37,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        21.5,
+        22.1
+      ],
+      "pressure_kpa_range": [
+        101.35,
+        101.35
+      ],
+      "moc_pct_range_1g": [
+        17.0,
+        29.0
+      ],
+      "uloi_pct_range_1g": [
+        17.5,
+        29.5
+      ],
+      "gravity_levels": [
+        "1g (ground)",
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": true,
+      "cross_gravity_group": "XG-silicone",
+      "warnings": [
+        "Saffire/SAME silicone and WSTF MQ rubber are different products grouped under one family."
+      ],
+      "dois": [
+        "10.60555/2chp-m469",
+        "10.60555/2np7-jv14",
+        "10.60555/gd4k-8h62"
+      ]
+    },
+    {
+      "material_id": "wax",
+      "name_en": "Wax (candle / slab)",
+      "name_ar": "شمع",
+      "kind": "solid fuel (melts)",
+      "chemical_family": "wax",
+      "aliases": [
+        "wax",
+        "candle",
+        "paraffin",
+        "Japan wax",
+        "شمع",
+        "شمعة"
+      ],
+      "variants": [
+        {
+          "variant": "candle (wax type not stated)",
+          "n_records": 3,
+          "inferred": false
+        },
+        {
+          "variant": "japan wax candle",
+          "n_records": 11,
+          "inferred": false
+        },
+        {
+          "variant": "paraffin candle",
+          "n_records": 4,
+          "inferred": false
+        },
+        {
+          "variant": "paraffin slab",
+          "n_records": 3,
+          "inferred": false
+        },
+        {
+          "variant": "wax slab (type not stated)",
+          "n_records": 3,
+          "inferred": false
+        }
+      ],
+      "oxygen_pct_range": [
+        15.9,
+        22.22
+      ],
+      "pressure_kpa_range": [
+        98.29,
+        100.95
+      ],
+      "moc_pct_range_1g": null,
+      "uloi_pct_range_1g": null,
+      "gravity_levels": [
+        "microgravity"
+      ],
+      "has_microgravity_evidence": true,
+      "has_1g_evidence": false,
+      "cross_gravity_group": null,
+      "warnings": [
+        "Some BASS rows say only \"candle\" or \"wax slab\"; wax type left unstated."
+      ],
+      "dois": [
+        "10.60555/4qc4-de67",
+        "10.60555/58h4-dy80"
+      ]
+    }
+  ],
+  "total": 31
+}

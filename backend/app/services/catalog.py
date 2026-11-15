@@ -28,6 +28,11 @@ def search(q: str) -> M.MaterialSearchResponse:
                                     f"No material matches '{q}'. You can still run an assessment for an unknown material.")
 
 
+def list_materials() -> M.MaterialListResponse:
+    cards = sorted((materials.to_card(m) for m in store.materials().values()), key=lambda c: c.name_en.lower())
+    return M.MaterialListResponse(materials=cards, total=len(cards))
+
+
 def _material(mid: str) -> dict:
     m = store.materials().get(mid)
     if not m:

@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     material_suggest_threshold: float = 0.65
 
     correction_models_path: Path = Path(__file__).resolve().parent / "correction_models.yaml"
+    admin_token: str | None = None                # when set, POST /api/admin/labels needs header X-Admin-Token (human labels drive the red banner)
     labels_collection: str = "outcome_labels"      # human labels live in the database, not in files
     derived_collection: str = "derived_docs"       # validation result (+ markdown report)
     derived_dir: Path = Path(os.environ.get("DATA_DIR", ROOT / "data")) / "derived"

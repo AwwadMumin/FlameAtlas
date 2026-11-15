@@ -21,7 +21,7 @@ MODEL_FOR = {
     "coverage": M.CoverageResponse, "next_experiments": M.NextExperimentsResponse, "labels_queue": M.LabelQueueResponse,
     "label_saved": M.LabelOut, "validation": M.ValidationResponse, "health": M.HealthResponse,
     "experiment_detail": M.ExperimentDetailResponse, "about": M.AboutResponse, "error_404": M.ErrorResponse,
-    "error_422": M.ErrorResponse, "experiments_list": M.ExperimentListResponse, "compare": M.ComparisonResponse, "ask": M.AskResponse, "demo_scenarios": M.DemoScenariosResponse,
+    "error_422": M.ErrorResponse, "experiments_list": M.ExperimentListResponse, "materials_list": M.MaterialListResponse, "compare": M.ComparisonResponse, "ask": M.AskResponse, "demo_scenarios": M.DemoScenariosResponse,
 }
 
 
@@ -35,7 +35,7 @@ def test_all_examples_covered():
     assert names - set(MODEL_FOR) == {"assess_model_estimate_SHAPE_ONLY"}
 
 
-GETS = ["/api/health", "/api/presets", "/api/materials/search?q=acrylic", "/api/materials/pmma",
+GETS = ["/api/health", "/api/materials", "/api/presets", "/api/materials/search?q=acrylic", "/api/materials/pmma",
         "/api/materials/pmma/evidence", "/api/coverage/pmma", "/api/next-experiments?preset=iss", "/api/validation",
         "/api/admin/labels/queue", "/api/demo-scenarios", "/api/about", "/api/experiments/WSTF-013"]
 

@@ -8,7 +8,7 @@ services:
     branch: Backend
     plan: free               # measured: ~350 MB with the embedding model loaded (fits the free 512 MB; sleeps after 15 min idle)
     healthCheckPath: /api/health
-    autoDeploy: false
+    autoDeploy: true
     envVars:
       - key: MONGODB_URI     # Atlas connection string (mongodb+srv://...)
         sync: false
@@ -18,5 +18,7 @@ services:
         value: "0"
       - key: CORS_ORIGINS    # the frontend origin(s), comma separated; "*" while developing
         value: "*"
+      - key: ADMIN_TOKEN     # protects POST /api/admin/labels (choose a long random string)
+        sync: false
       - key: ANTHROPIC_API_KEY   # optional: enables the number-checked LLM summary
         sync: false

@@ -1,11 +1,25 @@
 {
-  "labels_confirmed": 0,
+  "labels_confirmed": 1,
   "labels_total_needed": 121,
   "old_method_test": {
     "definition": "A microgravity (µg) record under-predicts hazard when a confirmed 'sustained_burn' happened at an O2 below the 1g MOC (NASA-STD-6001 Test 1, upward). STRICT = below the LOWEST pressure-compatible MOC row (below every 1g result). VARIANT-DEPENDENT = below the highest but not the lowest row: the 1g result depends on the TEST CONFIGURATION (ignition mode, burn-length criterion, geometry, cast vs extruded; Hirsch et al. 2011), so this is reported separately and never blended into the strict count. The opposite error is a µg non-burn ('no_ignition' or 'brief_then_self_extinguished') above the 1g MOC (strict = above the HIGHEST row). Pressure-compatible = within the configured tolerance, or either pressure not stated. A third count compares only with rows whose configuration states the STANDARD Test 1 procedure (chemical igniter / standard mounting, 6-in criterion): that is what a standard 1g test would have concluded. MOC (upward) is never converted to or compared as LOI (downward).",
-    "materials_evaluated": [],
-    "per_material": [],
-    "n_evaluated": 0,
+    "materials_evaluated": [
+      "pmma"
+    ],
+    "per_material": [
+      {
+        "material_id": "pmma",
+        "n_evaluated": 1,
+        "burn_below_moc_strict": 0,
+        "burn_below_moc_variant_dependent": 0,
+        "nonburn_above_moc_strict": 0,
+        "nonburn_above_moc_variant_dependent": 0,
+        "burn_below_standard_moc": 0,
+        "nonburn_above_standard_moc": 0,
+        "other": 1
+      }
+    ],
+    "n_evaluated": 1,
     "n_burn_below_moc": 0,
     "n_burn_below_moc_variant_dependent": 0,
     "n_nonburn_above_moc": 0,
@@ -857,7 +871,7 @@
     "Only materials with both a 1g MOC (WSTF) and confirmed µg labels are evaluated. In the current data these can only be PMMA and PEI (BASS crew notes exist for PMMA, wax, SIBAL, Nomex, PEI; wax, SIBAL and Nomex have no 1g MOC), so the evaluated set is small and not a random sample.",
     "1g MOC (NASA-STD-6001 Test 1, upward) and LOI (downward, ASTM D2863) are different quantities and are never compared.",
     "µg records without a stated pressure are compared with MOC rows at all pressures.",
-    "0 of 121 labelable records are confirmed."
+    "1 of 121 labelable records are confirmed."
   ],
-  "empty_state_message": "No confirmed labels yet. Label BASS crew notes via /api/admin/labels (or scripts/import_labels.py) to produce the old-method error counts. Saffire pairs are shown regardless."
+  "empty_state_message": null
 }

@@ -130,6 +130,11 @@ class MaterialSearchResponse(BaseModel):
     empty_state_message: str | None = None
 
 
+class MaterialListResponse(BaseModel):
+    materials: list[MaterialCard]
+    total: int
+
+
 class MaterialDetailResponse(BaseModel):
     material: MaterialCard
     stats: dict[str, int]
@@ -439,6 +444,8 @@ class ExperimentListItem(BaseModel):
     source_url: str | None = None
     evidence_type: str | None = None
     display_kind: str | None = None
+    quality_flags: list[str] = []
+    flammability_relevant: bool = True
 
 
 class ExperimentListResponse(BaseModel):

@@ -52,7 +52,8 @@ def _item(e: dict) -> M.ExperimentListItem:
         id=e["experiment_id"], program=e.get("source_investigation"), title=f"{name or 'material not named'} — {e.get('source_investigation') or 'source not named'} ({e['experiment_id']})",
         material=name, material_id=e.get("material_id"), gravity="Microgravity" if gravity_bucket(e["gravity_level"]) == "microgravity" else "Earth gravity (1g)",
         oxygen=None if e.get("oxygen_pct") is None else f"{e['oxygen_pct']}%", airflow=None if e.get("airflow_cm_s") is None else f"{e['airflow_cm_s']} cm/s",
-        year=_year(e), summary=rec.display_text, source_id=e["experiment_id"], source_url=source_url(e), evidence_type=e.get("evidence_type"), display_kind=display_kind(e))
+        year=_year(e), summary=rec.display_text, source_id=e["experiment_id"], source_url=source_url(e), evidence_type=e.get("evidence_type"), display_kind=display_kind(e),
+        quality_flags=e.get("quality_flags") or [], flammability_relevant=e.get("flammability_relevant") is not False)
 
 
 def list_experiments(material: str | None, gravity: str | None, q: str | None, include_smoke: bool, limit: int, offset: int) -> M.ExperimentListResponse:
