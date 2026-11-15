@@ -11,11 +11,16 @@ import json
 import re
 from typing import Any, get_args
 
+import logging
+
+from pymongo.errors import WriteConcernError
+
 from app.core.config import get_settings
 from app.core.errors import ApiError
 from app.models.api import LabelIn, LabelOut, LabelQueueItem, LabelQueueResponse, OutcomeLabel
 from app.services import store
 
+log = logging.getLogger("mission_lens.labels")
 LABELS = set(get_args(OutcomeLabel))
 
 # priority order: first matching rule wins. These are hints for the human, not decisions.
@@ -98,7 +103,16 @@ def save_label(body: LabelIn) -> LabelOut:
     if _norm(body.quote) not in _norm(notes):
         raise ApiError(422, "validation_error", "quote must be a verbatim span of flame_behavior_notes", {"experiment_id": body.experiment_id, "notes": notes})
     rec = LabelOut(**body.model_dump(), status="confirmed")
-    _coll().replace_one({"_id": body.experiment_id}, {"_id": body.experiment_id, **rec.model_dump()}, upsert=True)   # atomic upsert: no duplicates
+    doc = {"_id": body.experiment_id, **rec.model_dump()}
+    coll = _coll()
+    try:
+        coll.replace_one({"_id": body.experiment_id}, doc, upsert=True)   # atomic upsert: no duplicates
+    except WriteConcernError:
+        # The primary applied the write but the replica confirmation failed (seen on Atlas free tier from another region).
+        # Accept it only if the document is really there with exactly our content; otherwise surface the error.
+        if coll.find_one({"_id": body.experiment_id}) != doc:
+            raise
+        log.warning("label %s stored; write-concern confirmation failed", body.experiment_id)
     return rec
 
 

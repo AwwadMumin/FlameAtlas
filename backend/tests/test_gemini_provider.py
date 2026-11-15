@@ -53,6 +53,32 @@ def test_gemini_http_error_never_leaks_key(cfg, monkeypatch):
     assert "429" in str(e.value) and "SECRET" not in str(e.value)
 
 
+def test_gemini_retries_once_on_503(cfg, monkeypatch):
+    import io
+    import json
+    import urllib.error
+    import urllib.request
+    cfg.gemini_api_key = "k"
+    calls = []
+
+    class Resp(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def flaky(req, timeout=0):
+        calls.append(1)
+        if len(calls) == 1:
+            raise urllib.error.HTTPError(req.full_url, 503, "overloaded", {}, io.BytesIO(b"{}"))
+        return Resp(json.dumps({"candidates": [{"finishReason": "STOP", "content": {"parts": [{"text": "ok"}]}}]}).encode())
+    monkeypatch.setattr(urllib.request, "urlopen", flaky)
+    monkeypatch.setattr("time.sleep", lambda s: None)
+    assert summary._gemini("s", "u") == "ok" and len(calls) == 2
+    calls.clear()
+    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout=0: (_ for _ in ()).throw(urllib.error.HTTPError(req.full_url, 429, "quota", {}, io.BytesIO(b"{}"))))
+    with pytest.raises(RuntimeError, match="429"):
+        summary._gemini("s", "u")                              # quota errors are not retried
+
+
 def test_guard_rejects_unsupported_superlatives():
     ctx = '{"records":[{"experiment_id":"WSTF-045","outcome_value":19.0}]}'
     r = summary.check_free("The lowest oxygen where PMMA burns in 1g is 19.0 % O2 (WSTF-045).", ctx)

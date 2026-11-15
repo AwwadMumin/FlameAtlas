@@ -151,12 +151,17 @@ def _gemini(system: str, user: str) -> str:
     body = {"systemInstruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": [{"text": user}]}],
             "generationConfig": {"maxOutputTokens": s.llm_max_tokens, "temperature": 0.2}}
     req = urllib.request.Request(url, data=json.dumps(body).encode(), method="POST", headers={"content-type": "application/json", "x-goog-api-key": s.gemini_api_key or ""})
-    try:
-        with urllib.request.urlopen(req, timeout=s.llm_timeout_s) as r:  # noqa: S310 (fixed https URL)
-            d = json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        raise RuntimeError(f"Gemini HTTP {e.code}") from None
-    return _gemini_text(d)
+    import time
+    for attempt in (1, 2):   # one retry: the free tier answers 503 "overloaded" now and then
+        try:
+            with urllib.request.urlopen(req, timeout=s.llm_timeout_s) as r:  # noqa: S310 (fixed https URL)
+                return _gemini_text(json.loads(r.read().decode()))
+        except urllib.error.HTTPError as e:
+            if attempt == 1 and e.code in (500, 503):
+                time.sleep(1.5)
+                continue
+            raise RuntimeError(f"Gemini HTTP {e.code}") from None
+    raise RuntimeError("Gemini unavailable")  # pragma: no cover
 
 
 def _gemini_text(d: dict) -> str:
