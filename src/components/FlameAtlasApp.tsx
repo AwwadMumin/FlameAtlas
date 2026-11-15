@@ -12,6 +12,7 @@ import { safeSourceUrl } from './safe-url';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+const API_CONFIGURED = Boolean(process.env.NEXT_PUBLIC_API_BASE_URL);   // with an API configured the app opens on live data
 const subscribeToHydration = () => () => {};
 const clientSnapshot = () => true;
 const serverSnapshot = () => false;
@@ -30,11 +31,11 @@ export default function App() {
   const router = useRouter();
   const pathname = usePathname();
   const page: Page = pathname === '/materials' ? 'materials' : pathname === '/ranker' ? 'compare' : pathname === '/ask' ? 'ask' : 'explore';
-  const [mode,setMode] = useState<'live'|'demo'>('demo');
+  const [mode,setMode] = useState<'live'|'demo'>(API_CONFIGURED?'live':'demo');
   const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
   const [restored,setRestored] = useState(false);
   const [data,setData] = useState<Experiment[]>([]);
-  const [loading,setLoading] = useState(false);
+  const [loading,setLoading] = useState(API_CONFIGURED);
   const [error,setError] = useState('');
   const [query,setQuery] = useState('');
   const [material,setMaterial] = useState('All materials');
