@@ -1,7 +1,12 @@
+import logging
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
+
+
+log = logging.getLogger("mission_lens.errors")
 
 
 class ApiError(Exception):
@@ -29,5 +34,6 @@ def install(app: FastAPI) -> None:
         return _resp(e.status_code, code, str(e.detail))
 
     @app.exception_handler(Exception)
-    async def _any(_: Request, e: Exception):
-        return _resp(500, "internal_error", "Unexpected server error")
+    async def _any(req: Request, e: Exception):
+        log.exception("unhandled error on %s %s", req.method, req.url.path)     # full traceback goes to the server log only
+        return _resp(500, "internal_error", "Unexpected server error", {"type": type(e).__name__})
