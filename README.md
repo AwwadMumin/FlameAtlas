@@ -6,7 +6,7 @@ Mission Lens is decision support for spacecraft and habitat fire-safety engineer
 
 > What does NASA's microgravity combustion data actually say about this material in these conditions, how wrong is the standard Earth test for this case, and what experiment is missing?
 
-This repository is the **backend and API only**. The frontend is built separately against [`docs/API_CONTRACT.md`](docs/API_CONTRACT.md).
+This repository holds the **backend and API** (`backend/`, `data/`, `docs/`) and the **web frontend** (`frontend/`, Next.js, built against [`docs/API_CONTRACT.md`](docs/API_CONTRACT.md)). Frontend: `cd frontend && npm ci && NEXT_PUBLIC_API_BASE_URL=http://localhost:8000 npm run dev`. If it is deployed from GitHub, set the project Root Directory to `frontend`.
 
 ## Run it (3 commands)
 
