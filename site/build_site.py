@@ -40,5 +40,5 @@ d = bundle["worked"]["d"]; t_o2 = tol["o2_percent"]; t_p = tol["pressure_kpa"]
 eq = (f"d = √( (({near['o2_percent']:.2f} − {e['o2']:g}) / {t_o2:.2f})² + (({near['pressure_kpa']:.1f} − {e['pressure']:g}) / {t_p:g})² ) = {d:.2f}")
 for k, v in {"__D__": f"{d:.2f}", "__EQ__": eq, "__NSOLID__": str(len(acc)), "__NALL__": str(n_all)}.items():
     tpl = tpl.replace(k, v)
-(ROOT / "site" / "index.html").write_text(tpl.replace("__DATA__", data), encoding="utf-8")
-print("site/index.html rebuilt:", len(acc), "real-material records of", n_all, "; d =", round(bundle["worked"]["d"], 2))
+(ROOT / "site" / "story.html").write_text(tpl.replace("__DATA__", data), encoding="utf-8")
+print("site/story.html rebuilt:", len(acc), "real-material records of", n_all, "; d =", round(bundle["worked"]["d"], 2))

@@ -3,7 +3,8 @@
 **A verified map of what NASA has tested about fire in space, and where that evidence ends.**
 Team Orion · NASA Space Apps Challenge 2026 · Challenge: *Flame in Freefall* · Nablus local event, An-Najah National University
 
-- **Story and dashboard:** `index.html` (Mission Brief, Evidence, Gap Map, Proof)
+- **Home:** `index.html`, designed by Alaa and Hiba
+- **Story and dashboard:** `story.html` (Mission Brief, Evidence, Gap Map, Proof)
 - **Research workspace:** `workspace.html` (Evidence Explorer, Scenario Ranker, Ask with Citations)
 
 Both pages are single files with the data embedded. They run offline and on GitHub Pages; no server, no build step.
@@ -80,7 +81,8 @@ python flame_atlas.py next --env moon      # Bayesian model + active learning: w
 python flame_atlas.py eval                 # accuracy on the held-out set
 python flame_atlas.py rank --o2 21 --pressure 101.3 --gravity micro
 python build_dataset.py raw_nasa raw_nasa/BASS_test_matrix.xlsx   # rebuild data from NASA files
-python site/build_site.py                  # rebuild index.html
+python site/build_site.py                  # rebuild story.html
+python site/build_landing.py               # rebuild index.html (home)
 python site/build_workspace.py             # rebuild workspace.html
 ```
 

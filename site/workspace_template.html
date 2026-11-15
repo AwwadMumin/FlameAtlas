@@ -76,7 +76,7 @@ __CSS__
       <button data-page="ranker">Scenario Ranker<em id="navCount" hidden></em></button>
       <button data-page="ask">Ask with Citations</button>
     </nav>
-    <a class="verified-pill" href="index.html" title="Back to the Flame Atlas story"><span class="dot"></span><span id="pillText">VERIFIED NASA DATA</span></a>
+    <a class="verified-pill" href="index.html" title="Back to the Flame Atlas home page"><span class="dot"></span><span id="pillText">VERIFIED NASA DATA</span></a>
   </header>
 
   <main class="workspace">
@@ -89,8 +89,8 @@ __CSS__
   </main>
 
   <footer class="footer">
-    <span>FLAME ATLAS <b>·</b> Microgravity Combustion Research <b>·</b> <span class="credit">Interface design: Alaa, Team Orion</span></span>
-    <span>NASA Space Apps Challenge · 2026 · <a href="index.html" style="color:#e58d70">Open the story</a></span>
+    <span>FLAME ATLAS <b>·</b> Microgravity Combustion Research <b>·</b> <span class="credit">Interface design: Alaa and Hiba, Team Orion</span></span>
+    <span>NASA Space Apps Challenge · 2026 · <a href="index.html" style="color:#e58d70">Home</a> · <a href="story.html" style="color:#e58d70">The story</a></span>
   </footer>
 </div>
 
@@ -494,7 +494,7 @@ function answer(q) {
 }
 
 /* ---------- AI interpreter (LLM) + engine fact-checker ---------- */
-state.ai = { key: '', model: 'gemini-2.5-flash', result: null, busy: false, error: '' };
+state.ai = { key: '', model: 'gemini-3.5-flash', result: null, busy: false, error: '' };
 const numsIn = s => (String(s ?? '').match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
 function evidencePack(q, a) {
   const items = [];
@@ -537,12 +537,24 @@ function factCheck(sentences, items) {
     return { text: s.text, cites, bogus, unsupported, claim, status };
   });
 }
-async function callGemini(key, model, prompt) {
+const GEMINI_FALLBACK = ['gemini-3.5-flash', 'gemini-flash-latest', 'gemini-2.5-flash'];
+async function callGeminiOnce(key, model, prompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
+  // No temperature: newer Gemini models reject sampling parameters.
   const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { temperature: 0.2, responseMimeType: 'application/json' } }) });
+    body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json' } }) });
   const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(body.error && body.error.message ? body.error.message : `Gemini returned ${res.status}`);
+  if (!res.ok) { const e = new Error(body.error && body.error.message ? body.error.message : `Gemini returned ${res.status}`); e.status = res.status; throw e; }
+  return body;
+}
+async function callGemini(key, model, prompt) {
+  const tries = [model, ...GEMINI_FALLBACK.filter(m => m !== model)];
+  let body = null, last = null;
+  for (const m of tries) {
+    try { body = await callGeminiOnce(key, m, prompt); state.ai.usedModel = m; break; }
+    catch (e) { last = e; if (e.status !== 404 && !/not found|not supported/i.test(e.message)) throw e; }
+  }
+  if (!body) throw last;
   const text = (((body.candidates || [])[0] || {}).content || {}).parts?.map(p => p.text).join('') || '';
   const json = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1));
   if (!Array.isArray(json.sentences)) throw new Error('The model did not return sentences.');
@@ -563,7 +575,7 @@ async function interpret(simulate) {
   }
   if (!state.ai.key) { state.ai.error = 'Paste a Gemini API key first (free at aistudio.google.com). It stays in this browser tab only.'; render(); return; }
   state.ai.busy = true; render();
-  try { const s = await callGemini(state.ai.key, state.ai.model, promptFor(q, items)); state.ai.result = { model: state.ai.model, checked: factCheck(s, items), items }; }
+  try { const s = await callGemini(state.ai.key, state.ai.model, promptFor(q, items)); state.ai.result = { model: state.ai.usedModel || state.ai.model, checked: factCheck(s, items), items }; }
   catch (e) { state.ai.error = `AI interpreter unavailable: ${e.message} The verified answer above still stands.`; }
   state.ai.busy = false; render();
 }

@@ -568,7 +568,7 @@ def print_brief(b):
     print("MISSION BRIEF --", ENVIRONMENTS[b["environment"]]["name"])
     for i, l in enumerate(b["lines"], 1):
         src = f" [{l['source']}]" if l.get("source") else ""
-        tag = " (computed from verified records)" if l.get("computed") else ""
+        tag = " (computed from the dataset)" if l.get("computed") else ""
         print(f"  {i}. {l['text']}{src}{tag}")
         if l.get("quote"):
             print(f"       quote: \"{l['quote']}\"")
@@ -770,7 +770,7 @@ def main():
 
     records, sources = load()
     if a.cmd == "stats":
-        accepted, _ = verify_all(records, sources, show=False)
+        accepted = load_atlas()
         st = compute_statistics(accepted)
         print(json.dumps(st, indent=2)) if a.json else print_statistics(st)
         return 0
@@ -791,14 +791,14 @@ def main():
             print(f"  {g['material']:<40} MOC {g['moc_pct']:g}% O2, ULOI {g['uloi_pct']:g}%")
         return 0
     if a.cmd == "next":
-        accepted, _ = verify_all(records, sources, show=False)
+        accepted = load_atlas()
         n = next_tests(accepted, a.env)
         if a.json:
             print(json.dumps(n, indent=2))
         else:
             c = n["conditions"]
             print(f"NEXT EXPERIMENT -- {ENVIRONMENTS[a.env]['name']}: {c['o2']:g}% O2 at {c['pressure']:g} kPa, microgravity")
-            print(f"  Nearest verified run today: d = {n['nearest_d']:.2f} (close means d <= 1). A run here brings it to 0.")
+            print(f"  Nearest real-material run today: d = {n['nearest_d']:.2f} (close means d <= 1). A run here brings it to 0.")
             print(f"  Test first ({n['rule']})")
             for i, p in enumerate(n["priorities"], 1):
                 lo, hi = p["credible95"]
@@ -810,7 +810,7 @@ def main():
                 print(f"     {p['material']:<34} P(burn) {p['p_burn']:.0%}  95% credible {lo:.0%}-{hi:.0%}  gain {p['eig_bits']:.3f} bits")
         return 0
     if a.cmd in ("brief", "findings"):
-        accepted, _ = verify_all(records, sources, show=False)
+        accepted = load_atlas()
         if a.cmd == "findings":
             print_findings(accepted)
         else:
@@ -818,7 +818,7 @@ def main():
             print(json.dumps(b, indent=2, default=list)) if a.json else print_brief(b)
         return 0
     if a.cmd == "gaps":
-        accepted, _ = verify_all(records, sources, show=False)
+        accepted = load_atlas()
         g = gap_map(accepted, a.gravity, a.flow)
         print(json.dumps(g, indent=2)) if a.json else print_gap_map(g)
         return 0
@@ -833,17 +833,19 @@ def main():
                    dict(records[0], id="PLANTED_bad_range", planted_fake=True, o2_percent=215.0)]
         accepted, rejected = verify_all(records[:6] + planted, sources)
         print(f"  ... ({len(records) - 6} more records verified; the two PLANTED records are fakes added to test the verifier)")
-        accepted, _ = verify_all(records, sources, show=False)
-        print(f"\n  {len(accepted)} accepted, {len(rejected)} rejected")
+        verified, _ = verify_all(records, sources, show=False)
+        print(f"\n  {len(verified)} raw-file records accepted, {len(rejected)} planted fakes rejected")
+        accepted = load_atlas()
+        print(f"  Unified dataset: {len(accepted)} real-material records (data/atlas_dataset.json, python build_unified.py)")
         print("\nSTEP 3  Rank by fixed rules (no language model decides what is close)")
         print_ranking(rank(accepted, scenario, a.earth_proxy), scenario)
         print("\nSTEP 4  Moon Base atmosphere (30% O2, 10.2 psi) -- per the challenge statement")
         far = {"o2": 30, "pressure": 70.3, "flow": 10, "gravity": "micro"}
         print_ranking(rank(accepted, far), far)
-        print("\nData: NASA PSI (CC0) -- PSI-26 BASS, PSI-98/99/100 Saffire I-III.")
+        print("\nData: NASA PSI (CC0) -- PSI-26 BASS, PSI-25 BASS-II, PSI-98/99/100 Saffire I-III; PSI-20 BRE and PSI-159 CFI-G kept separate.")
 
     elif a.cmd == "rank":
-        accepted, _ = verify_all(records, sources, show=False)
+        accepted = load_atlas()
         rows = rank(accepted, scenario, a.earth_proxy)
         if a.json:
             print(json.dumps({"scenario": scenario, "results": rows}, indent=2))
