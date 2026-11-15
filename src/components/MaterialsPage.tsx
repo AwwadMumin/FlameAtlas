@@ -8,7 +8,7 @@ import { useKeyed } from './use-keyed';
 import a from './MaterialAnswer.module.css';
 import s from './MaterialsPage.module.css';
 
-type Cell = { status: Status; p: number | null; lo: number | null; hi: number | null; n: number } | { error: string };
+type Cell = { status: Status; p: number | null; lo: number | null; hi: number | null; n: number; informative: boolean } | { error: string };
 const WORKERS = 4;
 
 function AllRecords({ id }: { id: string }) {
@@ -48,7 +48,7 @@ export default function MaterialsPage({ live, onGoLive }: { live: boolean; onGoL
         try {
           const r = await assessMaterial(body(m));
           const b = r.burn_prediction;
-          setCells(prev => ({ ...prev, [key]: { status: statusOf(r), p: b ? b.probability_sustained : null, lo: b ? b.interval_95[0] : null, hi: b ? b.interval_95[1] : null, n: r.evidence_groups.reduce((t, g) => t + g.total_in_group, 0) } }));
+          setCells(prev => ({ ...prev, [key]: { status: statusOf(r), p: b ? b.probability_sustained : null, lo: b ? b.interval_95[0] : null, hi: b ? b.interval_95[1] : null, informative: b ? b.informative !== false : true, n: r.evidence_groups.reduce((t, g) => t + g.total_in_group, 0) } }));
         } catch (e) { setCells(prev => ({ ...prev, [key]: { error: e instanceof Error ? e.message : String(e) } })); }
       }
     };
@@ -93,7 +93,7 @@ export default function MaterialsPage({ live, onGoLive }: { live: boolean; onGoL
             <td>{recordCount(m)} records<span className={s.sub}>{m.has_microgravity_evidence ? 'µg ' : ''}{m.has_1g_evidence ? '1g' : ''}{!m.has_microgravity_evidence && !m.has_1g_evidence ? 'no tested outcomes' : ''}</span></td>
             <td>{!c ? <span className={`${s.badge} ${s.wait}`}>loading…</span> : 'error' in c ? <span className={`${s.badge} ${s.wait}`} title={c.error}>unavailable</span>
               : <><span className={`${s.badge} ${s[c.status]}`}>{STATUS_LABEL[c.status]}</span>
-                <span className={s.sub}>{c.status === 'tested' ? `${c.n} matched record${c.n === 1 ? '' : 's'}` : c.p !== null && c.lo !== null && c.hi !== null ? `${pct(c.p)} sustained burn (95% ${pct(c.lo)}–${pct(c.hi)})` : 'no estimate applies'}</span></>}</td>
+                <span className={s.sub}>{c.status === 'tested' ? `${c.n} matched record${c.n === 1 ? '' : 's'}` : c.p !== null && c.lo !== null && c.hi !== null ? (c.informative ? `${pct(c.p)} sustained burn (95% ${pct(c.lo)}–${pct(c.hi)})` : `too uncertain to call (95% ${pct(c.lo)}–${pct(c.hi)})`) : 'no estimate applies'}</span></>}</td>
             <td><button className="inline-link" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : m.material_id)}>{isOpen ? 'Hide ↑' : 'Details ↓'}</button></td>
           </tr>
           {isOpen && <tr><td colSpan={5}><div className={s.detail}><MaterialAnswer query={m.name_en} conditions={cond} /><AllRecords id={m.material_id} /></div></td></tr>}

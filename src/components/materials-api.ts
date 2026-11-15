@@ -15,8 +15,8 @@ export interface MaterialCard {
 export interface MaterialMatch { material: MaterialCard; score: number; match_type: string; confident: boolean }
 export interface Preset { id: string; name: string; o2_pct: number; pressure_kpa: number }
 export interface BurnPrediction {
-  label: string; role: 'estimate' | 'cross_check'; basis: 'no_research' | 'earth_only' | 'not_tested_at_these_conditions' | 'tested_here';
-  probability_sustained: number; interval_95: [number, number]; material_group: string | null; statement: string; airflow_assumption: string | null; caveats: string[];
+  label: string; role: 'estimate' | 'cross_check'; basis: 'no_research' | 'smoke_only' | 'earth_only' | 'not_tested_at_these_conditions' | 'tested_here';
+  probability_sustained: number; interval_95: [number, number]; informative?: boolean; material_group: string | null; statement: string; airflow_assumption: string | null; caveats: string[];
   oxygen_odds_ratio_per_point: number[];
   trained_on: { n_runs: number; by_investigation: Record<string, number>; o2_range: number[]; flow_range_cm_s: number[] };
   validation: { beats_baseline: boolean; statement: string; model_brier: number; baseline_brier: number; pooled_n: number;

@@ -25,9 +25,13 @@ export function RecordItem({ r }: { r: EvidenceRecord }) {
 function Prediction({ b }: { b: BurnPrediction }) {
   const v = b.validation, estimate = b.role === 'estimate';
   return <>
-    {estimate && <div className={s.big}>{pct(b.probability_sustained)}<small>chance the flame keeps burning in microgravity (95% interval {pct(b.interval_95[0])}–{pct(b.interval_95[1])})</small></div>}
+    {estimate && b.informative !== false && <div className={s.big}>{pct(b.probability_sustained)}<small>chance the flame keeps burning in microgravity (95% interval {pct(b.interval_95[0])}–{pct(b.interval_95[1])})</small></div>}
+    {estimate && b.informative === false && <>
+      <div className={s.big} style={{ color: 'var(--color-text)' }}>Cannot be determined<small>95% interval {pct(b.interval_95[0])}–{pct(b.interval_95[1])}</small></div>
+      <p className={`${s.note} ${s.amber}`}><strong>The model cannot narrow this down.</strong> Its central value is {pct(b.probability_sustained)}, but that mostly reflects PMMA, the reference material the model learned from. It says nothing specific about this material.</p>
+    </>}
     {!estimate && <p className={s.note}>Model cross-check (not tested): {pct(b.probability_sustained)} chance of sustained burning (95% interval {pct(b.interval_95[0])}–{pct(b.interval_95[1])}). The tested records above are the evidence.</p>}
-    {b.material_group === null && <p className={`${s.note} ${s.amber}`}><strong>No data for this material in the model.</strong> The interval includes the full spread between the materials it learned from, so it is wide.</p>}
+    {b.material_group === null && b.informative !== false && <p className={`${s.note} ${s.amber}`}><strong>No data for this material in the model.</strong> The interval includes the full spread between the materials it learned from, so it is wide.</p>}
     {b.airflow_assumption && <p className={s.muted}>{b.airflow_assumption}</p>}
     <p className={`${s.note} ${v.beats_baseline ? s.green : s.amber}`}><strong>Measured error.</strong> {v.statement}</p>
     <details className={s.details}><summary>How this estimate was made and its limits</summary>
