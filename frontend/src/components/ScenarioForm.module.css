@@ -1,0 +1,294 @@
+.card {
+  padding: var(--space-6);
+  color: var(--color-text);
+  background: rgba(38, 42, 48, .94);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+}
+
+.heading,
+.resultHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.eyebrow {
+  color: var(--color-accent-text);
+  font: 500 10px var(--font-mono), monospace;
+  letter-spacing: .07em;
+}
+
+.heading h2,
+.resultHeading h3 {
+  margin: 6px 0 0;
+  color: var(--color-heading);
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.heading p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.mode {
+  flex: 0 0 auto;
+  padding: 6px var(--space-2);
+  color: #e8a087;
+  border: 1px solid #67483f;
+  border-radius: 4px;
+  font: 500 9px var(--font-mono), monospace;
+  letter-spacing: .05em;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  min-width: 0;
+  margin: 22px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.fields label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+  color: #c6c9ce;
+  font-size: 11px;
+}
+
+.fields label > span {
+  font-weight: 500;
+}
+
+.fields label b {
+  color: var(--color-focus);
+}
+
+.fields input,
+.fields select {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 11px;
+  color: #f0f1f2;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-border-control);
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.fields input::placeholder {
+  color: #858b94;
+}
+
+.fields small {
+  color: #9298a1;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.materialField {
+  grid-column: span 2;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.actions button {
+  min-height: 42px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.reset {
+  color: #d0d2d5;
+  background: transparent;
+  border: 1px solid var(--color-border-control);
+}
+
+.reset:hover {
+  background: #34383f;
+}
+
+.submit {
+  color: #fff;
+  background: var(--flame-orange);
+  border: 1px solid var(--flame-orange);
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--color-action-hover);
+}
+
+.submit span {
+  margin-left: 5px;
+}
+
+.status,
+.notice,
+.error,
+.empty,
+.fallback {
+  margin: 14px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.status,
+.notice {
+  color: #d1c1ad;
+}
+
+.error {
+  color: #ff9b88;
+}
+
+.result {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.resultHeading {
+  align-items: center;
+}
+
+.resultHeading h3 {
+  font-size: 17px;
+}
+
+.verdict {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--color-text-muted);
+  font: 10px var(--font-mono), monospace;
+}
+
+.tier {
+  flex: 0 0 auto;
+  padding: 5px var(--space-2);
+  border-radius: 4px;
+  font: 500 9px var(--font-mono), monospace;
+  text-transform: uppercase;
+}
+
+.green {
+  color: #a8d9b8;
+  background: #233b2d;
+}
+
+.amber {
+  color: #f0c77e;
+  background: #403721;
+}
+
+.grey {
+  color: #c1c5cb;
+  background: #393d43;
+}
+
+.reason,
+.summary,
+.tolerances,
+.warnings,
+.empty {
+  color: #c6c9ce;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.reason {
+  margin: var(--space-3) 0 0;
+  color: #e5e6e8;
+}
+
+.tolerances {
+  margin: var(--space-2) 0 0;
+}
+
+.summary {
+  margin: var(--space-3) 0 0;
+}
+
+.fallback {
+  color: var(--color-text-muted);
+}
+
+.warnings {
+  margin-top: var(--space-3);
+}
+
+.warnings ul {
+  margin: 6px 0 0;
+  padding-left: 19px;
+}
+
+.warnings li + li {
+  margin-top: 4px;
+}
+
+.empty {
+  margin-top: var(--space-3);
+  padding: 10px var(--space-3);
+  color: #e3c9a5;
+  background: #383327;
+  border-left: 2px solid #d2a65c;
+}
+
+@media (max-width: 760px) {
+  .card {
+    padding: 19px;
+  }
+
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .materialField {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 420px) {
+  .heading,
+  .resultHeading {
+    flex-direction: column;
+  }
+
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  .materialField {
+    grid-column: auto;
+  }
+
+  .actions button {
+    flex: 1;
+  }
+}

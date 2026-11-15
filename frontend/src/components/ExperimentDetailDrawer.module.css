@@ -1,0 +1,238 @@
+.dialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(520px, 100%);
+  max-width: 100%;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--color-surface-raised);
+  border: 0;
+  border-left: 1px solid #585d64;
+  box-shadow: -20px 0 70px #0007;
+}
+
+.dialog::backdrop {
+  background: #090b0dbd;
+}
+
+.drawer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.eyebrow,
+.sectionIndex {
+  color: var(--color-accent-text);
+  font: 600 10px var(--font-mono), monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.closeButton {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: #e5e6e8;
+  background: transparent;
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-control);
+  font-size: 25px;
+  line-height: 1;
+}
+
+.closeButton:hover {
+  color: #fff;
+  background: #383d45;
+}
+
+.closeButton:focus-visible,
+.toggleButton:focus-visible,
+.sourceLink:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 26px 28px 32px;
+}
+
+.program {
+  margin: 0 0 var(--space-2);
+  color: var(--color-accent-text);
+  font: 500 11px var(--font-mono), monospace;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+}
+
+.summary {
+  margin: 14px 0 30px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.section + .section {
+  margin-top: 28px;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: baseline;
+  gap: 11px;
+  margin-bottom: 7px;
+}
+
+.sectionIndex {
+  color: var(--color-text-muted);
+  font-size: 9px;
+}
+
+.sectionHeading h3 {
+  margin: 0;
+  color: #f0f1f2;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.fields {
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 13px 0;
+  border-bottom: 1px solid #41454d;
+  font-size: 12px;
+}
+
+.field dt {
+  flex: 0 1 auto;
+  color: var(--color-text-muted);
+}
+
+.field dd {
+  flex: 0 1 58%;
+  margin: 0;
+  color: #f0f1f2;
+  font-weight: 500;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.field dd:where(:not(.mono)) {
+  font-variant-numeric: tabular-nums;
+}
+
+.mono {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+}
+
+.sourceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  color: #e58d70;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sourceLink:hover {
+  color: #ffa080;
+}
+
+.missingSource {
+  margin: var(--space-4) 0 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.footer {
+  flex: 0 0 auto;
+  padding: 17px 28px 22px;
+  background: var(--color-surface-header);
+  border-top: 1px solid var(--color-border);
+}
+
+.footerNote {
+  margin: 0 0 14px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.toggleButton {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px var(--space-4);
+  color: #fff;
+  background: var(--flame-orange);
+  border: 1px solid var(--flame-orange);
+  border-radius: var(--radius-control);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.toggleButton:hover {
+  background: var(--color-action-hover);
+}
+
+@media (max-width: 520px) {
+  .dialog {
+    width: 100%;
+    border-left: 0;
+  }
+
+  .header {
+    padding: 15px 19px;
+  }
+
+  .content {
+    padding: 22px 19px 28px;
+  }
+
+  .title {
+    font-size: 23px;
+  }
+
+  .footer {
+    padding: 15px 19px 18px;
+  }
+}
