@@ -6,7 +6,7 @@ services:
     dockerfilePath: ./backend/Dockerfile
     dockerContext: .
     branch: Backend
-    plan: starter            # the embedding model + torch need more than the free tier's 512 MB
+    plan: free               # measured: ~350 MB with the embedding model loaded (fits the free 512 MB; sleeps after 15 min idle)
     healthCheckPath: /api/health
     autoDeploy: false
     envVars:

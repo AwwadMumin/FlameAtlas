@@ -32,12 +32,14 @@ separate piece of work, not a setting.
 1. Render dashboard: **New > Blueprint**, pick the repo, confirm the branch. Render asks for the secrets marked `sync: false`.
 2. Set `MONGODB_URI` to the Atlas connection string. Optional: `ANTHROPIC_API_KEY`. Set `CORS_ORIGINS` to the frontend's origin once it is known.
 3. Atlas **Network Access**: Render web services have no fixed IP on the starter plan, so allow `0.0.0.0/0` and rely on a strong, rotated database password (or use Render's static outbound IPs and allow only those).
-4. The plan is `starter` because torch + the embedding model do not fit the free tier's 512 MB. The container listens on Render's `PORT`.
+4. Use the **Free** instance type: measured memory is about 350 MB with the embedding model loaded (512 MB limit, so there is little headroom). A free service sleeps after 15 minutes without traffic and the first request after that takes about a minute. The container listens on Render's `PORT`.
 5. Check `https://<service>.onrender.com/api/health`: expect 31 / 970 / 970 and `vector_index.queryable: true`. Swagger is at `/docs`.
 
 The data is already loaded in Atlas (see above); the service does not load or drop anything on start.
 
-## Free hosting: Hugging Face Spaces (no card)
+## Hugging Face Spaces (NOT free any more)
+
+> Update: Hugging Face now requires a paid (PRO) plan for Docker and Gradio Spaces; only Static Spaces are free. Use Render free (above) instead. The steps below only apply if you have PRO.
 
 Render's plan that fits torch + the embedding model is paid. A Hugging Face Space (Docker SDK, free CPU, 16 GB RAM) runs the same API.
 
