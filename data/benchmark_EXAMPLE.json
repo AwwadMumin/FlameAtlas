@@ -1,0 +1,142 @@
+{
+ "synthetic": true,
+ "note": "EXAMPLE ONLY. Answers are made up to show the format. Fill benchmark.json with real answers.",
+ "systems": [
+  "General LLM (no data)",
+  "Plain RAG",
+  "Flame Atlas"
+ ],
+ "questions": [
+  {
+   "id": "q01",
+   "question": "Spread rate of Material-A at 21% O2, 101.3 kPa, 10 cm/s, microgravity (mm/s)?",
+   "answerable": true,
+   "gold_value": 1.8,
+   "gold_source": "src_01",
+   "answers": {
+    "General LLM (no data)": {
+     "value": 2.5,
+     "source": null,
+     "no_evidence": false,
+     "value_second_run": 3.1
+    },
+    "Plain RAG": {
+     "value": 1.8,
+     "source": "src_02",
+     "no_evidence": false,
+     "value_second_run": 1.8
+    },
+    "Flame Atlas": {
+     "value": 1.8,
+     "source": "src_01",
+     "no_evidence": false,
+     "value_second_run": 1.8
+    }
+   }
+  },
+  {
+   "id": "q02",
+   "question": "Did Material-B sustain a flame at 21% O2, 101.3 kPa, 10 cm/s in microgravity?",
+   "answerable": true,
+   "gold_value": "no",
+   "gold_source": "src_01",
+   "answers": {
+    "General LLM (no data)": {
+     "value": "yes",
+     "source": null,
+     "no_evidence": false,
+     "value_second_run": "yes"
+    },
+    "Plain RAG": {
+     "value": "yes",
+     "source": "src_03",
+     "no_evidence": false,
+     "value_second_run": "yes"
+    },
+    "Flame Atlas": {
+     "value": "no",
+     "source": "src_01",
+     "no_evidence": false,
+     "value_second_run": "no"
+    }
+   }
+  },
+  {
+   "id": "q03",
+   "question": "Spread rate of Material-C at 22% O2, 101.3 kPa, 10 cm/s, microgravity (mm/s)?",
+   "answerable": true,
+   "gold_value": 1.1,
+   "gold_source": "src_02",
+   "answers": {
+    "General LLM (no data)": {
+     "value": 1.5,
+     "source": null,
+     "no_evidence": false,
+     "value_second_run": 1.2
+    },
+    "Plain RAG": {
+     "value": 1.1,
+     "source": "src_02",
+     "no_evidence": false,
+     "value_second_run": 1.1
+    },
+    "Flame Atlas": {
+     "value": 1.1,
+     "source": "src_02",
+     "no_evidence": false,
+     "value_second_run": 1.1
+    }
+   }
+  },
+  {
+   "id": "q04",
+   "question": "Spread rate of Material-A at 40% O2 on the Moon (mm/s)?",
+   "answerable": false,
+   "answers": {
+    "General LLM (no data)": {
+     "value": 6.0,
+     "source": null,
+     "no_evidence": false,
+     "value_second_run": 5.0
+    },
+    "Plain RAG": {
+     "value": 2.4,
+     "source": "src_02",
+     "no_evidence": false,
+     "value_second_run": 2.4
+    },
+    "Flame Atlas": {
+     "value": null,
+     "source": null,
+     "no_evidence": true,
+     "value_second_run": null
+    }
+   }
+  },
+  {
+   "id": "q05",
+   "question": "Does Material-D burn at 21% O2 in microgravity?",
+   "answerable": false,
+   "answers": {
+    "General LLM (no data)": {
+     "value": "yes",
+     "source": null,
+     "no_evidence": false,
+     "value_second_run": "yes"
+    },
+    "Plain RAG": {
+     "value": null,
+     "source": null,
+     "no_evidence": true,
+     "value_second_run": null
+    },
+    "Flame Atlas": {
+     "value": null,
+     "source": null,
+     "no_evidence": true,
+     "value_second_run": null
+    }
+   }
+  }
+ ]
+}

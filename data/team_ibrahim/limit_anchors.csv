@@ -1,0 +1,10 @@
+anchor_id,psi_id,material_class,geometry,flow_direction,gravity,O2_limit_pct,flow_or_stretch_condition,statement,anchor_type,source
+A1,PSI-25,PMMA,rod,concurrent,microgravity,13.5,stretch rate a = 8-12 1/s,Minimum O2 on the flammability boundary (quench/blowoff U-curve minimum),measured_limit,BASS-II Summary Report NASA/TM-20210011385 sec 6.1
+A2,PSI-25,PMMA,rod,concurrent,microgravity,"XO2(%) = 6*exp(-0.5*a) + 0.0167*a + 13.4",a = stretch rate (1/s),Empirical boundary equation (Eq. 6.1); fits quenching and blowoff branches,empirical_equation,BASS-II Summary Report Eq. 6.1
+A3,PSI-25,PMMA,rod,concurrent,microgravity,14.5,initial O2,Sustained ignition not achieved below ~14.5% initial O2; flames ignited at higher O2 survived to 13.6% final O2,measured_limit,BASS-II Summary Report ignition section
+A4,PSI-25,PMMA,rod,concurrent,1g,15.4,upward spread + 4 cm/s forced flow,Normal-gravity upward flame-spread limit used for comparison (cited Ref. 23 in report),literature_cited,BASS-II Summary Report sec 6.1
+A5,PSI-25,PMMA,rod,opposed,microgravity,17.5,opposed flow,Lowest O2 at which flame spread was observed in microgravity,measured_limit,BASS-II Summary Report sec 4
+A6,PSI-25,PMMA,rod,opposed,1g,19.0,opposed flow,Lowest O2 at which flame spread was observed in normal gravity,measured_limit,BASS-II Summary Report sec 4
+A7,PSI-26,SIBAL,fabric,concurrent,microgravity,21.0,flow < 1 cm/s,Quenching extinction observed at low but finite flow (<1 cm/s) in air,measured_limit,US National Meeting paper (BASS) sec on Fig. 8
+A8,PSI-26,SIBAL,fabric,opposed,1g,21.0,downward spread,Flame ignites then self-extinguishes in 1g while spreading steadily in microgravity opposed flow,observation,US National Meeting paper (BASS) Fig. 14 text
+A9,PSI-99,silicone,sheet,concurrent,microgravity,22.1,20 cm/s,0.27-1.03 mm silicone: no sustained spread in microgravity but 0.27 mm burned completely in the 1g comparison (gravity effect is material dependent),observation,Saffire-II experimental table

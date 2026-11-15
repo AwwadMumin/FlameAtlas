@@ -1,0 +1,111 @@
+[
+ {
+  "record": "2-4",
+  "source": "PSI-99",
+  "issues": [
+   "Thickness written as '037 mm' in NASA table; probably 0.37 mm. Not used for ranking."
+  ]
+ },
+ {
+  "record": "2-5",
+  "source": "PSI-99",
+  "issues": [
+   "Thickness written as '037 mm' in NASA table; probably 0.37 mm. Not used for ranking."
+  ]
+ },
+ {
+  "record": "2-6",
+  "source": "PSI-99",
+  "issues": [
+   "Material cell blank in NASA table; carried over from previous row (Cotton-Fiberglass (SIBAL)). Confirm in PSI-99 Experimental Details.",
+   "Thickness written as '037 mm' in NASA table; probably 0.37 mm. Not used for ranking."
+  ]
+ },
+ {
+  "record": "2-9",
+  "source": "PSI-99",
+  "issues": [
+   "Material cell blank in NASA table; carried over from previous row (PMMA). Confirm in PSI-99 Experimental Details."
+  ]
+ },
+ {
+  "record": "S1",
+  "source": "PSI-100",
+  "issues": [
+   "No O2 reported in this NASA table.",
+   "No burn outcome reported in this NASA table; outcome left empty."
+  ]
+ },
+ {
+  "record": "S2",
+  "source": "PSI-100",
+  "issues": [
+   "No O2 reported in this NASA table.",
+   "No burn outcome reported in this NASA table; outcome left empty."
+  ]
+ },
+ {
+  "record": "row 44",
+  "source": "PSI-26",
+  "issues": [
+   "Crew notes describe an igniter failure with no flame: not a valid burn test."
+  ]
+ },
+ {
+  "record": "row 63",
+  "source": "PSI-26",
+  "issues": [
+   "Crew notes describe an igniter failure with no flame: not a valid burn test."
+  ]
+ },
+ {
+  "record": "row 68",
+  "source": "PSI-26",
+  "issues": [
+   "Crew notes describe an igniter failure with no flame: not a valid burn test."
+  ]
+ },
+ {
+  "record": "row 69",
+  "source": "PSI-26",
+  "issues": [
+   "Material 'SOOT Cleaning' not recognised; excluded from ranking.",
+   "Pressure '' not numeric."
+  ]
+ },
+ {
+  "record": "row 87",
+  "source": "PSI-26",
+  "issues": [
+   "Material 'blank' not recognised; excluded from ranking."
+  ]
+ },
+ {
+  "record": "row 88",
+  "source": "PSI-26",
+  "issues": [
+   "Material 'blank' not recognised; excluded from ranking."
+  ]
+ },
+ {
+  "record": "row 91",
+  "source": "PSI-26",
+  "issues": [
+   "Crew notes describe an igniter failure with no flame: not a valid burn test."
+  ]
+ },
+ {
+  "record": "row 100",
+  "source": "PSI-26",
+  "issues": [
+   "Crew notes describe an igniter failure with no flame: not a valid burn test."
+  ]
+ },
+ {
+  "record": "row 120",
+  "source": "PSI-26",
+  "issues": [
+   "Crew notes describe an igniter failure with no flame: not a valid burn test."
+  ]
+ }
+]

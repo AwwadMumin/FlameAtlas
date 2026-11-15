@@ -1,0 +1,25 @@
+{
+ "note": "Catalog of PSI combustion investigations named in the 2026 challenge statement. Every 'quote' is checked word for word against data/sources/CHALLENGE.txt or PSI-26-page.txt. 'in_atlas' = its records are in Flame Atlas.",
+ "investigations": [
+  {"name": "BASS", "psi": "PSI-26", "pillar": "prevention", "fuel": "solid", "in_atlas": true, "source": "CHALLENGE",
+   "quote": "Flammability studies focus on solid materials such as fabrics and plastics, as studied in the Burning and Suppression of Solids (BASS and BASS-II)"},
+  {"name": "BASS-II", "psi": "PSI-25", "pillar": "prevention", "fuel": "solid", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "Flammability studies focus on solid materials such as fabrics and plastics, as studied in the Burning and Suppression of Solids (BASS and BASS-II)"},
+  {"name": "Saffire-I, -II, -III", "psi": "PSI-98, PSI-99, PSI-100", "pillar": "prevention", "fuel": "solid", "in_atlas": true, "source": "CHALLENGE",
+   "quote": "Spacecraft Fire Safety Demonstration (Saffire-I, -II, and -III) investigations"},
+  {"name": "SAME / SAME-R", "psi": "PSI-102, PSI-101", "pillar": "detection", "fuel": "smoke", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "Fire detection was tested in microgravity through the Smoke and Aerosol Measurement Experiment studies (SAME and SAME-R)."},
+  {"name": "FLEX", "psi": "PSI-69", "pillar": "suppression", "fuel": "liquid droplet", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "Suppression was studied in the Flame Extinguishment Experiment (FLEX) through dilution of the chamber atmosphere with carbon dioxide and helium"},
+  {"name": "ACME CFI-G", "psi": "PSI-159", "pillar": "high-oxygen", "fuel": "gas", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "Microgravity tests with the highest oxygen concentrations were conducted as part of the ACME's Cool Flames Investigation with Gases (CFI-G)."},
+  {"name": "ACME BRE", "psi": null, "pillar": "prevention", "fuel": "gas (emulating solids)", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "was a study of materials flammability in still atmospheres as a function of material properties."},
+  {"name": "ACME E-FIELD Flames", "psi": null, "pillar": "partial-gravity proxy", "fuel": "gas", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "Partial gravity was mimicked in ACME's Electric-Field Effects on Laminar Diffusion Flames (E-FIELD Flames) experiment"},
+  {"name": "FLEX-2 / CFI", "psi": "PSI-68, PSI-39", "pillar": "fundamental", "fuel": "liquid droplet", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "FLEX, FLEX-2, and the Cool Flames Investigation (CFI) each featured burning droplets of liquid fuel"},
+  {"name": "SPICE / SLICE", "psi": "PSI-107, PSI-106", "pillar": "fundamental", "fuel": "gas", "in_atlas": false, "source": "CHALLENGE",
+   "quote": "BASS, BASS-II, the Smoke Point In Co-flow Experiment (SPICE), and the Structure & Liftoff In Combustion Experiment (SLICE) collectively featured both solid and gaseous fuels."}
+ ]
+}

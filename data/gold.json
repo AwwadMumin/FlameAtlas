@@ -1,0 +1,200 @@
+{
+ "labelled_by": "Claude, reading each record's full crew note in NASA's PSI-26 workbook (human spot-check recommended)",
+ "label_meaning": "true = flame sustained after ignition; false = did not ignite or did not sustain; null = not a valid burn test",
+ "unclear_excluded": [
+  "PSI-26_row91",
+  "PSI-26_row9"
+ ],
+ "records": [
+  {
+   "id": "PSI-26_row19",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row44",
+   "sustained": null,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row68",
+   "sustained": null,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row70",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row119",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row17",
+   "sustained": false,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row122",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row32",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row123",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row81",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row84",
+   "sustained": false,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row76",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row57",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row109",
+   "sustained": false,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row78",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row75",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row116",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row102",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row108",
+   "sustained": true,
+   "set": "development"
+  },
+  {
+   "id": "PSI-26_row36",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row66",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row55",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row95",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row41",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row51",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row89",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row125",
+   "sustained": false,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row110",
+   "sustained": false,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row101",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row92",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row58",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row98",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row43",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row21",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row20",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row113",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row13",
+   "sustained": true,
+   "set": "held-out"
+  },
+  {
+   "id": "PSI-26_row50",
+   "sustained": true,
+   "set": "held-out"
+  }
+ ]
+}

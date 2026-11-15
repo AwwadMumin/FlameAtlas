@@ -1,0 +1,6 @@
+material,LHV_hc_kJ_g,L_heat_of_gasification_kJ_g,source,note
+PE,43.4,1.9,BRE final report Table 2,literature values selected by BRE team
+PP,44.0,2.0,BRE final report Table 2,literature values selected by BRE team
+Nylon,28.8,"1.5 to 2.4",BRE final report Table 2,two literature values
+PMMA,24.2,"1.6 to 2.3",BRE final report Table 2,two literature values
+Phenolic glass fiber,22.0,7.3,BRE final report Table 2,charring composite

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flame Atlas | Combustion Research Intelligence</title>
+<meta name="description" content="Explore verified NASA microgravity combustion runs, rank materials for a habitat's air, and ask questions answered only from cited NASA records.">
+<link rel="icon" href="__LOGO__">
+<style>
+__CSS__
+
+/* Workspace additions (Team Orion): verified-data states, quotes, ranking. Built on Alaa's design. */
+.verified-pill{display:flex;align-items:center;gap:8px;border:1px solid #454951;border-radius:7px;padding:9px 12px;font:600 11px 'IBM Plex Mono',monospace;color:#c9d8cf;white-space:nowrap;flex-shrink:0;text-decoration:none}
+.verified-pill:hover{border-color:#d65a31;color:#fff}
+.preview-note.ok{border-color:#4f6b5c;background:#2c3530;color:#c7ded0}
+.preview-note.ok b{color:#fff}
+.outcome{font:600 11px 'IBM Plex Mono',monospace;padding:4px 8px;border-radius:4px;white-space:nowrap;display:inline-block}
+.outcome.yes{background:#4a2e26;color:#ffb39a}.outcome.no{background:#283a33;color:#a9dcc0}.outcome.unk{background:#33363d;color:#aeb3bb}
+.quote-block{margin:22px 0;padding:18px 18px 16px;border-left:3px solid #d65a31;background:#23272d;border-radius:0 8px 8px 0}
+.quote-block .overline{display:block;margin-bottom:10px}
+.quote-block q{display:block;color:#f1f1f0;font-size:14px;line-height:1.7;quotes:"\201C" "\201D"}
+.quote-block small{display:block;margin-top:10px;color:#9ea5ae;font-size:11px}
+.issue-list{margin:0 0 20px;padding:0;list-style:none}
+.issue-list li{font-size:12px;color:#e8bdac;line-height:1.6;padding:8px 0;border-bottom:1px dashed #50555e}
+.scenario-form{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin-top:16px}
+.scenario-form label{color:#aeb3bb;font-size:11px;min-width:120px;flex:1}
+.scenario-form input,.scenario-form select{display:block;width:100%;height:41px;margin-top:7px;padding:0 12px;background:#24272d;color:#f1f1f0;border:1px solid #51565e;border-radius:6px;font-size:13px}
+.presets{display:flex;gap:8px;flex-wrap:wrap}
+.presets button{border:1px solid #565b63;background:#30343b;color:#e5e6e8;border-radius:6px;padding:9px 13px;font-size:12px;font-weight:600}
+.presets button.on{border-color:#d65a31;background:#41312d;color:#fff}
+.gap-callout{padding:26px;border:1px solid #75513f;background:#3a302d;border-radius:10px;margin-bottom:17px}
+.gap-callout h2{font-size:22px;margin:8px 0 10px}
+.gap-callout p{color:#e8c8bb;font-size:13px;line-height:1.7;margin:0}
+.gap-callout .big{font:600 44px 'IBM Plex Sans';color:#ff9a76;margin:6px 0}
+.equation{font:500 14px 'IBM Plex Mono',monospace;color:#f1f1f0;background:#23272d;border-radius:7px;padding:12px 14px;margin:10px 0;overflow-x:auto;white-space:nowrap}
+.bar-cell{display:flex;align-items:center;gap:10px;min-width:170px}
+.bar-track{position:relative;flex:1;height:8px;background:#3a3e46;border-radius:4px;min-width:90px}
+.bar-fill{position:absolute;left:0;top:0;height:8px;background:#d65a31;border-radius:4px}
+.bar-ci{position:absolute;top:3px;height:2px;background:#f1f1f0}
+.conf{font:600 11px 'IBM Plex Mono',monospace}
+.conf.High{color:#a9dcc0}.conf.Medium{color:#f0c987}.conf.Low{color:#eaa18c}
+.answer ul{margin:14px 0 0;padding-left:18px;color:#d8dce0;font-size:14px;line-height:1.8}
+.answer .basis{margin-top:18px;font-size:12px;color:#9ea5ae}
+.citation-list article q{display:block;color:#c9cdd3;font-size:12px;line-height:1.6;margin-top:8px;quotes:"\201C" "\201D"}
+.ai-panel{margin:0 20px 20px;border:1px solid #565b63;border-radius:8px;padding:16px;background:#24272d}
+.ai-panel .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-top:10px}
+.ai-panel label{flex:1;min-width:160px;color:#aeb3bb;font-size:11px}
+.ai-panel input{display:block;width:100%;height:38px;margin-top:6px;padding:0 10px;background:#1f2227;color:#f1f1f0;border:1px solid #51565e;border-radius:6px;font-size:12px}
+.ai-panel p{color:#aeb4bc;font-size:12px;line-height:1.6;margin:6px 0 0}
+.ai-out{margin-top:22px;padding-top:18px;border-top:1px solid #454951}
+.ai-out ol{margin:12px 0 0;padding-left:20px;color:#d8dce0;font-size:14px;line-height:1.75}
+.ai-out li{margin-bottom:10px}
+.badge{display:inline-block;font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;white-space:nowrap}
+.badge.ok{background:#283a33;color:#a9dcc0}.badge.bad{background:#4a2426;color:#ffb0b0}.badge.warn{background:#463a22;color:#f0c987}
+.ai-out li.flagged{color:#ffb0b0;text-decoration:underline wavy #d65a31;text-underline-offset:4px}
+.ai-sum{font:600 12px 'IBM Plex Mono',monospace;color:#e8c8bb;margin-top:6px}
+.ai-cites{font-size:11px;color:#9ea5ae}
+.ds-toggle{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:17px}
+.ds-toggle button{border:1px solid #565b63;background:#30343b;color:#e5e6e8;border-radius:7px;padding:11px 15px;font-size:12px;font-weight:600;text-align:left}
+.ds-toggle button small{display:block;font-weight:400;color:#aeb3bb;margin-top:3px;font-size:11px}
+.ds-toggle button.on{border-color:#d65a31;background:#41312d;color:#fff}
+.tier{font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;border-radius:4px;background:#463a22;color:#f0c987;white-space:nowrap}
+.cross{margin-top:16px;padding-top:16px;border-top:1px solid #75513f}
+.cross p{margin:6px 0 0}
+.credit{color:#9da4ac}
+.credit a{color:#e58d70}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="atmosphere" aria-hidden="true"><canvas id="atmo" class="atmosphere-canvas"></canvas><div class="cursor-ember-glow" id="glow"></div></div>
+  <header class="topbar">
+    <a class="brand" href="#explorer" aria-label="Flame Atlas home" style="text-decoration:none"><span class="brand-mark"><img src="__LOGO__" alt="Flame Atlas logo"></span><span><strong>FLAME ATLAS</strong><small>COMBUSTION RESEARCH INTELLIGENCE</small></span></a>
+    <nav aria-label="Main navigation">
+      <button data-page="explorer">Evidence Explorer</button>
+      <button data-page="ranker">Scenario Ranker<em id="navCount" hidden></em></button>
+      <button data-page="ask">Ask with Citations</button>
+    </nav>
+    <a class="verified-pill" href="index.html" title="Back to the Flame Atlas story"><span class="dot"></span><span id="pillText">VERIFIED NASA DATA</span></a>
+  </header>
+
+  <main class="workspace">
+    <div class="workspace-heading">
+      <div><div class="overline">FLAME ATLAS <span>/</span> RESEARCH WORKSPACE</div><h1 id="pageTitle">Evidence Explorer</h1><p id="pageLede"></p></div>
+      <div class="workspace-status"><span class="dot"></span><span id="statusText"></span></div>
+    </div>
+    <div class="preview-note ok" id="dataNote"></div>
+    <div id="view"></div>
+  </main>
+
+  <footer class="footer">
+    <span>FLAME ATLAS <b>·</b> Microgravity Combustion Research <b>·</b> <span class="credit">Interface design: Alaa, Team Orion</span></span>
+    <span>NASA Space Apps Challenge · 2026 · <a href="index.html" style="color:#e58d70">Open the story</a></span>
+  </footer>
+</div>
+
+<div id="drawerRoot"></div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const R = D.records;
+const byId = Object.fromEntries(R.map(r => [r.id, r]));
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = (v, unit = '', d = 1) => v === null || v === undefined ? '—' : `${(+v).toFixed(d).replace(/\.0+$/, '')}${unit}`;
+const pct = v => v === null || v === undefined ? '—' : `${Math.round(v * 100)}%`;
+const gLabel = g => g === 'micro' ? 'Microgravity' : g === 'earth' ? 'Earth (1 g)' : g;
+const outcome = r => r.sustained === true ? '<span class="outcome yes">Burned</span>' : r.sustained === false ? '<span class="outcome no">No sustained burn</span>' : '<span class="outcome unk">Not reported</span>';
+const src = id => D.sources[id] || {title: id, url: null};
+const families = [...new Set(R.map(r => r.material_family).filter(Boolean))].sort();
+const invs = [...new Set(R.map(r => r.investigation))].sort();
+const SOURCES = [...new Set(R.map(r => r.source_id))].sort();
+
+const state = { query: '', family: 'All materials', gravity: 'All gravity', inv: 'All investigations', selected: [],
+  scenario: { preset: 'moon', o2: 30, pressure: 70.3, flow: '', gravity: 'micro' }, question: '', answer: null };
+try { const s = JSON.parse(sessionStorage.getItem('fa-selected') || '[]'); if (Array.isArray(s)) state.selected = s.filter(id => byId[id]); } catch (e) {}
+const saveSel = () => { try { sessionStorage.setItem('fa-selected', JSON.stringify(state.selected)); } catch (e) {} };
+
+/* ---------- the same mathematics as flame_atlas.py ---------- */
+const VARS = [['o2_percent', 'o2'], ['pressure_kpa', 'pressure'], ['flow_cms', 'flow']];
+function distance(run, sc) {
+  if (sc.o2 !== null && run.o2_percent === null) return { d: Infinity, partial: true, terms: [] };
+  let total = 0, used = 0; const terms = [];
+  const wanted = VARS.filter(([, k]) => sc[k] !== null).length;
+  for (const [f, k] of VARS) {
+    if (sc[k] === null || run[f] === null || run[f] === undefined) continue;
+    const t = (run[f] - sc[k]) / D.tol[f]; total += t * t; used++; terms.push({ f, k, run: run[f], target: sc[k], tol: D.tol[f], t });
+  }
+  if (!used) return { d: Infinity, partial: true, terms };
+  return { d: Math.sqrt(total), partial: used < wanted, terms };
+}
+function wilson(k, n, z = 1.96) {
+  if (!n) return null; const p = k / n, den = 1 + z * z / n, c = (p + z * z / (2 * n)) / den;
+  const h = z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den; return [Math.max(0, c - h), Math.min(1, c + h)];
+}
+function confidence(close) {
+  const n = close.length, s = new Set(close.map(r => r.source_id)).size;
+  return n >= 3 && s >= 2 ? 'High' : n >= 2 ? 'Medium' : n === 1 ? 'Low' : null;
+}
+function rank(sc) {
+  const m = {};
+  let nearest = null;
+  for (const r of R) {
+    if (r.gravity !== sc.gravity) continue;
+    const { d, partial, terms } = distance(r, sc);
+    // The nearest run must carry every variable the scenario sets (as in the engine's gap map).
+    if (!partial && (!nearest || d < nearest.d)) nearest = { r, d, terms };
+    if (d > 2) continue;
+    const key = r.material_family || r.material; if (!key) continue;
+    const e = m[key] = m[key] || { close: [], far: [], partial: false };
+    (d <= 1 ? e.close : e.far).push(Object.assign({}, r, { d })); e.partial = e.partial || partial;
+  }
+  const rows = Object.entries(m).map(([material, e]) => {
+    const known = e.close.filter(r => r.sustained !== null);
+    const k = known.filter(r => r.sustained).length;
+    return { material, close: e.close.length, far: e.far.length, share: known.length ? k / known.length : null,
+      k, n: known.length, ci: wilson(k, known.length), conf: e.close.length ? confidence(e.close) : 'Low',
+      sources: [...new Set(e.close.concat(e.far).map(r => r.source_id))].sort(), partial: e.partial, runs: e.close.concat(e.far) };
+  });
+  rows.sort((a, b) => (b.share ?? -1) - (a.share ?? -1) || b.close - a.close);
+  return { rows, nearest };
+}
+
+/* ---------- routing ---------- */
+const PAGES = {
+  explorer: ['Evidence Explorer', 'Explore verified NASA combustion runs, inspect their conditions, and read the exact NASA words behind each one.'],
+  ranker: ['Scenario Ranker', 'Set a habitat’s air, then see which materials have evidence there, how close it is, and how sure we can be.'],
+  ask: ['Ask with Citations', 'Ask a research question. Every answer is assembled from verified NASA records and cites them; nothing is guessed.'],
+};
+function page() { const h = location.hash.replace('#', ''); return PAGES[h] ? h : 'explorer'; }
+function go(p) { if (location.hash !== '#' + p) location.hash = p; else render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+window.addEventListener('hashchange', render);
+document.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => go(b.dataset.page)));
+
+function chrome(p) {
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.page === p));
+  const nc = document.getElementById('navCount'); nc.hidden = !state.selected.length; nc.textContent = state.selected.length;
+  document.getElementById('pageTitle').textContent = PAGES[p][0];
+  document.getElementById('pageLede').textContent = PAGES[p][1];
+  document.getElementById('statusText').textContent = `${D.n_all} NASA records · 7 PSI investigations`;
+  document.getElementById('dataNote').style.display = (p === 'explorer' && state.dataset === 'extended') ? 'none' : '';
+  document.getElementById('dataNote').innerHTML = `<b>One dataset, nothing guessed.</b> ${D.n_all} records from 7 NASA PSI investigations. ${D.n_verified} were extracted by our code from NASA’s raw files and carry a quote checked word for word; the others cite the NASA report table they were transcribed from. Missing values stay empty.`;
+}
+
+function render() {
+  const p = page(); chrome(p);
+  const v = document.getElementById('view');
+  v.innerHTML = p === 'explorer' ? explorer() : p === 'ranker' ? ranker() : ask();
+  bind(p);
+}
+
+/* ---------- Evidence Explorer ---------- */
+function filtered() {
+  const q = state.query.trim().toLowerCase();
+  return R.filter(r => {
+    const text = `${r.id} ${r.investigation} ${r.material} ${r.material_family} ${r.outcome_text} ${r.quote} ${r.source_id}`.toLowerCase();
+    return (!q || q.split(/\s+/).every(w => text.includes(w)))
+      && (state.family === 'All materials' || r.material_family === state.family)
+      && (state.gravity === 'All gravity' || gLabel(r.gravity) === state.gravity)
+      && (state.inv === 'All investigations' || r.investigation === state.inv);
+  });
+}
+function explorer() {
+  if (state.dataset === 'extended' && X.length) return explorerExt();
+  const rows = filtered();
+  const opt = (list, cur) => list.map(x => `<option${x === cur ? ' selected' : ''}>${esc(x)}</option>`).join('');
+  return `${dsToggle()}
+  <section class="panel search-panel"><form id="searchForm">
+    <label class="search-field"><span aria-hidden="true">⌕</span><input id="q" value="${esc(state.query)}" placeholder="Search runs, materials, investigations or NASA’s words (e.g. silicone, PMMA, extinguished)" aria-label="Search experiments"><kbd>SEARCH</kbd></label>
+    <div class="filter-row">
+      <label>Material<select id="fFam">${opt(['All materials', ...families], state.family)}</select></label>
+      <label>Gravity regime<select id="fGrav">${opt(['All gravity', 'Microgravity', 'Earth (1 g)'], state.gravity)}</select></label>
+      <label>Investigation<select id="fInv">${opt(['All investigations', ...invs], state.inv)}</select></label>
+      <button type="button" class="btn ghost" id="clear">Clear filters</button>
+      <button type="submit" class="btn primary">Search evidence <span>→</span></button>
+    </div></form></section>
+  <div class="metrics">
+    <div><span>REAL-MATERIAL RECORDS</span><strong>${R.length}</strong><small>${R.filter(r => r.quote).length} with a word-for-word NASA quote</small></div>
+    <div><span>VISIBLE RESULTS</span><strong>${rows.length}</strong><small>Matching current filters</small></div>
+    <div><span>SELECTED EVIDENCE</span><strong>${state.selected.length}</strong><small>Ready for the Scenario Ranker</small></div>
+  </div>
+  <section class="panel results">
+    <div class="panel-title"><div><span class="overline">DATA EXPLORATION</span><h2>Experiment catalog</h2></div><span>${rows.length} ${rows.length === 1 ? 'record' : 'records'}</span></div>
+    ${rows.length ? `<div class="table-wrap"><table><thead><tr><th aria-label="Select"></th><th>RUN / INVESTIGATION</th><th>MATERIAL</th><th>GRAVITY</th><th>OXYGEN</th><th>PRESSURE</th><th>AIRFLOW</th><th>OUTCOME</th><th>SOURCE</th></tr></thead><tbody>
+      ${rows.map(r => `<tr class="${state.selected.includes(r.id) ? 'row-selected' : ''}">
+        <td><input type="checkbox" data-sel="${esc(r.id)}" aria-label="Select ${esc(r.id)}" ${state.selected.includes(r.id) ? 'checked' : ''}></td>
+        <td><button class="record-link" data-open="${esc(r.id)}"><strong>${esc(r.material)}</strong><small>${esc(r.investigation)} · ${esc(r.id)}</small></button></td>
+        <td>${esc(r.material_family || '—')}</td><td>${gLabel(r.gravity)}</td>
+        <td class="numeric">${fmt(r.o2_percent, '%')}</td><td class="numeric">${fmt(r.pressure_kpa, ' kPa')}</td><td class="numeric">${fmt(r.flow_cms, ' cm/s')}</td>
+        <td>${outcome(r)}</td><td><button class="inline-link" data-open="${esc(r.id)}">${r.quote ? 'NASA quote ↗' : 'Source ↗'}</button></td></tr>`).join('')}
+    </tbody></table></div>` : `<div class="empty"><h3>No matching runs</h3><p>No verified NASA run matches these filters. Flame Atlas shows only what NASA recorded.</p></div>`}
+    <div class="table-footer"><span>Values and units come from NASA’s tables; unit conversion is done by code. Missing values stay empty, never filled in.</span>
+      ${state.selected.length ? `<button class="btn primary" id="toRanker">Compare ${state.selected.length} selected →</button>` : ''}</div>
+  </section>
+  <section class="below-grid">
+    <div class="panel insight"><div class="panel-title"><div><span class="overline">RESEARCH WORKFLOW</span><h2>From evidence to insight</h2></div></div>
+      <div class="workflow"><span>01 <strong>Find evidence</strong></span><b>→</b><span>02 <strong>Rank for a habitat</strong></span><b>→</b><span>03 <strong>Ask with citations</strong></span></div>
+      <p>Select runs here, set a habitat’s oxygen and pressure in the Scenario Ranker, and see how close NASA’s evidence really is, measured by one transparent equation.</p></div>
+    <div class="panel source-info"><div class="panel-title"><div><span class="overline">SOURCE PROVENANCE</span><h2>Traceable research</h2></div></div>
+      <p>${SOURCES.map(s => `<a class="inline-link" style="margin:0" href="${esc(src(s).url)}" target="_blank" rel="noreferrer">${esc(s)}</a> ${esc(src(s).title)}`).join('<br>')}</p>
+      <button class="inline-link" data-go="ask">Open research assistant ↗</button></div>
+  </section>`;
+}
+
+
+/* ---------- Extended catalog (team-built from NASA tables; not quote-verified) ---------- */
+const X = D.ext || [], xById = Object.fromEntries(X.map(r => [r.id, r]));
+state.dataset = 'verified'; state.x = { query: '', cls: 'All fuel types', inv: 'All investigations' };
+const xInvs = [...new Set(X.map(r => r.inv))].sort(), xCls = [...new Set(X.map(r => r.cls))].sort();
+function dsToggle() {
+  if (!X.length) return '';
+  return `<div class="ds-toggle">
+    <button data-ds="verified" class="${state.dataset === 'verified' ? 'on' : ''}">Real materials · ${R.length} records<small>BASS, BASS-II, Saffire I–III. Feeds rankings, statistics and the AI model.</small></button>
+    <button data-ds="extended" class="${state.dataset === 'extended' ? 'on' : ''}">Emulated solids and gas flames · ${X.length} records<small>ACME BRE (up to 40% O₂, 57 kPa) and CFI-G. Different physics: shown, not mixed into material rankings.</small></button></div>`;
+}
+function xFiltered() {
+  const q = state.x.query.trim().toLowerCase();
+  return X.filter(r => (!q || q.split(/\s+/).every(w => `${r.id} ${r.inv} ${r.mat} ${r.cls} ${r.out} ${r.notes} ${r.psi}`.toLowerCase().includes(w)))
+    && (state.x.cls === 'All fuel types' || r.cls === state.x.cls) && (state.x.inv === 'All investigations' || r.inv === state.x.inv));
+}
+function explorerExt() {
+  const rows = xFiltered(), show = rows.slice(0, 300), c = D.catalog;
+  const opt = (list, cur) => list.map(x => `<option${x === cur ? ' selected' : ''}>${esc(x)}</option>`).join('');
+  return `${dsToggle()}
+  <div class="preview-note"><b>Same dataset, different physics.</b> ACME BRE burns gas to emulate a solid; CFI-G studies gas flames. BRE is the only NASA microgravity data that reaches Moon-base air, so it has its own AI model. Neither is mixed into the ranking of real materials. Each record cites its NASA source.</div>
+  <section class="panel search-panel"><form id="xForm">
+    <label class="search-field"><span aria-hidden="true">⌕</span><input id="xq" value="${esc(state.x.query)}" placeholder="Search the catalog (e.g. heptane, PMMA, extinction, Kapton)" aria-label="Search catalog"><kbd>SEARCH</kbd></label>
+    <div class="filter-row"><label>Fuel type<select id="xCls">${opt(['All fuel types', ...xCls], state.x.cls)}</select></label>
+      <label>Investigation<select id="xInv">${opt(['All investigations', ...xInvs], state.x.inv)}</select></label>
+      <button type="button" class="btn ghost" id="xClear">Clear filters</button><button type="submit" class="btn primary">Search catalog <span>→</span></button></div></form></section>
+  <div class="metrics">
+    <div><span>RECORDS</span><strong>${X.length}</strong><small>ACME BRE (PSI-20) and CFI-G (PSI-159)</small></div>
+    <div><span>VISIBLE RESULTS</span><strong>${rows.length}</strong><small>Matching current filters</small></div>
+    <div><span>HIGHEST O₂ (BRE)</span><strong>${fmt(D.model.bre.o2_range[1], '%')}</strong><small>Lowest pressure ${fmt(D.model.bre.pressure_range_kpa[0], ' kPa')}</small></div>
+  </div>
+  <section class="panel results"><div class="panel-title"><div><span class="overline">EMULATED SOLIDS AND GAS FLAMES</span><h2>ACME investigations</h2></div><span>${rows.length} rows${rows.length > show.length ? ` · showing first ${show.length}` : ''}</span></div>
+    ${show.length ? `<div class="table-wrap"><table><thead><tr><th>ROW / INVESTIGATION</th><th>FUEL</th><th>TYPE</th><th>GRAVITY</th><th>OXYGEN</th><th>PRESSURE</th><th>OUTCOME</th><th>SOURCE</th></tr></thead><tbody>
+    ${show.map(r => `<tr><td><button class="record-link" data-xopen="${esc(r.id)}"><strong>${esc(r.inv)}</strong><small>${esc(r.id)}${r.psi ? ' · ' + esc(r.psi) : ''}</small></button></td>
+      <td>${esc(r.mat)}</td><td>${esc(r.cls)}</td><td>${esc(r.g)}</td><td class="numeric">${fmt(r.o2, '%')}</td><td class="numeric">${fmt(r.p, ' kPa')}</td>
+      <td>${esc(r.out || '—')}</td><td><button class="inline-link" data-xopen="${esc(r.id)}">Source ↗</button></td></tr>`).join('')}
+    </tbody></table></div>` : `<div class="empty"><h3>No matching rows</h3><p>Nothing in the catalog matches these filters.</p></div>`}
+    <div class="table-footer"><span>Transcribed from NASA report tables; each record cites its table.</span></div></section>`;
+}
+function openExt(id) {
+  const r = xById[id]; if (!r) return;
+  const fields = [['Investigation', r.inv], ['PSI id', r.psi || '—'], ['Fuel', r.mat], ['Fuel type', r.cls], ['Gravity', r.g], ['Oxygen', fmt(r.o2, '%')], ['Pressure', fmt(r.p, ' kPa')], ['Airflow', fmt(r.flow, ' cm/s')], ['Outcome', r.out || '—'], ['Value type', r.vt || '—']];
+  document.getElementById('drawerRoot').innerHTML = `<div class="modal-backdrop" id="bd"><aside class="detail-drawer" role="dialog" aria-modal="true" aria-label="Catalog row">
+    <div class="drawer-top"><span class="overline">CATALOG ROW · ${esc(r.id)}</span><button aria-label="Close details" id="closeD">✕</button></div>
+    <h2>${esc(r.mat)}</h2><p>${esc(r.notes || '')}</p>
+    <div class="quote-block"><span class="overline">SOURCE · NASA REPORT TABLE</span><q style="quotes:none">${esc(r.ref || '—')}</q>${r.flags ? `<small>Flags: ${esc(r.flags)}</small>` : ''}</div>
+    <div class="detail-fields">${fields.map(([k, v]) => `<div><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('')}</div>
+    ${r.url ? `<a class="btn primary" href="${esc(r.url)}" target="_blank" rel="noreferrer">Open NASA PSI page ↗</a>` : ''}</aside></div>`;
+  const close = () => { document.getElementById('drawerRoot').innerHTML = ''; };
+  document.getElementById('bd').addEventListener('mousedown', e => { if (e.target.id === 'bd') close(); });
+  document.getElementById('closeD').onclick = close; document.getElementById('closeD').focus();
+}
+function crossCheck(sc) {
+  const b = D.model && D.model.bre; if (!b) return '';
+  const nm = b.near_moon_tests, est = b.moon_air_estimate, pm = est[Object.keys(est)[0]];
+  return `<div class="cross"><span class="overline">CLOSEST NASA EVIDENCE · ACME BRE (EMULATED SOLIDS)</span>
+    <p>No real material has been tested in this air. The nearest NASA microgravity data is ACME BRE, a gas burner that emulates a burning solid, run at up to ${fmt(b.o2_range[1], '%')} O₂ and down to ${fmt(b.pressure_range_kpa[0], ' kPa')}. Near Moon-base air (24–32% O₂, 60–80 kPa), <b>${nm.burned} of ${nm.n} tests kept burning</b>.</p>
+    <p>AI model on ${b.n} BRE tests (leave-one-out accuracy ${pct(b.loo.accuracy)}, baseline ${pct(b.baseline.accuracy)}): at Moon-base air, a PMMA-like fuel keeps burning with probability ${pct(pm[0].p)} [${pct(pm[0].lo)}–${pct(pm[0].hi)}] at low fuel flux and ${pct(pm[pm.length - 1].p)} [${pct(pm[pm.length - 1].lo)}–${pct(pm[pm.length - 1].hi)}] at high flux.</p>
+    <p style="font-size:12px;opacity:.85">${esc(b.caveat)}</p></div>`;
+}
+function modelPanel() {
+  const s = D.model && D.model.solid; if (!s) return '';
+  const o = s.oxygen_odds_ratio_per_point, mats = ['PMMA', 'SIBAL', 'Nomex', 'Silicone'], pts = [16, 19, 22];
+  const at = (m, x) => (s.curves[m] || []).find(c => Math.abs(c.o2 - x) < 0.01);
+  const cv = Object.entries(s.cv).filter(([, v]) => v.model.n >= 10);
+  return `<div class="cross" style="border-top-color:#454951"><span class="overline">AI MODEL · REAL MATERIALS · BAYESIAN LOGISTIC REGRESSION</span>
+    <p>Learned from ${s.n} labelled microgravity runs (${Object.entries(s.by_investigation).map(([k, v]) => `${k} ${v}`).join(', ')}). <b>Each +1 point of oxygen multiplies the odds of sustained burning by ${o[0].toFixed(2)}</b> (95% CI ${o[1].toFixed(2)}–${o[2].toFixed(2)}). Airflow ${fmt(s.flow_used_for_curves, ' cm/s')} below.</p>
+    <div class="table-wrap"><table><thead><tr><th>MATERIAL</th>${pts.map(x => `<th>${x}% O₂</th>`).join('')}</tr></thead><tbody>
+    ${mats.map(m => `<tr><td>${m}</td>${pts.map(x => { const c = at(m, x); return `<td class="numeric">${c ? `${pct(c.p)} <span style="opacity:.6">[${pct(c.lo)}–${pct(c.hi)}]</span>` : '—'}</td>`; }).join('')}</tr>`).join('')}
+    </tbody></table></div>
+    <p style="margin-top:10px">Validation on whole investigations it never saw: ${cv.map(([k, v]) => `${k}: Brier ${v.model.brier.toFixed(3)} vs ${v.baseline_always_burns.brier.toFixed(3)} for “always burns”`).join('; ')}. It explains the effect of oxygen and material well, but it cannot yet predict a new investigation better than the simple baseline: more varied tests are needed.</p>
+    <p style="font-size:12px;opacity:.85">${esc(s.moon_air.statement)}</p></div>`;
+}
+/* ---------- Scenario Ranker ---------- */
+function scenario() {
+  const s = state.scenario, num = v => v === '' || v === null || isNaN(+v) ? null : +v;
+  return { o2: num(s.o2), pressure: num(s.pressure), flow: num(s.flow), gravity: s.gravity };
+}
+function scenarioForm() {
+  const s = state.scenario;
+  const presets = Object.entries(D.briefs).map(([k, b]) => `<button type="button" data-preset="${k}" class="${s.preset === k ? 'on' : ''}">${esc(b.name.split(' / ')[0])} · ${b.o2}% · ${b.pressure} kPa</button>`).join('');
+  return `  <section class="panel compare-head" style="display:block">
+    <span class="overline">SCENARIO ANALYSIS</span><h2>Habitat air to evaluate</h2>
+    <p>Presets are quoted from the challenge statement. Change any value to test your own scenario.</p>
+    <div class="scenario-form">
+      <div class="presets">${presets}</div>
+    </div>
+    <form class="scenario-form" id="scForm">
+      <label>Oxygen (%)<input id="sO2" type="number" step="0.1" value="${esc(s.o2)}"></label>
+      <label>Pressure (kPa)<input id="sP" type="number" step="0.1" value="${esc(s.pressure)}"></label>
+      <label>Airflow (cm/s, optional)<input id="sF" type="number" step="0.1" value="${esc(s.flow)}" placeholder="any"></label>
+      <label>Gravity regime<select id="sG"><option value="micro"${s.gravity === 'micro' ? ' selected' : ''}>Microgravity</option><option value="earth"${s.gravity === 'earth' ? ' selected' : ''}>Earth (1 g)</option><option value="lunar"${s.gravity === 'lunar' ? ' selected' : ''}>Moon (0.16 g)</option><option value="mars"${s.gravity === 'mars' ? ' selected' : ''}>Mars (0.38 g)</option></select></label>
+      <button class="btn primary" type="submit">Rank materials →</button>
+    </form>
+  </section>`;
+}
+function ranker() {
+  const s = state.scenario, sc = scenario();
+  const { rows, nearest } = rank(sc);
+  const ranked = rows.filter(r => r.close > 0 && r.share !== null);
+  const presets = Object.entries(D.briefs).map(([k, b]) => `<button type="button" data-preset="${k}" class="${s.preset === k ? 'on' : ''}">${esc(b.name.split(' / ')[0])} · ${b.o2}% · ${b.pressure} kPa</button>`).join('');
+  const chosen = state.selected.map(id => byId[id]).filter(Boolean);
+  const brief = D.briefs[s.preset];
+  let head = '';
+  if (sc.gravity === 'lunar' || sc.gravity === 'mars') {
+    const g = sc.gravity === 'lunar' ? 'Moon (0.16 g)' : 'Mars (0.38 g)';
+    const bound = gv => rank(Object.assign({}, sc, { gravity: gv }));
+    const mi = bound('micro'), ea = bound('earth');
+    const line = (lab, b) => b.nearest && isFinite(b.nearest.d) ? `${lab}: nearest run d = ${b.nearest.d.toFixed(2)} (${esc(b.nearest.r.material)}, ${esc(b.nearest.r.investigation)}).` : `${lab}: no run with the needed variables.`;
+    return `${scenarioForm()}<div class="gap-callout"><span class="overline">NO DATA AT THIS GRAVITY</span><h2>No combustion test exists at ${g} in NASA’s PSI database.</h2>
+      <p>The challenge statement says so directly: “there is currently no partial-gravity combustion data available in PSI.” It also says microgravity and normal-gravity results “could bound what occurs at intermediate gravity levels.” So Flame Atlas shows both bounds and does not invent a number in between.</p>
+      <div class="analysis-grid" style="margin:16px 0 0"><div><strong>Lower bound · microgravity</strong><p>${line('Microgravity', mi)}</p></div><div><strong>Upper bound · Earth (1 g)</strong><p>${ea.nearest && isFinite(ea.nearest.d) ? line('Earth', ea) : `Earth: the 1-g runs in our data (Saffire-II ground tests) do not report oxygen and pressure, so their distance cannot be measured. Their outcomes are compared in the Earth-vs-space test (p = ${D.stats.earth_vs_space.p.toFixed(2)}).`}</p></div></div>
+      <p style="margin-top:14px">Future data: the challenge names the Lunar-g Combustion Investigation (LUCI) and Flammability of Materials on the Moon (FM2).</p></div>`;
+  }
+  if (!ranked.length) {
+    const n = nearest;
+    head = `<div class="gap-callout"><span class="overline">EVIDENCE GAP</span><h2>No real-material test lies close to this air.</h2>
+      ${n && isFinite(n.d) ? `<div class="big">d = ${n.d.toFixed(2)}</div><p>The nearest run is ${esc(n.r.material)} (${esc(n.r.investigation)}, ${fmt(n.r.o2_percent, '%')} O₂, ${fmt(n.r.pressure_kpa, ' kPa')}). Under 1 counts as close. Flame Atlas gives no ranking here: any number would be a guess. This is the gap the next flight experiment should fill.</p>` : `<p>No run with the needed variables exists for this gravity regime.</p>`}
+      ${crossCheck(sc)}
+      ${nextPlan()}</div>`;
+  }
+  const worked = nearest && isFinite(nearest.d) ? `<div class="equation">d = √( ${nearest.terms.map(t => `((${fmt(t.target)} − ${fmt(t.run, '', 2)}) / ${fmt(t.tol, '', 2)})²`).join(' + ')} ) = ${nearest.d.toFixed(2)}</div>` : '';
+  const limits = [];
+  limits.push({ cat: 'methodology', sev: 'info', title: 'Tolerance is a stated assumption', desc: `τ = max(20% of the tested range, a physical floor): O₂ ${D.tol.o2_percent.toFixed(2)} points, pressure ${D.tol.pressure_kpa.toFixed(2)} kPa, flow ${D.tol.flow_cms.toFixed(2)} cm/s. Doubling τ halves every distance; it does not move an 8-unit gap inside the tested range.` });
+  limits.push({ cat: 'data_coverage', sev: 'caution', title: 'No partial-gravity data', desc: 'No Moon or Mars gravity combustion data exists in PSI yet. The challenge notes that microgravity and 1-g results could bound what happens in between.' });
+  if (sc.pressure !== null) limits.push({ cat: 'data_coverage', sev: 'caution', title: 'Runs without pressure', desc: 'Saffire tables and the BASS-II report do not give pressure per run. Those runs stay in the dataset with pressure empty, and are not used to measure distance on pressure.' });
+  limits.push({ cat: 'methodology', sev: 'info', title: 'Labels weighted by how they were read', desc: 'NASA table outcomes weigh 1.0, our crew-note rule 0.9 (89.5% on held-out runs), BASS-II report comments 0.35. The AI model uses these weights.' });
+  limits.push({ cat: 'interpretation', sev: 'info', title: 'A triage tool, not a certificate', desc: 'Burn shares compare materials within NASA’s evidence. They do not replace NASA-STD-6001 testing.' });
+  for (const r of chosen) for (const i of (r.issues || [])) limits.push({ cat: 'measurement_uncertainty', sev: 'caution', title: `NASA file note: ${r.id}`, desc: i, ids: [r.id], src: r.source_id });
+  return `${scenarioForm()}
+  ${head}
+  ${ranked.length ? `<div class="panel results" style="margin-bottom:17px"><div class="panel-title"><div><span class="overline">MATERIAL RANKING</span><h2>Evidence near this air</h2></div><span>${ranked.length} materials with close runs</span></div>
+    <div class="table-wrap"><table><thead><tr><th>MATERIAL</th><th>BURNED (CLOSE RUNS)</th><th>95% WILSON INTERVAL</th><th>CLOSE / FAR</th><th>CONFIDENCE</th><th>SOURCES</th></tr></thead><tbody>
+    ${rows.map(r => `<tr><td><strong>${esc(r.material)}</strong>${r.partial ? '<small class="table-sub">some variables missing</small>' : ''}${!r.close ? '<small class="table-sub">far runs only</small>' : ''}</td>
+      <td><div class="bar-cell"><span class="numeric">${r.share === null ? '—' : `${r.k}/${r.n} · ${pct(r.share)}`}</span>${r.share !== null ? `<div class="bar-track"><div class="bar-fill" style="width:${r.share * 100}%"></div>${r.ci ? `<div class="bar-ci" style="left:${r.ci[0] * 100}%;width:${(r.ci[1] - r.ci[0]) * 100}%"></div>` : ''}</div>` : ''}</div></td>
+      <td class="numeric">${r.ci ? `${pct(r.ci[0])}–${pct(r.ci[1])}` : '—'}</td><td class="numeric">${r.close} / ${r.far}</td>
+      <td><span class="conf ${r.conf}">${r.close ? r.conf : '—'}</span></td><td class="numeric">${r.sources.join(', ')}</td></tr>`).join('')}
+    </tbody></table></div></div>` : ''}
+  <section class="panel analysis" style="margin-top:0">
+    <span class="overline">SCIENTIFIC COMPARABILITY</span><h2>How the distance is measured</h2>
+    <p>Each variable’s difference is divided by its tolerance τ, then combined: d = √Σ((x − s)/τ)². d ≤ 1 is close, d ≤ 2 is far, beyond that is no evidence. Oxygen is required: a run with no O₂ is never treated as close.</p>
+    ${worked ? `<p style="margin-bottom:0">Nearest run, worked on real data:</p>${worked}` : ''}
+    ${modelPanel()}
+    ${chosen.length ? `<div class="analysis-grid">${chosen.map(r => { const x = distance(r, sc); const lab = (!isFinite(x.d) ? 'Not measurable' : x.d <= 1 ? 'Comparable' : x.d <= 2 ? 'Context only' : 'Not comparable') + (x.partial && isFinite(x.d) ? ' (some variables not reported)' : '');
+      return `<div><strong>${esc(r.id)}</strong><span>${lab}${isFinite(x.d) ? ` · d = ${x.d.toFixed(2)}` : ''}</span><p>${esc(r.material)}, ${fmt(r.o2_percent, '%')} O₂, ${fmt(r.pressure_kpa, ' kPa')}, ${gLabel(r.gravity)}. <button class="inline-link" data-open="${esc(r.id)}">Quote ↗</button></p></div>`; }).join('')}</div>`
+      : `<div class="limitation-empty" style="margin-top:16px"><strong>No runs selected</strong><p>Select runs in the Evidence Explorer to see whether each one is comparable to this air.</p></div>`}
+    <section class="scientific-limitations" aria-labelledby="limitations-heading">
+      <div class="limitations-heading"><div><span class="overline">RESEARCH TRANSPARENCY</span><h3 id="limitations-heading">Scientific Limitations &amp; Interpretation</h3></div><span class="limitation-count">${limits.length} limitations</span></div>
+      <div class="limitations-list">${limits.map(l => `<article class="limitation-item"><div class="limitation-meta"><span>${l.cat.replace(/_/g, ' ')}</span><span>${l.sev}</span></div><h4>${esc(l.title)}</h4><p>${esc(l.desc)}</p>${l.ids ? `<small>Affected records: ${esc(l.ids.join(', '))}</small><small>Evidence IDs: ${esc(l.src)}</small>` : ''}</article>`).join('')}</div>
+      <div class="comparison-sources"><strong>Supporting research sources</strong>${SOURCES.map(s => `<div><span>${esc(src(s).title)} · ${esc(s)}</span><a href="${esc(src(s).url)}" target="_blank" rel="noreferrer">Original source ↗</a></div>`).join('')}</div>
+      ${brief && s.preset ? `<div class="methodology"><strong>Environment quote (${esc(brief.name)})</strong><p>“${esc(brief.quote)}” (challenge statement)</p></div>` : ''}
+    </section>
+    <div class="actions"><button class="btn outline" id="clearSel">Clear selection</button><button class="btn primary" data-go="ask">Ask about this evidence →</button></div>
+  </section>`;
+}
+
+
+function nextPlan() {
+  const s = state.scenario, sc = scenario();
+  const nx = D.briefs[(s.preset && D.briefs[s.preset]) ? s.preset : 'moon'].next;
+  return `<div style="margin-top:20px;padding-top:18px;border-top:1px solid #75513f">
+    <span class="overline">AI RECOMMENDATION · ACTIVE LEARNING</span>
+    <h2 style="font-size:19px;margin:8px 0 6px">Fly ${fmt(sc.o2, '% O₂')} at ${fmt(sc.pressure, ' kPa')} in microgravity. Test these first:</h2>
+    <p style="margin-bottom:10px">A Bayesian model learns each material’s burn probability from NASA’s runs. It picks the tests where it expects to learn the most (expected information gain). One run at this air brings the distance from ${nx.nearest_d.toFixed(2)} to 0. The model pools the conditions NASA tested; it does not predict burning at this air, it says where a new test teaches the most.</p>
+    <div class="analysis-grid" style="margin:12px 0 0">${nx.priorities.map((p, i) => `<div><strong>${i + 1}. ${esc(p.material)}</strong><span>gain ${p.eig_bits.toFixed(3)} bits · P(burn) ${pct(p.p_burn)}</span><p>Learned from ${p.burned}/${p.tests} burns. 95% credible interval ${pct(p.credible95[0])}–${pct(p.credible95[1])}: the model is unsure.</p></div>`).join('')}</div>
+    <details style="margin-top:14px"><summary style="cursor:pointer;color:#e8c8bb;font-size:12px">Show the model for every material</summary>
+      <div class="table-wrap" style="margin-top:10px"><table><thead><tr><th>MATERIAL</th><th>LEARNED FROM</th><th>P(BURN)</th><th>95% CREDIBLE</th><th>EXPECTED GAIN</th></tr></thead><tbody>
+      ${nx.model.map(p => `<tr><td>${esc(p.material)}</td><td class="numeric">${p.burned}/${p.tests}</td><td class="numeric">${pct(p.p_burn)}</td><td class="numeric">${pct(p.credible95[0])}–${pct(p.credible95[1])}</td><td class="numeric">${p.eig_bits.toFixed(3)} bits</td></tr>`).join('')}
+      </tbody></table></div>
+      <p style="font-size:12px;margin-top:8px">Model: Beta-Binomial, prior Beta(1,1). Posterior Beta(1 + burned, 1 + not burned). Gain = mutual information between the next outcome and the burn probability.</p></details></div>`;
+}
+/* ---------- Ask with Citations: retrieval only, no generated text ---------- */
+const ALIASES = { 'pmma': ['PMMA sphere', 'PMMA (sheet / slab)'], 'acrylic': ['PMMA sphere', 'PMMA (sheet / slab)'], 'plexiglas': ['PMMA sphere', 'PMMA (sheet / slab)'],
+  'sibal': ['SIBAL (cotton-fiberglass fabric)'], 'cotton': ['SIBAL (cotton-fiberglass fabric)'], 'fiberglass': ['SIBAL (cotton-fiberglass fabric)'],
+  'nomex': ['Nomex fabric'], 'silicone': ['Silicone'], 'wax': ['Wax (candle / slab)'], 'candle': ['Wax (candle / slab)'], 'ultem': ['Ultem sheet'] };
+function cite(r) { return { id: r.id, title: `${r.material} · ${r.investigation}`, source: r.source_id, quote: r.quote, url: src(r.source_id).url }; }
+function answer(q) {
+  const t = q.toLowerCase();
+  const env = /moon|lunar|rover/.test(t) ? 'moon' : /suit|eva/.test(t) ? 'spacesuit' : /\biss\b|space station|station/.test(t) ? 'iss' : null;
+  if (/next|test first|what should .*test|priorit|experiment should|fly/.test(t)) {
+    const k = env || 'moon', nx = D.briefs[k].next;
+    return { kind: 'Recommended next experiment', bullets: [`Habitat: ${D.briefs[k].name}, ${nx.conditions.o2}% O₂ at ${nx.conditions.pressure} kPa, microgravity.`, `Nearest real-material run today: d = ${nx.nearest_d.toFixed(2)} (close means d ≤ 1).`]
+      .concat(nx.priorities.map((p, i) => `${i + 1}. ${p.material}: expected gain ${p.eig_bits.toFixed(3)} bits; the model puts P(burn) at ${pct(p.p_burn)}, 95% credible interval ${pct(p.credible95[0])}–${pct(p.credible95[1])} (learned from ${p.burned}/${p.tests}).`)).concat([nx.rule]),
+      cites: [{ id: 'CHALLENGE', title: src('CHALLENGE').title, source: 'CHALLENGE', quote: D.briefs[k].quote, url: null }], basis: 'Computed from verified records by the engine (python flame_atlas.py next).' };
+  }
+  if (env && D.briefs[env]) {
+    const b = D.briefs[env];
+    const bre = D.model && D.model.bre && env === 'moon' ? [`Closest NASA evidence: ACME BRE emulated solids. Near Moon-base air, ${D.model.bre.near_moon_tests.burned} of ${D.model.bre.near_moon_tests.n} tests kept burning (emulated fuel, tests that ignited).`] : [];
+    return { kind: 'Mission brief', bullets: b.lines.slice(0, 7).map(l => l.text).concat(bre),
+      cites: b.lines.filter(l => l.quote).slice(0, 5).map(l => ({ id: l.source, title: src(l.source).title, source: l.source, quote: l.quote, url: src(l.source).url })),
+      basis: `Computed by the engine from ${R.length} real-material records; quoted lines come from the challenge statement and NASA PSI pages.` };
+  }
+  const fams = new Set(); for (const [k, v] of Object.entries(ALIASES)) if (t.includes(k)) v.forEach(f => fams.add(f));
+  if (fams.size) {
+    const bullets = [], cites = [];
+    for (const f of fams) {
+      const runs = R.filter(r => r.material_family === f && r.gravity === 'micro');
+      const known = runs.filter(r => r.sustained !== null), k = known.filter(r => r.sustained).length, ci = wilson(k, known.length);
+      const o2 = runs.map(r => r.o2_percent).filter(v => v !== null);
+      bullets.push(`${f}: kept burning in ${k} of ${known.length} microgravity runs (${pct(known.length ? k / known.length : null)}${ci ? `, 95% Wilson interval ${pct(ci[0])}–${pct(ci[1])}` : ''}). Oxygen tested: ${o2.length ? `${fmt(Math.min(...o2), '%')}–${fmt(Math.max(...o2), '%')}` : 'not reported'}.`);
+      runs.slice(0, 3).forEach(r => cites.push(cite(r)));
+    }
+    if (fams.has('Silicone') && /earth|1 ?g|ground|gravity/.test(t)) {
+      const e = D.stats.earth_vs_space;
+      bullets.push(`Earth vs space (Saffire-II): ${e.same_direction} of ${e.pairs} silicone samples burned in the 1-g test but not in microgravity. Exact sign test p = ${e.p.toFixed(2)}: not significant. A signal worth testing, not a finding.`);
+    }
+    if (fams.size >= 2) {
+      const names = [...fams];
+      const pr = D.stats.pairs.find(p => names.includes(p.a) && names.includes(p.b));
+      if (pr) bullets.push(`Fisher’s exact test, ${pr.a} vs ${pr.b}: p = ${pr.p < 0.0001 ? '< 0.0001' : pr.p.toFixed(4)}${pr.significant_bonferroni ? ', significant after Bonferroni correction.' : pr.significant ? ', significant but not after Bonferroni correction.' : ', not significant.'}`);
+    }
+    return { kind: 'Material evidence', bullets, cites, basis: 'Counts and intervals computed from verified records; shares pool all tested conditions.' };
+  }
+  if (/most|rank|which material|safest|burn(ed)? (most|least)/.test(t)) {
+    const sh = D.stats.shares;
+    return { kind: 'Burn share by material', bullets: sh.map(s => `${s.material}: ${s.burned}/${s.tests} (${pct(s.share)}, 95% CI ${pct(s.ci95[0])}–${pct(s.ci95[1])})`)
+      .concat([`${D.stats.pairs.filter(p => p.significant_bonferroni).length} pairwise differences survive Bonferroni correction (${D.stats.comparisons} comparisons).`]),
+      cites: SOURCES.map(s => ({ id: s, title: src(s).title, source: s, quote: null, url: src(s).url })), basis: D.stats.note };
+  }
+  if (/airflow|flow|wind|ventilat/.test(t)) {
+    const runs = R.filter(r => r.gravity === 'micro' && r.flow_cms !== null && r.sustained !== null);
+    const lo = runs.filter(r => r.flow_cms < 5), hi = runs.filter(r => r.flow_cms >= 5);
+    const s = a => `${a.filter(r => r.sustained).length}/${a.length}`;
+    const ext = R.filter(r => /extinguish|blow ?off|quench/i.test(r.quote || '')).slice(0, 4);
+    return { kind: 'Airflow evidence', bullets: [
+      `Verified microgravity runs with airflow reported: ${runs.length}.`,
+      `Below 5 cm/s, the flame kept burning in ${s(lo)} runs; at 5 cm/s or more, in ${s(hi)}.`,
+      'In microgravity there is no buoyancy, so airflow is what brings fresh oxygen to the flame.',
+      'Burned / not burned alone does not show a clear airflow effect in these runs; NASA reports flame spread rate for too few runs to measure one.',
+      ext.length ? 'NASA’s own observations of flames changing or going out as conditions changed are cited on the right.' : 'No extinction observations matched in the quotes.'],
+      cites: ext.map(cite), basis: 'Counts pool all materials and oxygen levels; compare like with like in the Scenario Ranker.' };
+  }
+  if (/oxygen|o2|o₂/.test(t) && D.model) {
+    const o = D.model.solid.oxygen_odds_ratio_per_point, top = R.filter(r => r.o2_percent !== null).reduce((a, b) => b.o2_percent > a.o2_percent ? b : a);
+    return { kind: 'Oxygen effect (AI model)', bullets: [`Bayesian logistic regression on ${D.model.solid.n} labelled real-material runs: each +1 point of oxygen multiplies the odds of sustained burning by ${o[0].toFixed(2)} (95% CI ${o[1].toFixed(2)}–${o[2].toFixed(2)}).`,
+      `Real materials were tested from ${fmt(D.model.solid.o2_range[0], '%')} to ${fmt(D.model.solid.o2_range[1], '%')} O₂. Moon-base air (30%) is beyond that, so the model does not predict there.`,
+      `ACME BRE emulated solids reached ${fmt(D.model.bre.o2_range[1], '%')} O₂: near Moon-base air ${D.model.bre.near_moon_tests.burned} of ${D.model.bre.near_moon_tests.n} kept burning.`],
+      cites: [cite(top)], basis: 'Model fitted by models.py on data/atlas_dataset.json; validation by leave-one-investigation-out.' };
+  }
+  if (/oxygen|o2|o₂/.test(t)) {
+    const o2 = R.filter(r => r.gravity === 'micro' && r.o2_percent !== null);
+    const top = o2.reduce((a, b) => b.o2_percent > a.o2_percent ? b : a);
+    return { kind: 'Oxygen coverage', bullets: [`Microgravity runs with oxygen reported: ${o2.length}.`, `Range tested: ${fmt(Math.min(...o2.map(r => r.o2_percent)), '%')}–${fmt(top.o2_percent, '%')} O₂.`, `Planned Moon-base air is 30% O₂ or more, ${(30 - top.o2_percent).toFixed(1)} points beyond any tested solid.`],
+      cites: [cite(top)], basis: 'Computed from verified records.' };
+  }
+  const words = t.split(/[^a-z0-9.]+/).filter(w => w.length > 3);
+  const hits = R.map(r => ({ r, s: words.filter(w => `${r.material} ${r.outcome_text} ${r.quote}`.toLowerCase().includes(w)).length })).filter(x => x.s).sort((a, b) => b.s - a.s).slice(0, 6);
+  if (hits.length) return { kind: 'Matching NASA records', bullets: [`${hits.length} verified runs mention your terms in NASA’s own text. Read them on the right; open any run in the Evidence Explorer for its conditions.`], cites: hits.map(x => cite(x.r)), basis: 'Keyword retrieval over verified quotes.' };
+  return { kind: 'No evidence', bullets: ['No verified NASA record answers this. Flame Atlas does not answer without a source.'], cites: [], basis: 'Try a material (silicone, PMMA, Nomex), a habitat (Moon base, spacesuit, ISS), oxygen or airflow.' };
+}
+
+/* ---------- AI interpreter (LLM) + engine fact-checker ---------- */
+state.ai = { key: '', model: 'gemini-2.5-flash', result: null, busy: false, error: '' };
+const numsIn = s => (String(s ?? '').match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+function evidencePack(q, a) {
+  const items = [];
+  (a ? a.bullets : []).forEach((b, i) => items.push({ id: `F${i + 1}`, kind: 'computed fact', text: b }));
+  const ids = new Set((a ? a.cites : []).map(c => c.id).filter(id => byId[id]));
+  const words = q.toLowerCase().split(/[^a-z0-9.]+/).filter(w => w.length > 3);
+  R.map(r => ({ r, s: words.filter(w => `${r.material} ${r.material_family} ${r.outcome_text} ${r.quote}`.toLowerCase().includes(w)).length }))
+    .filter(x => x.s).sort((x, y) => y.s - x.s).slice(0, 12).forEach(x => ids.add(x.r.id));
+  [...ids].slice(0, 20).forEach(id => { const r = byId[id];
+    items.push({ id, kind: 'NASA run', text: `${r.material} (${r.material_family || ''}), ${r.investigation}, ${r.source_id}, ${gLabel(r.gravity)}, O2 ${r.o2_percent ?? 'not reported'}%, pressure ${r.pressure_kpa ?? 'not reported'} kPa, flow ${r.flow_cms ?? 'not reported'} cm/s, outcome: ${r.sustained === true ? 'burned' : r.sustained === false ? 'no sustained burn' : 'not reported'}. NASA quote: "${r.quote}"` }); });
+  return items;
+}
+function promptFor(q, items) {
+  return `You are the interpreter inside Flame Atlas, a tool for NASA microgravity combustion evidence.
+Answer the question using ONLY the evidence items below.
+Rules:
+- 3 to 6 sentences, plain English for a mission planner.
+- Every sentence must cite the ids of the items it relies on.
+- Copy every number exactly as it appears in the evidence. Do not compute new numbers.
+- If the evidence does not answer the question, say so in one sentence.
+- Do not claim anything is safe or certified.
+Return JSON only: {"sentences":[{"text":"...","cites":["F1","PSI-26_row4"]}]}
+
+Question: ${q}
+
+Evidence:
+${items.map(i => `[${i.id}] (${i.kind}) ${i.text}`).join('\n')}`;
+}
+function factCheck(sentences, items) {
+  const byItem = Object.fromEntries(items.map(i => [i.id, i]));
+  const always = [0, 1, 95];
+  return sentences.map(s => {
+    const cites = (s.cites || []).filter(c => byItem[c]);
+    const bogus = (s.cites || []).filter(c => !byItem[c]);
+    const allowed = always.concat(...cites.map(c => numsIn(byItem[c].text + ' ' + c)));
+    const near = (x, v) => Math.abs(x - v) <= Math.max(0.051, 0.006 * Math.abs(v)) || Math.abs(x - v * 100) <= 0.6 || Math.abs(x / 100 - v) <= 0.006;
+    const unsupported = numsIn(s.text).filter(x => !allowed.some(v => near(Math.abs(x), Math.abs(v))));
+    const claim = /\b(safe|safer|safest|certif\w*|guarantee\w*|proves?|proven)\b/i.test(s.text);
+    const status = bogus.length || claim ? 'bad' : !cites.length ? 'warn' : unsupported.length ? 'bad' : 'ok';
+    return { text: s.text, cites, bogus, unsupported, claim, status };
+  });
+}
+async function callGemini(key, model, prompt) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
+  const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { temperature: 0.2, responseMimeType: 'application/json' } }) });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(body.error && body.error.message ? body.error.message : `Gemini returned ${res.status}`);
+  const text = (((body.candidates || [])[0] || {}).content || {}).parts?.map(p => p.text).join('') || '';
+  const json = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1));
+  if (!Array.isArray(json.sentences)) throw new Error('The model did not return sentences.');
+  return json.sentences;
+}
+async function interpret(simulate) {
+  const q = state.question || 'What should NASA test next for the Moon base?';
+  if (!state.answer) { state.question = q; state.answer = answer(q); }
+  const items = evidencePack(q, state.answer);
+  state.ai.error = ''; state.ai.result = null;
+  if (simulate) {
+    const f = items.filter(i => i.kind === 'computed fact').slice(0, 2);
+    const s = f.map(i => ({ text: i.text, cites: [i.id] }));
+    s.push({ text: 'Silicone kept burning in 75% of microgravity runs at 35% oxygen.', cites: f.length ? [f[0].id] : [] });
+    s.push({ text: 'Nomex is therefore safe to use in the Moon base.', cites: [] });
+    state.ai.result = { model: 'simulated AI output with planted errors', checked: factCheck(s, items), items };
+    render(); return;
+  }
+  if (!state.ai.key) { state.ai.error = 'Paste a Gemini API key first (free at aistudio.google.com). It stays in this browser tab only.'; render(); return; }
+  state.ai.busy = true; render();
+  try { const s = await callGemini(state.ai.key, state.ai.model, promptFor(q, items)); state.ai.result = { model: state.ai.model, checked: factCheck(s, items), items }; }
+  catch (e) { state.ai.error = `AI interpreter unavailable: ${e.message} The verified answer above still stands.`; }
+  state.ai.busy = false; render();
+}
+function aiOutput() {
+  const r = state.ai.result; if (!r) return state.ai.error ? `<p class="form-error" style="margin:16px 0 0">${esc(state.ai.error)}</p>` : '';
+  const ok = r.checked.filter(s => s.status === 'ok').length, n = r.checked.length;
+  return `<div class="ai-out"><span class="overline">AI INTERPRETATION · ${esc(r.model.toUpperCase())}</span>
+    <p class="ai-sum">AI wrote ${n} sentences. The engine verified ${ok}; flagged ${n - ok}.</p>
+    <ol>${r.checked.map(s => `<li class="${s.status === 'bad' ? 'flagged' : ''}">${esc(s.text)}${s.status === 'ok' ? '<span class="badge ok">✓ verified</span>' : s.status === 'warn' ? '<span class="badge warn">no source cited</span>' : `<span class="badge bad">✗ ${s.claim ? 'claim the evidence cannot support' : s.bogus.length ? 'cites unknown source' : 'number not in NASA data: ' + esc(s.unsupported.join(', '))}</span>`}
+      ${s.cites.length ? `<div class="ai-cites">Sources: ${s.cites.map(esc).join(', ')}</div>` : ''}</li>`).join('')}</ol></div>`;
+}
+function aiPanel() {
+  return `<div class="ai-panel"><span class="overline">AI INTERPRETER · LANGUAGE MODEL + ENGINE FACT-CHECK</span>
+    <p>A language model (Gemini) summarizes and interprets the evidence above. Then the engine checks every number it wrote against the verified NASA records and flags anything without a source. AI writes, the engine checks.</p>
+    <div class="row"><label>Gemini API key (kept in this tab only)<input id="aiKey" type="password" autocomplete="off" value="${esc(state.ai.key)}" placeholder="paste key"></label>
+    <label style="max-width:220px">Model<input id="aiModel" value="${esc(state.ai.model)}"></label>
+    <button class="btn primary" id="aiRun" type="button" ${state.ai.busy ? 'disabled' : ''}>${state.ai.busy ? 'Interpreting…' : 'Interpret with AI →'}</button>
+    <button class="btn outline" id="aiTest" type="button">Test the fact-checker</button></div></div>`;
+}
+function ask() {
+  const a = state.answer, chosen = state.selected.map(id => byId[id]).filter(Boolean);
+  const sugg = ['What should NASA test next for the Moon base?', 'Has any material been tested in Moon-base air?', 'Does silicone burn in microgravity, and on Earth?', 'Which materials burned most often?', 'How does airflow influence flame spread in microgravity?'];
+  const cites = a ? a.cites : chosen.map(cite);
+  return `<div class="ask-grid">
+    <section class="panel chat"><div class="panel-title"><div><span class="overline">EVIDENCE ASSISTANT · RETRIEVAL + AI</span><h2>Research conversation</h2></div><span>Source-linked answers</span></div>
+      <div class="chat-content">${!a ? `<div class="chat-welcome"><div class="chat-symbol">✳</div><h2>Ask the evidence.</h2><p>The engine retrieves verified NASA records and computes the facts. The AI interpreter can then explain them in plain language, and every number it writes is checked against NASA’s data.</p>
+        <div class="suggestions">${sugg.map(s => `<button data-sugg="${esc(s)}">${esc(s)} ↗</button>`).join('')}</div></div>`
+      : `<div class="answer"><span class="overline">${esc(a.kind.toUpperCase())}</span><h3>${esc(state.question)}</h3><ul>${a.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul><p class="basis">${esc(a.basis)}</p>
+        <div class="answer-limit"><strong>Interpretation notes</strong><p>Flame Atlas is a triage tool, not a flammability certificate. No partial-gravity data exists in PSI yet.</p></div>${aiOutput()}</div>`}</div>
+      <form class="chat-form" id="askForm"><textarea id="qText" aria-label="Research question" placeholder="Ask a scientific question about the evidence…" rows="3">${esc(state.question)}</textarea>
+        <div><small>${state.selected.length} runs selected · ${R.length} verified runs searchable</small><button class="btn primary">Ask Flame Atlas →</button></div></form>
+      ${aiPanel()}
+    </section>
+    <aside class="panel citations"><div class="panel-title"><div><span class="overline">EVIDENCE CONTEXT</span><h2>Sources &amp; citations</h2></div></div>
+      ${cites.length ? `<div class="citation-list">${cites.map((c, i) => `<article><span>[${i + 1}]</span><div><strong>${esc(c.title)}</strong><small>${esc(c.source)}${c.id && c.id !== c.source ? ` · ${esc(c.id)}` : ''}</small>${c.quote ? `<q>${esc(c.quote)}</q>` : ''}${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noreferrer">Open original source ↗</a>` : ''}</div></article>`).join('')}</div>`
+      : `<div class="citation-empty"><strong>Evidence context</strong><p>Ask a question, or select runs in the Evidence Explorer, to see the NASA records behind the answer.</p></div>`}
+    </aside></div>`;
+}
+
+/* ---------- drawer ---------- */
+function openRecord(id) {
+  const r = byId[id]; if (!r) return;
+  const s = src(r.source_id);
+  const fields = [['Investigation', r.investigation], ['Material', r.material], ['Material family', r.material_family || '—'], ['Gravity regime', gLabel(r.gravity)],
+    ['Oxygen concentration', fmt(r.o2_percent, '%')], ['Pressure', fmt(r.pressure_kpa, ' kPa')], ['Airflow velocity', fmt(r.flow_cms, ' cm/s')], ['Flow direction', r.flow_direction || '—'],
+    ['Outcome', r.sustained === true ? 'Burned' : r.sustained === false ? 'No sustained burn' : 'Not reported'], ['Source ID', r.source_id]];
+  document.getElementById('drawerRoot').innerHTML = `<div class="modal-backdrop" id="bd"><aside class="detail-drawer" role="dialog" aria-modal="true" aria-label="Experiment details">
+    <div class="drawer-top"><span class="overline">EXPERIMENT RECORD · ${esc(r.id)}</span><button aria-label="Close details" id="closeD">✕</button></div>
+    <h2>${esc(r.material)}</h2><p>${esc(r.outcome_text || '')}</p>
+    ${r.quote ? `<div class="quote-block"><span class="overline">NASA’S OWN WORDS</span><q>${esc(r.quote)}</q><small>Found word for word in ${esc(s.title)} (${esc(r.source_id)}).</small></div>` : `<div class="quote-block"><span class="overline">SOURCE · NASA REPORT TABLE</span><q style="quotes:none">${esc(r.source || s.title)}</q><small>Label: ${esc(r.outcome_method || '—')}.${r.pressure_assumed ? ' Pressure not reported in the source (cabin pressure assumed), so it is left empty and not used for distance.' : ''}</small></div>`}
+    ${(r.issues || []).length ? `<span class="overline">NOTES ON NASA’S FILE</span><ul class="issue-list">${r.issues.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : ''}
+    <div class="detail-fields">${fields.map(([k, v]) => `<div><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('')}</div>
+    ${s.url ? `<a class="btn primary" href="${esc(s.url)}" target="_blank" rel="noreferrer">Open original source ↗</a>` : ''}
+    <button class="btn outline" id="toggleD">${state.selected.includes(r.id) ? 'Remove from comparison' : 'Add to comparison'}</button></aside></div>`;
+  const close = () => { document.getElementById('drawerRoot').innerHTML = ''; };
+  document.getElementById('bd').addEventListener('mousedown', e => { if (e.target.id === 'bd') close(); });
+  document.getElementById('closeD').onclick = close;
+  document.getElementById('toggleD').onclick = () => { toggle(r.id); close(); render(); };
+  document.getElementById('closeD').focus();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('drawerRoot').innerHTML = ''; });
+function toggle(id) { state.selected = state.selected.includes(id) ? state.selected.filter(x => x !== id) : state.selected.concat(id); saveSel(); }
+
+/* ---------- events ---------- */
+function bind(p) {
+  const v = document.getElementById('view');
+  v.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openRecord(b.dataset.open));
+  v.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
+  v.querySelectorAll('[data-sel]').forEach(c => c.onchange = () => { toggle(c.dataset.sel); render(); });
+  const $ = id => document.getElementById(id);
+  v.querySelectorAll('[data-ds]').forEach(b => b.onclick = () => { state.dataset = b.dataset.ds; render(); });
+  v.querySelectorAll('[data-xopen]').forEach(b => b.onclick = () => openExt(b.dataset.xopen));
+  if (p === 'explorer' && state.dataset === 'extended' && X.length) {
+    $('xForm').onsubmit = e => { e.preventDefault(); state.x.query = $('xq').value; render(); };
+    $('xCls').onchange = e => { state.x.cls = e.target.value; render(); };
+    $('xInv').onchange = e => { state.x.inv = e.target.value; render(); };
+    $('xClear').onclick = () => { state.x = { query: '', cls: 'All fuel types', inv: 'All investigations' }; render(); };
+    return;
+  }
+  if (p === 'explorer') {
+    $('searchForm').onsubmit = e => { e.preventDefault(); state.query = $('q').value; render(); };
+    $('q').oninput = e => { state.query = e.target.value; clearTimeout(window._qt); window._qt = setTimeout(() => { render(); const q = $('q'); q.focus(); q.setSelectionRange(q.value.length, q.value.length); }, 250); };
+    $('fFam').onchange = e => { state.family = e.target.value; render(); };
+    $('fGrav').onchange = e => { state.gravity = e.target.value; render(); };
+    $('fInv').onchange = e => { state.inv = e.target.value; render(); };
+    $('clear').onclick = () => { Object.assign(state, { query: '', family: 'All materials', gravity: 'All gravity', inv: 'All investigations' }); render(); };
+    if ($('toRanker')) $('toRanker').onclick = () => go('ranker');
+  }
+  if (p === 'ranker') {
+    v.querySelectorAll('[data-preset]').forEach(b => b.onclick = () => { const e = D.briefs[b.dataset.preset]; Object.assign(state.scenario, { preset: b.dataset.preset, o2: e.o2, pressure: e.pressure, flow: '', gravity: 'micro' }); render(); });
+    $('scForm').onsubmit = e => { e.preventDefault(); Object.assign(state.scenario, { preset: null, o2: $('sO2').value, pressure: $('sP').value, flow: $('sF').value, gravity: $('sG').value }); render(); };
+    if ($('clearSel')) $('clearSel').onclick = () => { state.selected = []; saveSel(); render(); };
+  }
+  if (p === 'ask') {
+    v.querySelectorAll('[data-sugg]').forEach(b => b.onclick = () => { state.question = b.dataset.sugg; state.answer = answer(state.question); state.ai.result = null; state.ai.error = ''; render(); });
+    $('askForm').onsubmit = e => { e.preventDefault(); const q = $('qText').value.trim(); if (!q) return; state.question = q; state.answer = answer(q); state.ai.result = null; state.ai.error = ''; render(); };
+    $('aiKey').oninput = e => { state.ai.key = e.target.value.trim(); };
+    $('aiModel').oninput = e => { state.ai.model = e.target.value.trim(); };
+    $('aiRun').onclick = () => interpret(false);
+    $('aiTest').onclick = () => interpret(true);
+  }
+}
+render();
+
+/* ---------- Alaa's atmosphere canvas (decorative) ---------- */
+(function () {
+  const canvas = document.getElementById('atmo'), glow = document.getElementById('glow'), ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) return;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)'), fine = matchMedia('(pointer: fine)');
+  let W = 0, H = 0, dpr = 1, anim = 0, last = 0, visible = !document.hidden, ptr = { x: -1000, y: -1000, active: false }, stars = [], embers = [];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  function ember(init) { return { x: rnd(W * .16, W * .94), y: init ? rnd(H * .52, H + 20) : H + rnd(0, 35), size: rnd(.7, 2.1), life: rnd(.18, .55), speed: rnd(.25, .8), sway: rnd(5, 23), phase: rnd(0, 6.28) }; }
+  function resize() {
+    W = innerWidth; H = innerHeight; dpr = Math.min(devicePixelRatio || 1, 1.75);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); canvas.style.width = W + 'px'; canvas.style.height = H + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.min(390, Math.max(190, Math.floor(W * H / 4700)));
+    stars = Array.from({ length: n }, () => ({ x: rnd(0, W), y: rnd(0, H), r: rnd(.55, 1.8), phase: rnd(0, 6.28), speed: rnd(.25, .8) }));
+    embers = Array.from({ length: Math.min(22, Math.floor(W / 65)) }, () => ember(true));
+    if (reduced.matches) draw(0);
+  }
+  function draw(time) {
+    ctx.clearRect(0, 0, W, H);
+    const haze = ctx.createRadialGradient(W * .79, H * 1.08, 0, W * .79, H * 1.08, Math.max(W * .68, 420));
+    haze.addColorStop(0, 'rgba(214,90,49,.24)'); haze.addColorStop(.32, 'rgba(185,65,30,.115)'); haze.addColorStop(.68, 'rgba(80,60,65,.025)'); haze.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = haze; ctx.fillRect(0, 0, W, H);
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i], tw = .58 + .31 * Math.sin(time * s.speed + s.phase);
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(230,226,221,${tw})`; ctx.fill();
+      if (ptr.active && fine.matches) { const d = Math.hypot(s.x - ptr.x, s.y - ptr.y); if (d < 175) { ctx.strokeStyle = `rgba(214,90,49,${(1 - d / 175) * .33})`; ctx.lineWidth = .8; ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(ptr.x, ptr.y); ctx.stroke(); } }
+      for (let j = i + 1; j < Math.min(i + 22, stars.length); j++) {
+        const o = stars[j], d = Math.hypot(s.x - o.x, s.y - o.y);
+        if (d < 135) { const pr = ptr.active ? Math.max(0, 1 - Math.hypot((s.x + o.x) / 2 - ptr.x, (s.y + o.y) / 2 - ptr.y) / 230) : 0;
+          ctx.strokeStyle = `rgba(169,175,190,${.055 + (1 - d / 135) * .105 + pr * .18})`; ctx.lineWidth = .65; ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(o.x, o.y); ctx.stroke(); }
+      }
+    }
+    for (let i = 0; i < embers.length; i++) {
+      const e = embers[i], prog = (H - e.y) / H, x = e.x + Math.sin(time * .8 + e.phase) * e.sway, a = Math.max(0, Math.min(1, (1 - prog) * e.life)) * .38, rad = e.size * (1 + prog * .45);
+      const g = ctx.createRadialGradient(x, e.y, 0, x, e.y, rad * 4); g.addColorStop(0, `rgba(245,133,69,${a * .65})`); g.addColorStop(.25, `rgba(214,90,49,${a * .15})`); g.addColorStop(1, 'rgba(214,90,49,0)');
+      ctx.fillStyle = g; ctx.fillRect(x - rad * 4, e.y - rad * 4, rad * 8, rad * 8);
+      if (!reduced.matches) { e.y -= e.speed * 1.15; if (e.y < H * .27) embers[i] = ember(false); }
+    }
+  }
+  function tick(t) { if (!visible || reduced.matches) return; if (t - last > 32) { last = t; draw(t / 1000); } anim = requestAnimationFrame(tick); }
+  addEventListener('resize', resize);
+  addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; ptr = { x: e.clientX, y: e.clientY, active: true };
+    if (fine.matches && !reduced.matches) { glow.style.opacity = '1'; glow.style.transform = `translate3d(${e.clientX}px,${e.clientY}px,0) translate(-50%,-50%)`; } }, { passive: true });
+  document.addEventListener('pointerleave', () => { ptr.active = false; glow.style.opacity = '0'; });
+  document.addEventListener('visibilitychange', () => { visible = !document.hidden; cancelAnimationFrame(anim); if (visible && !reduced.matches) anim = requestAnimationFrame(tick); });
+  resize(); if (!reduced.matches) anim = requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flame Atlas — Orion Team · NASA Space Apps 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0F2E; --panel:#0F1640; --panel2:#141D52; --line:#24306E; --text:#EEF2FF; --muted:#9CA6D8;
+  --cyan:#5AC8FF; --cyan2:#2E8BFF; --orange:#FF7A3D; --green:#3DDC97; --red:#FF5C7A; --yellow:#FFD166;
+  --mono:"IBM Plex Mono",Consolas,"SFMono-Regular",Menlo,monospace;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --display:"Syne","IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5}
+a{color:var(--cyan)}a:hover{color:#fff}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:20;background:rgba(6,10,28,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:800;letter-spacing:.06em;font-size:18px}
+.brand small{display:block;font-family:var(--sans);font-weight:500;letter-spacing:0;color:var(--muted);font-size:12px}
+nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+nav button{background:none;border:1px solid transparent;border-radius:10px;padding:9px 14px;color:var(--muted);font-weight:600;min-height:44px}
+nav button[aria-selected="true"]{color:#fff;background:var(--panel2);border-color:var(--line)}
+nav button:hover{color:#fff}
+.ws-link{display:inline-flex;align-items:center;padding:9px 14px;min-height:44px;border-radius:10px;color:var(--orange,#FF7A3D);font-weight:600;text-decoration:none;border:1px solid transparent}
+.ws-link:hover{color:#fff;border-color:var(--line)}
+.cta.alt{background:transparent;color:#fff;border:1px solid var(--line);margin-left:10px;text-decoration:none}
+main{padding:32px 0 64px}
+section[hidden]{display:none}
+h1{font-family:var(--display);font-size:44px;line-height:1.05;margin:0 0 10px;letter-spacing:-.01em;font-weight:800}
+h2{font-family:var(--display);font-size:22px;margin:0 0 14px;font-weight:700}
+h3{font-size:15px;margin:0 0 10px;color:var(--muted);font-weight:500}
+.lead{color:var(--muted);font-size:17px;max-width:820px;margin:0 0 28px}
+.panel{background:rgba(15,22,64,.92);border:1px solid var(--line);border-radius:18px;padding:22px}
+.grid{display:grid;gap:18px}.grid>*{min-width:0}
+.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1.25fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g2,.g4{grid-template-columns:1fr}h1{font-size:30px}.bar{height:auto;flex-wrap:wrap;padding:10px 0}}
+.env{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;min-height:44px;transition:.15s}
+.env:hover{border-color:var(--cyan2)}
+.env[aria-pressed="true"]{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset,0 8px 30px rgba(79,195,255,.12)}
+.env b{display:block;font-size:17px}
+.env span{color:var(--muted);font-family:var(--mono);font-size:13px}
+.stat{font-family:var(--display);font-size:46px;font-weight:800;line-height:1}
+.stat.warn{color:var(--orange)}.stat.ok{color:var(--green)}.stat.cy{color:var(--cyan)}
+.cap{color:var(--muted);font-size:13px;margin-top:6px}
+.verdict{border-radius:16px;padding:20px 22px;border:1px solid}
+.verdict.none{border-color:rgba(255,138,61,.5);background:linear-gradient(180deg,rgba(255,138,61,.12),rgba(255,138,61,.03))}
+.verdict.some{border-color:rgba(61,220,151,.45);background:linear-gradient(180deg,rgba(61,220,151,.10),rgba(61,220,151,.02))}
+.verdict p{margin:6px 0 0;color:#d9e2ff}
+.lines{list-style:none;margin:0;padding:0;counter-reset:l}
+.lines li{counter-increment:l;display:grid;grid-template-columns:34px 1fr;gap:10px;padding:14px 0;border-top:1px solid var(--line)}
+.lines li:first-child{border-top:0}
+.lines li::before{content:counter(l);font-family:var(--mono);color:var(--cyan);font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:6px;margin:6px 6px 0 0;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);font-family:var(--mono);font-size:12px;color:var(--cyan);min-height:28px}
+.chip:hover{border-color:var(--cyan)}
+.chip.calc{color:var(--muted)}
+.range{position:relative;height:56px;margin:18px 4px 6px}
+.range .axis{position:absolute;left:0;right:0;top:26px;height:6px;border-radius:6px;background:#1A2350}
+.range .tested{position:absolute;top:22px;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--cyan2),var(--cyan))}
+.range .mark{position:absolute;top:8px;width:2px;height:40px;background:var(--orange)}
+.range .mark span{position:absolute;top:-20px;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:12px;color:var(--orange)}
+.range .tick{position:absolute;top:42px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--muted)}
+.range .lbl{position:absolute;top:0;font-family:var(--mono);font-size:12px;color:var(--cyan)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--muted);font-weight:600;font-size:13px;padding:10px 8px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+td{padding:10px 8px;border-bottom:1px solid #16204a;font-variant-numeric:tabular-nums}
+tbody tr{cursor:pointer}tbody tr:hover{background:#121c45}
+.num{font-family:var(--mono)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.b-burn{background:rgba(255,92,122,.15);color:#ff8fa5}.b-no{background:rgba(61,220,151,.13);color:var(--green)}.b-na{background:#1b2452;color:var(--muted)}
+.bar2{height:8px;border-radius:6px;background:#1a2350;overflow:hidden}.bar2 i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan2),var(--cyan))}
+.inv{display:grid;grid-template-columns:1fr 120px;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.inv:first-child{border-top:0}
+.inv small{color:var(--muted)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+select,input[type=search]{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;min-height:44px;font:inherit}
+label.sr{position:absolute;left:-9999px}
+.scroll{max-height:560px;overflow:auto;border-radius:12px}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(520px,100%);background:#0A1130;border-left:1px solid var(--line);z-index:40;padding:26px;overflow:auto;transform:translateX(100%);transition:transform .2s}
+.drawer.open{transform:none}
+.drawer .x{position:absolute;top:14px;right:14px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;width:44px;height:44px}
+blockquote{margin:14px 0;padding:14px 16px;border-left:3px solid var(--cyan);background:#0E1740;border-radius:0 10px 10px 0;font-family:var(--mono);font-size:13px;color:#dfe8ff;white-space:pre-wrap;word-break:break-word}
+.ok{color:var(--green)}.bad{color:var(--red)}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:6px 12px;font-size:14px}.kv dt{color:var(--muted)}.kv dd{margin:0;font-family:var(--mono)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+.tip{position:fixed;pointer-events:none;background:#0A1130;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;z-index:50;max-width:280px;display:none}
+.verify{font-family:var(--mono);font-size:13px;background:#070C24;border:1px solid var(--line);border-radius:12px;padding:16px;overflow:auto}
+.verify div{white-space:pre}#worked .verify div{white-space:normal}
+.pill{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cmp>div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
+/* ===== story ===== */
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity .4s}
+main,footer,.story{position:relative;z-index:1}
+.story .beat{min-height:100vh;display:flex;align-items:center}
+.story .beat .copy{max-width:440px;padding:28px 0}
+.story .beat.wide .copy{max-width:520px}
+.story h1{font-size:clamp(42px,5.6vw,80px);line-height:1;margin:0 0 22px}
+.story h2{font-size:clamp(30px,3.6vw,48px);line-height:1.05;margin:0 0 16px;font-weight:800}
+.story p{font-size:19px;color:#C9D0F2;margin:0 0 14px;max-width:56ch}
+.story .src{font-size:13px;color:var(--muted)}
+.fires{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:16px}
+.fires li{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:baseline}
+.fires b{font-family:var(--display);font-size:26px;color:var(--orange)}
+.fires span{color:#C9D0F2}
+.big{font-family:var(--display);font-weight:800;font-size:clamp(96px,16vw,220px);line-height:.85;color:var(--orange);letter-spacing:-.03em}
+.eq{font-family:var(--mono);font-size:15px;color:#DCE3FF;background:rgba(10,15,46,.7);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:inline-block;margin:6px 0 16px}
+.cta{display:inline-block;margin-top:10px;background:var(--cyan);color:#06102E;font-weight:600;border:0;border-radius:999px;padding:14px 26px;font-size:17px;min-height:48px}
+.cta:hover{background:#fff}
+.scrollhint{position:absolute;bottom:28px;left:0;color:var(--muted);font-size:14px}
+@media(max-width:900px){.story .beat .copy{background:rgba(10,15,46,.82);border-radius:16px;padding:22px}}
+@media(prefers-reduced-motion:reduce){#sky{transition:none}}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding:24px 0 40px}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <div class="brand">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#E8EEFF" stroke-width="2.4"/><circle cx="11" cy="25" r="2.2" fill="#E8EEFF"/><circle cx="29" cy="14" r="2.2" fill="#E8EEFF"/><circle cx="12" cy="11" r="1.8" fill="#FF8A3D"/><circle cx="20" cy="20" r="5.2" fill="none" stroke="#4FC3FF" stroke-width="2.2"/><circle cx="20" cy="20" r="1.6" fill="#fff"/></svg>
+      <div>Flame Atlas<small>Orion Team, NASA Space Apps 2026</small></div>
+    </div>
+    <nav role="tablist" aria-label="Sections">
+      <button role="tab" aria-selected="true" data-tab="brief">Mission Brief</button>
+      <button role="tab" aria-selected="false" data-tab="evidence">Evidence</button>
+      <button role="tab" aria-selected="false" data-tab="gaps">Gap Map</button>
+      <button role="tab" aria-selected="false" data-tab="proof">Proof</button>
+      <a class="ws-link" href="workspace.html">Research workspace</a>
+    </nav>
+  </div>
+</header>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="story wrap" id="story">
+  <section class="beat" data-beat="0">
+    <div class="copy" style="position:relative;min-height:70vh;display:flex;flex-direction:column;justify-content:center;max-width:620px">
+      <h1>On Earth, fire climbs. In orbit, it waits.</h1>
+      <p>Without gravity, hot gas does not rise. A flame stops reaching upward and becomes a quiet blue sphere, fed only by oxygen drifting in.</p>
+      <div class="scrollhint">Scroll to see what NASA learned</div>
+    </div>
+  </section>
+  <section class="beat" data-beat="1">
+    <div class="copy">
+      <h2>A spacecraft fire leaves nowhere to run.</h2>
+      <ul class="fires">
+        <li><b>1967</b><span>Apollo 1: fire in an oxygen-filled capsule during a pre-launch test. The crew died.</span></li>
+        <li><b>1970</b><span>Apollo 13: an oxygen tank exploded on the way to the Moon.</span></li>
+        <li><b>1997</b><span>Mir: an oxygen generator failure started a fire aboard the station.</span></li>
+        <li><b>2026</b><span>Artemis II: a smoke alarm went off about 80,000 miles from home.</span></li>
+      </ul>
+      <p class="src" style="margin-top:18px">Events as described in NASA's 2026 Flame in Freefall challenge statement.</p>
+    </div>
+  </section>
+  <section class="beat" data-beat="2">
+    <div class="copy">
+      <h2>So NASA set fires in space on purpose.</h2>
+      <p>Fabrics, plastics, wax and silicone, burned aboard the ISS and in Cygnus cargo ships. Each point here is one real burn, read from NASA's own files and checked against them.</p>
+      <p class="src">BASS and BASS-II (PSI-26, 25) and Saffire I–III (PSI-98, 99, 100). __NSOLID__ real-material records.</p>
+    </div>
+  </section>
+  <section class="beat" data-beat="3">
+    <div class="copy">
+      <h2>Every test sits in one small corner.</h2>
+      <p>Plotted by oxygen and pressure, all of NASA's solid-fuel burns fall between about 16 and 23 percent oxygen, at roughly Earth's sea-level pressure.</p>
+      <p>The Moon Base will not live there. NASA expects 30 percent oxygen or more, at 10.2 psi or less, to make spacewalks easier.</p>
+    </div>
+  </section>
+  <section class="beat wide" data-beat="4">
+    <div class="copy">
+      <div class="big">__D__</div>
+      <h2 style="margin-top:12px">tolerances from the nearest test to the Moon Base.</h2>
+      <div class="eq">__EQ__</div>
+      <p>A test counts as evidence only when d ≤ 1. Nothing NASA has burned comes close. Any flammability number for the Moon Base today would be a guess.</p>
+    </div>
+  </section>
+  <section class="beat" data-beat="5">
+    <div class="copy">
+      <h2>Flame Atlas says what is known, and stops there.</h2>
+      <p>Pick a habitat. Get a mission brief where every sentence links to NASA's exact words, every number shows its confidence, and every gap is marked instead of filled.</p>
+      <button class="cta" id="openAtlas">Open the atlas</button><a class="cta alt" href="workspace.html">Research workspace</a>
+    </div>
+  </section>
+</div>
+
+<main class="wrap" id="atlas">
+<!-- ============ MISSION BRIEF ============ -->
+<section id="tab-brief">
+  <h1>Choose a crew habitat.</h1>
+  <p class="lead">Pick a crew environment. Flame Atlas reads __NALL__ NASA fire experiments from 7 PSI investigations (__NSOLID__ on real materials) and tells you what the evidence says, how sure it is, and where the evidence stops. Every sentence links to its NASA source.</p>
+  <div class="grid g3" id="envs" role="group" aria-label="Crew environment"></div>
+
+  <div class="grid g4" style="margin-top:18px" id="stats"></div>
+
+  <div class="panel" style="margin-top:18px">
+    <h3>Oxygen: tested range vs this environment</h3>
+    <div class="range" id="o2range" aria-label="Oxygen range chart"></div>
+    <p class="cap" id="o2cap"></p>
+  </div>
+
+  <div class="grid g2" style="margin-top:18px">
+    <div class="panel">
+      <h2>Mission Brief</h2>
+      <div id="verdict"></div>
+      <ol class="lines" id="lines" style="margin-top:12px"></ol>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="panel">
+        <h2>Most relevant investigations</h2>
+        <p class="cap" style="margin-top:-8px">Ranked by a transparent score. Every reason is quoted from NASA's challenge statement.</p>
+        <div id="invs"></div>
+      </div>
+      <div class="panel">
+        <h2>Materials near these conditions</h2>
+        <div id="mats"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVIDENCE ============ -->
+<section id="tab-evidence" hidden>
+  <h1>Evidence Explorer</h1>
+  <p class="lead">Every record is one real burn test in space. Click any row to see the exact NASA text it was taken from.</p>
+  <div class="panel">
+    <div class="controls">
+      <label class="sr" for="fFam">Material</label><select id="fFam"></select>
+      <label class="sr" for="fInv">Investigation</label><select id="fInv"></select>
+      <label class="sr" for="fOut">Outcome</label>
+      <select id="fOut"><option value="">All outcomes</option><option value="true">Flame sustained</option><option value="false">Did not sustain</option><option value="null">Unknown / invalid</option></select>
+      <label class="sr" for="fGrav">Gravity</label>
+      <select id="fGrav"><option value="">Space + Earth</option><option value="micro">Microgravity</option><option value="earth">1-g (Earth)</option></select>
+      <label class="sr" for="fQ">Search</label><input type="search" id="fQ" placeholder="Search notes, e.g. extinguish">
+      <span class="pill" id="count" style="align-self:center"></span>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Record</th><th>Material</th><th>O₂ %</th><th>kPa</th><th>Flow cm/s</th><th>Gravity</th><th>Outcome</th><th>Source</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAP MAP ============ -->
+<section id="tab-gaps" hidden>
+  <h1>Gap Map</h1>
+  <p class="lead">Each cell is a combination of oxygen and pressure. Colour shows how many verified microgravity solid-fuel tests sit close to it. Tests with no recorded pressure (Saffire) are left out of this map. Blank means <b>never tested</b>. Flame Atlas marks gaps; it never fills them with a guess.</p>
+  <div class="panel">
+    <svg id="gapsvg" viewBox="0 0 1000 520" width="100%" role="img" aria-label="Gap map of oxygen versus pressure"></svg>
+    <div class="legend">
+      <span><i style="background:#3DDC97"></i>Covered: 3+ close tests, 2+ sources</span>
+      <span><i style="background:#1E88FF"></i>Thin: 1–2 close tests</span>
+      <span><i style="background:#2A3470"></i>Nearby tests only (1–2 tolerances away)</span>
+      <span><i style="background:#0C1330;border:1px solid #2A3470"></i>Never tested</span>
+    </div>
+    <p class="cap">Spacesuit (100% O₂ at 29.6 kPa) is far beyond the right edge of this map. Partial gravity (Moon, Mars): no data exists in PSI at all.</p>
+  </div>
+</section>
+
+<!-- ============ PROOF ============ -->
+<section id="tab-proof" hidden>
+  <h1>Proof, not claims</h1>
+  <p class="lead">We measured our own system, published where it failed, and checked our data against NASA's original files.</p>
+  <div class="grid g4" id="proofstats"></div>
+
+  <div class="panel" style="margin-top:18px">
+    <h2>The core equation, solved on real NASA data</h2>
+    <p class="cap" style="margin-top:-8px">How Flame Atlas decides whether a NASA test counts as evidence for your habitat. No language model decides this: it is arithmetic you can check by hand.</p>
+    <div class="grid g2">
+      <div>
+        <div class="verify" style="font-size:16px;line-height:2">
+          <div>d = √( Σ ( (xᵢ − sᵢ) / τᵢ )² )</div>
+          <div style="color:#9AA8D6;font-size:13px;line-height:1.7">xᵢ = test value · sᵢ = habitat value · τᵢ = tolerance<br>τᵢ = max( 20% of the tested range , physical floor )<br>d ≤ 1 → close (counts as evidence) · 1 &lt; d ≤ 2 → far · d &gt; 2 → ignored</div>
+        </div>
+      </div>
+      <div id="worked"></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:18px">
+    <div class="panel">
+      <h2>No quote, no number</h2>
+      <p class="cap" style="margin-top:-8px">Records we extracted from NASA's raw files enter only if their quote is found word for word. Two fakes were planted to test this. Records from NASA report tables cite the table.</p>
+      <div class="verify" id="verify"></div>
+    </div>
+    <div class="panel">
+      <h2>Earth test vs space</h2>
+      <p class="cap" style="margin-top:-8px">Same NASA table (Saffire-II), same material, two gravities. 1-g test O₂ and flow are not listed in this table. With 3 samples this is <b>not statistically significant (p = 0.25)</b>: a signal, not a proof.</p>
+      <div id="evs"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <h2>Is the difference real? Statistical significance</h2>
+    <p class="cap" style="margin-top:-8px">Suggested by our mathematics reviewer. Burn share per material with 95% Wilson intervals; pairwise Fisher exact tests (α = 0.05, with a Bonferroni check for multiple comparisons).</p>
+    <div class="grid g2">
+      <div id="shares"></div>
+      <div id="pvals"></div>
+    </div>
+    <p class="cap" id="statnote"></p>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <h2>Problems we found in NASA's own files</h2>
+    <p class="cap" style="margin-top:-8px">Shown, never silently fixed.</p>
+    <ul id="issues" style="margin:0;padding-left:20px"></ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Data: NASA Physical Sciences Informatics (CC0) — PSI-26 BASS, PSI-25 BASS-II, PSI-98/99/100 Saffire I–III, PSI-20 ACME BRE, PSI-159 ACME CFI-G. Raw files verified on psi.nasa.gov; report tables cited per record.
+    Environment values quoted from the NASA Space Apps 2026 "Flame in Freefall" challenge statement.
+    Flame Atlas supports evidence review. It is not a safety certification.
+  </div>
+</footer>
+
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="dTitle">
+  <button class="x" id="dClose" aria-label="Close">✕</button>
+  <h2 id="dTitle"></h2>
+  <div id="dBody"></div>
+</aside>
+<div class="tip" id="tip"></div>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = (v, d=1) => v === null || v === undefined ? '—' : (+v).toFixed(d).replace(/\.0+$/, '');
+let ENV = 'moon';
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('nav button').forEach(x => x.setAttribute('aria-selected', x === b));
+  document.querySelectorAll('main section').forEach(s => s.hidden = s.id !== 'tab-' + b.dataset.tab);
+  const at = document.getElementById('atlas'); if (at && scrollY < at.offsetTop - 80) at.scrollIntoView();
+}));
+
+/* ---------- drawer ---------- */
+function openDrawer(title, html) {
+  $('#dTitle').textContent = title; $('#dBody').innerHTML = html;
+  $('#drawer').classList.add('open'); $('#drawer').setAttribute('aria-hidden', 'false'); $('#dClose').focus();
+}
+$('#dClose').onclick = () => { $('#drawer').classList.remove('open'); $('#drawer').setAttribute('aria-hidden', 'true'); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') $('#dClose').click(); });
+
+function sourceName(s) {
+  return ({CHALLENGE: 'NASA Space Apps 2026 challenge statement', 'PSI-26-page': 'NASA PSI-26 (BASS) investigation page',
+           'PSI-26': 'NASA PSI-26 BASS as-run workbook', 'PSI-98': 'NASA PSI-98 Saffire-I table',
+           'PSI-99': 'NASA PSI-99 Saffire-II table', 'PSI-100': 'NASA PSI-100 Saffire-III table', 'PSI-25': 'NASA BASS-II Summary Report (NASA/TM-20210011385)'})[s] || s;
+}
+function showLine(l) {
+  let h = '';
+  if (l.quote) h += `<p class="cap">Exact text in the source, checked word for word:</p><blockquote>${esc(l.quote)}</blockquote>`;
+  else h += `<p class="cap">Computed by Flame Atlas from verified records. No language model involved.</p>`;
+  h += `<dl class="kv"><dt>Source</dt><dd>${esc((l.source||'').split(',').map(s=>sourceName(s.trim())).join('; '))}</dd></dl>`;
+  openDrawer('Evidence', h);
+}
+
+/* ---------- mission brief ---------- */
+const envNames = {iss: 'ISS / spacecraft', moon: 'Moon Base / rover', spacesuit: 'Spacesuit'};
+function renderEnvs() {
+  $('#envs').innerHTML = Object.entries(D.envs).map(([k, e]) =>
+    `<button class="env" aria-pressed="${k===ENV}" data-env="${k}"><b>${envNames[k]}</b><span>${fmt(e.o2)}% O₂ · ${fmt(e.pressure)} kPa</span></button>`).join('');
+  document.querySelectorAll('.env').forEach(b => b.onclick = () => { ENV = b.dataset.env; renderBrief(); });
+}
+function renderBrief() {
+  renderEnvs();
+  const b = D.briefs[ENV], e = D.envs[ENV];
+  const fams = Object.values(D.envelope);
+  const maxO2 = Math.max(...fams.filter(f=>f.o2_range).map(f=>f.o2_range[1]));
+  const minO2 = Math.min(...fams.filter(f=>f.o2_range).map(f=>f.o2_range[0]));
+  const minP = Math.min(...fams.filter(f=>f.pressure_kpa_range).map(f=>f.pressure_kpa_range[0]));
+  const ranked = b.ranking.filter(r => r.sustained_share !== null);
+  const gap = e.o2 - maxO2;
+  $('#stats').innerHTML = [
+    [D.records.filter(r=>r.gravity==='micro').length, 'verified microgravity burn records', 'cy'],
+    [fmt(maxO2)+'%', 'highest O₂ any solid was tested at', 'cy'],
+    [gap > 0 ? '+' + fmt(gap) : '0', gap > 0 ? 'O₂ points beyond any test' : 'inside the tested O₂ range', gap > 0 ? 'warn' : 'ok'],
+    [ranked.length, 'materials with nearby evidence', ranked.length ? 'ok' : 'warn'],
+  ].map(([v, c, k]) => `<div class="panel"><div class="stat ${k}">${v}</div><div class="cap">${c}</div></div>`).join('');
+
+  // O2 range chart
+  const lo = 10, hi = Math.max(42, e.o2 > 42 ? 42 : 42), X = v => Math.min(100, Math.max(0, (v - lo) / (hi - lo) * 100));
+  const off = e.o2 > hi;
+  $('#o2range').innerHTML = `<div class="axis"></div>
+    <div class="tested" style="left:${X(minO2)}%;width:${X(maxO2)-X(minO2)}%"></div>
+    <div class="lbl" style="left:${X(minO2)}%">tested ${fmt(minO2)}–${fmt(maxO2)}%</div>
+    <div class="mark" style="left:${off?100:X(e.o2)}%"><span>${off?'→ ':''}${envNames[ENV]} ${fmt(e.o2)}%</span></div>
+    ${[10,15,20,25,30,35,40].map(t=>`<div class="tick" style="left:${X(t)}%">${t}%</div>`).join('')}`;
+  $('#o2cap').textContent = `Pressure: lowest tested ${fmt(minP)} kPa; this environment ${fmt(e.pressure)} kPa${e.pressure < minP - 1 ? ' (untested)' : ''}. Source: verified PSI-26 and Saffire records.`;
+
+  $('#verdict').innerHTML = ranked.length
+    ? `<div class="verdict some"><b>Evidence exists near these conditions.</b><p>${ranked.length} material families have verified tests close to this environment. See the ranking on the right; confidence is shown for each.</p></div>`
+    : `<div class="verdict none"><b>No verified test lies close to these conditions.</b><p>Flame Atlas will not rank materials here. A chatbot would give you a number. We tell you the truth: nobody has tested this yet.</p></div>`;
+
+  const shown = []; let silDone = false;
+  b.lines.forEach((l, i) => {
+    if (l.text.startsWith('Relevant investigation')) return;
+    if (false) {
+      const n = b.lines.filter(x => x.text.startsWith('Earth test vs space')).length;
+      shown.push([Object.assign({}, l, {text: `Earth test vs space (Saffire-II): silicone burned in the 1-g test but did not burn in microgravity in ${n} of 4 samples. NASA's Earth screening test does not tell the whole story. (1-g O2 and flow not listed in this table.)`}), i]);
+      return;
+    }
+    shown.push([l, i]);
+  });
+  $('#lines').innerHTML = shown.map(([l, i]) => {
+    const chips = (l.source ? l.source.split(',') : []).map(s => `<button class="chip ${l.quote?'':'calc'}" data-i="${i}">${esc(s.trim())}${l.quote?' · quote':' · computed'}</button>`).join('');
+    return `<li><div>${esc(l.text)}<div>${chips || `<button class="chip calc" data-i="${i}">computed</button>`}</div></div></li>`;
+  }).join('');
+  document.querySelectorAll('#lines .chip').forEach(c => c.onclick = () => showLine(b.lines[+c.dataset.i]));
+
+  const mx = Math.max(...b.investigations.map(v => v.score));
+  $('#invs').innerHTML = b.investigations.slice(0, 6).map((v, i) =>
+    `<div class="inv"><div><b>${esc(v.name)}</b> <small class="num">${esc(v.psi||'')}</small><br><small>${esc(v.why.join(' · '))}</small>
+      <div><button class="chip" data-v="${i}">why · quote</button></div></div>
+      <div><div class="bar2"><i style="width:${v.score/mx*100}%"></i></div><div class="pill" style="text-align:right">score ${v.score}</div></div></div>`).join('');
+  document.querySelectorAll('#invs .chip').forEach(c => c.onclick = () => { const v = b.investigations[+c.dataset.v]; showLine({quote: v.quote, source: v.source}); });
+
+  $('#mats').innerHTML = ranked.length ? `<table><thead><tr><th>Material</th><th>Burned</th><th>95% CI</th><th>Tests</th><th>Confidence</th></tr></thead><tbody>${
+      ranked.map(r => `<tr><td>${esc(r.material)}</td><td class="num">${Math.round(r.sustained_share*100)}%</td><td class="num">${r.ci95?Math.round(r.ci95[0]*100)+'–'+Math.round(r.ci95[1]*100)+'%':'—'}</td><td class="num">${r.close_runs}</td><td>${esc(r.confidence)}</td></tr>`).join('')}</tbody></table>
+      <p class="cap">"Burned" = share of nearby tests where the flame was sustained. Relative evidence, not a safety rating.</p>`
+    : `<p class="cap">No ranking: no verified test is close enough. Nearest evidence is ${fmt(gap)} O₂ points away.</p>`;
+}
+
+/* ---------- evidence explorer ---------- */
+function fill(sel, label, vals) { $(sel).innerHTML = `<option value="">${label}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join(''); }
+fill('#fFam', 'All materials', [...new Set(D.records.map(r => r.material_family).filter(Boolean))].sort());
+fill('#fInv', 'All investigations', [...new Set(D.records.map(r => r.investigation))].sort());
+function outcomeBadge(v) { return v === true ? '<span class="badge b-burn">sustained</span>' : v === false ? '<span class="badge b-no">did not sustain</span>' : '<span class="badge b-na">unknown</span>'; }
+let view = [];
+function renderRows() {
+  const f = $('#fFam').value, inv = $('#fInv').value, o = $('#fOut').value, g = $('#fGrav').value, q = $('#fQ').value.toLowerCase();
+  view = D.records.filter(r => (!f || r.material_family === f) && (!inv || r.investigation === inv) && (!g || r.gravity === g)
+    && (!o || String(r.sustained) === o) && (!q || (r.outcome_text + ' ' + r.material + ' ' + r.id).toLowerCase().includes(q)));
+  $('#count').textContent = `${view.length} of ${D.records.length} records`;
+  $('#rows').innerHTML = view.map((r, i) => `<tr tabindex="0" data-i="${i}"><td class="num">${esc(r.id)}</td><td>${esc(r.material || '—')}</td>
+    <td class="num">${fmt(r.o2_percent)}</td><td class="num">${fmt(r.pressure_kpa)}</td><td class="num">${fmt(r.flow_cms)}</td>
+    <td>${r.gravity === 'micro' ? 'μg' : '1-g'}</td><td>${outcomeBadge(r.sustained)}</td><td class="num">${esc(r.source_id)}</td></tr>`).join('');
+  document.querySelectorAll('#rows tr').forEach(tr => {
+    const go = () => showRecord(view[+tr.dataset.i]);
+    tr.onclick = go; tr.onkeydown = e => { if (e.key === 'Enter') go(); };
+  });
+}
+function showRecord(r) {
+  openDrawer(r.id, `
+    <dl class="kv"><dt>Investigation</dt><dd>${esc(r.investigation)}</dd><dt>Material</dt><dd>${esc(r.material)}</dd>
+    <dt>Family</dt><dd>${esc(r.material_family || '—')}</dd><dt>Gravity</dt><dd>${r.gravity === 'micro' ? 'microgravity' : '1-g (Earth)'}</dd>
+    <dt>O₂</dt><dd>${fmt(r.o2_percent)} %</dd><dt>Pressure</dt><dd>${fmt(r.pressure_kpa)} kPa</dd><dt>Air flow</dt><dd>${fmt(r.flow_cms)} cm/s ${esc(r.flow_direction||'')}</dd>
+    <dt>Outcome</dt><dd>${outcomeBadge(r.sustained)}</dd><dt>Read from</dt><dd>${r.outcome_method === 'keyword' || (r.outcome_method || '').startsWith('crew') ? 'crew notes (rule, accuracy measured on Proof tab)' : esc(r.outcome_method || 'NASA table column')}</dd></dl>
+    ${r.quote ? `<p class="cap" style="margin-top:16px">Quote found word for word in ${esc(sourceName(r.source_id))}:</p>
+    <blockquote>${esc(r.quote)}</blockquote>` : `<p class="cap" style="margin-top:16px">Transcribed from ${esc(r.source || sourceName(r.source_id))}. Label: ${esc(r.outcome_method || '')}.</p>`}
+    <p class="cap">Outcome detail:</p><blockquote>${esc(r.outcome_text)}</blockquote>
+    ${(r.issues||[]).length ? `<p class="cap">Data issues:</p><ul>${r.issues.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}`);
+}
+['#fFam','#fInv','#fOut','#fGrav','#fQ'].forEach(s => $(s).addEventListener('input', renderRows));
+
+/* ---------- gap map ---------- */
+function renderGap() {
+  const G = D.gap, W = 1000, H = 520, L = 70, T = 20, R = 20, B = 50;
+  const cw = (W - L - R) / G.o2.length, ch = (H - T - B) / G.p.length;
+  const col = {covered: '#3DDC97', thin: '#1E88FF', 'far only': '#2A3470', gap: '#0C1330'};
+  let s = '';
+  G.grid.forEach((row, pi) => row.forEach((c, oi) => {
+    const x = L + oi * cw, y = H - B - (pi + 1) * ch;
+    s += `<rect x="${x+1}" y="${y+1}" width="${cw-2}" height="${ch-2}" rx="3" fill="${col[c.s]}" stroke="#2A3470" stroke-width="${c.s==='gap'?1:0}" data-o="${G.o2[oi]}" data-p="${G.p[pi]}" data-s="${c.s}" data-n="${c.n}" data-m="${esc((c.m||[]).join(', '))}"/>`;
+  }));
+  G.o2.forEach((o, i) => { if (o % 5 === 0) s += `<text x="${L + i*cw + cw/2}" y="${H-B+20}" fill="#9AA8D6" font-size="13" text-anchor="middle" font-family="monospace">${o}%</text>`; });
+  G.p.forEach((p, i) => { if (p % 10 === 0 || p === 25) s += `<text x="${L-10}" y="${H-B-i*ch-ch/2+4}" fill="#9AA8D6" font-size="13" text-anchor="end" font-family="monospace">${p}</text>`; });
+  s += `<text x="${(W+L)/2}" y="${H-6}" fill="#9AA8D6" font-size="13" text-anchor="middle">Oxygen, % by volume</text>`;
+  s += `<text x="16" y="${(H-B)/2}" fill="#9AA8D6" font-size="13" text-anchor="middle" transform="rotate(-90 16 ${(H-B)/2})">Pressure, kPa</text>`;
+  const px = o => L + (o - G.o2[0] + .5) * cw, py = p => H - B - ((p - G.p[0]) / (G.p[1]-G.p[0]) + .5) * ch;
+  [['iss','ISS'],['moon','Moon Base']].forEach(([k, n]) => {
+    const e = D.envs[k], x = px(e.o2), y = py(e.pressure);
+    s += `<circle cx="${x}" cy="${y}" r="11" fill="none" stroke="#FF8A3D" stroke-width="3"/><circle cx="${x}" cy="${y}" r="3" fill="#FF8A3D"/>
+          <text x="${x+16}" y="${y-12}" fill="#FF8A3D" font-size="14" font-weight="700">${n}</text>`;
+  });
+  $('#gapsvg').innerHTML = s;
+  const tip = $('#tip');
+  $('#gapsvg').querySelectorAll('rect').forEach(r => {
+    r.addEventListener('mousemove', ev => {
+      const st = r.dataset.s;
+      tip.innerHTML = `<b>${r.dataset.o}% O₂ · ${r.dataset.p} kPa</b><br>${st === 'gap' ? '<span style="color:#FF8A3D">Never tested</span>' :
+        st === 'far only' ? 'Only nearby tests, none close enough to count' : `${r.dataset.n} close test(s)<br><span style="color:#9AA8D6">${r.dataset.m}</span>`}`;
+      tip.style.display = 'block'; tip.style.left = ev.clientX + 14 + 'px'; tip.style.top = ev.clientY + 14 + 'px';
+    });
+    r.addEventListener('mouseleave', () => tip.style.display = 'none');
+  });
+}
+
+/* ---------- proof ---------- */
+function renderProof() {
+  const E = D.eval, pc = (a) => Math.round(a[0] / a[1] * 1000) / 10;
+  $('#proofstats').innerHTML = [
+    [`${E.quotes[0]}/${E.quotes[1]}`, 'quotes verified word for word', 'ok'],
+    ['609/610', 'fields identical to NASA\'s original PSI-26 workbook', 'ok'],
+    [pc(E.v1) + '%', 'first outcome rule (we measured it, it failed our 85% target)', 'warn'],
+    [pc(E.held) + '%', 'improved rule on 19 held-out records it never saw', 'cy'],
+  ].map(([v, c, k]) => `<div class="panel"><div class="stat ${k}">${v}</div><div class="cap">${c}</div></div>`).join('');
+
+  const sample = D.records.filter(r => r.quote).slice(0, 4).map(r => `<div><span class="ok">ACCEPTED</span>  ${r.id.padEnd(18)} quote found in ${r.source_id}</div>`).join('');
+  $('#verify').innerHTML = `<div style="color:#9AA8D6">$ python flame_atlas.py demo</div>${sample}
+    <div><span class="bad">REJECTED</span>  PLANTED_fake_value  quote not found word for word in source</div>
+    <div><span class="bad">REJECTED</span>  PLANTED_bad_range   range check: oxygen must be 0–100%</div>
+    <div style="color:#9AA8D6;margin-top:8px">${E.quotes[0]} accepted · 2 planted fakes rejected</div>`;
+
+  const sil = D.earth_vs_space.filter(p => p.micro_burned !== p.one_g_burned);
+  $('#evs').innerHTML = sil.map(p => `<div class="cmp" style="margin-bottom:10px"><div><div class="pill">1-g (Earth)</div><b>${esc(p.material)}</b><br>${outcomeBadge(p.one_g_burned)}<p class="cap">${esc(p.one_g)}</p></div>
+      <div><div class="pill">Microgravity</div><b>${esc(p.material)}</b><br>${outcomeBadge(p.micro_burned)}<p class="cap">${esc(p.micro_g)}</p></div></div>`).join('')
+    + `<p class="cap">NASA's material screening is run in 1-g. BASS was flown to bridge that gap: <button class="chip" id="bassq">quote</button></p>`;
+  $('#bassq').onclick = () => showLine({quote: 'segregates material based on 1-g behavior without consideration of low gravity effects.', source: 'PSI-26-page'});
+
+  const W = D.worked, r = W.record, e = W.env, t1 = W.tol.o2_percent, t2 = W.tol.pressure_kpa;
+  const a1 = (r.o2_percent - e.o2) / t1, a2 = (r.pressure_kpa - e.pressure) / t2;
+  $('#worked').innerHTML = `<div class="verify" style="line-height:1.9">
+    <div style="color:#9AA8D6">Habitat: Moon Base · ${fmt(e.o2)}% O₂ · ${fmt(e.pressure)} kPa</div>
+    <div style="color:#9AA8D6">Closest NASA test: ${esc(r.id)} · ${esc(r.material)} · ${fmt(r.o2_percent,2)}% · ${fmt(r.pressure_kpa,1)} kPa</div>
+    <div>τ(O₂) = 20% × (${fmt(W.o2_range[1])} − ${fmt(W.o2_range[0])}) = ${t1.toFixed(2)} %</div>
+    <div>τ(P)  = floor = ${fmt(t2)} kPa   (tested pressures span only a few kPa)</div>
+    <div>O₂ term = (${fmt(r.o2_percent,2)} − ${fmt(e.o2)}) / ${t1.toFixed(2)} = ${a1.toFixed(2)}</div>
+    <div>P term  = (${fmt(r.pressure_kpa,1)} − ${fmt(e.pressure)}) / ${fmt(t2)} = ${a2.toFixed(2)}</div>
+    <div>d = √(${(a1*a1).toFixed(1)} + ${(a2*a2).toFixed(1)}) = <b style="color:#FF8A3D">${W.d.toFixed(2)}</b></div>
+    <div style="color:#FF8A3D;margin-top:6px">${W.d.toFixed(1)} tolerances away. Evidence needs d ≤ 1. → No evidence. We do not guess.</div></div>`;
+  const S = D.stats;
+  $('#shares').innerHTML = `<table><thead><tr><th>Material</th><th>Burned</th><th>95% CI</th></tr></thead><tbody>${S.shares.map(s => `<tr><td>${esc(s.material)}</td>
+      <td class="num">${s.burned}/${s.tests} · ${Math.round(s.share*100)}%</td>
+      <td><div class="bar2" style="position:relative;height:10px"><i style="margin-left:${s.ci95[0]*100}%;width:${(s.ci95[1]-s.ci95[0])*100}%"></i></div>
+      <div class="pill">${Math.round(s.ci95[0]*100)}–${Math.round(s.ci95[1]*100)}%</div></td></tr>`).join('')}</tbody></table>`;
+  $('#pvals').innerHTML = `<table><thead><tr><th>Comparison</th><th>p</th><th>Verdict</th></tr></thead><tbody>${S.pairs.filter(p => p.significant).map(p => `<tr>
+      <td>${esc(p.a)} vs ${esc(p.b)}</td><td class="num">${p.p < 0.0001 ? '<0.0001' : p.p.toFixed(4)}</td>
+      <td>${p.significant_bonferroni ? '<span class="badge b-no">significant</span>' : '<span class="badge b-na">p<0.05, not after Bonferroni</span>'}</td></tr>`).join('')}</tbody></table>`;
+  const ev = S.earth_vs_space;
+  $('#statnote').innerHTML = `Earth vs space (silicone, Saffire-II): ${ev.same_direction} of ${ev.pairs} samples burned in 1-g but not in microgravity. Exact sign test <b>p = ${ev.p.toFixed(2)}</b> → <b>not significant</b> with so few samples. A signal worth testing, not a proven effect. ${esc(S.note)}`;
+  const list = [];
+  D.issues.forEach(i => i.issues.forEach(t => list.push(`<li><span class="num">${esc(i.source)} ${esc(i.record)}</span> — ${esc(t)}</li>`)));
+  list.push('<li><span class="num">PSI-26 Experimental table</span> — dates written as "6/29/`12" and "5/15/2103" in NASA\'s table.</li>');
+  $('#issues').innerHTML = list.slice(0, 14).join('');
+}
+
+renderBrief(); renderRows(); renderGap(); renderProof();
+
+/* ===================== story canvas ===================== */
+(function () {
+  const cv = document.getElementById('sky'), ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, DPR;
+  const beats = [...document.querySelectorAll('.story .beat')];
+  const pts = D.records.filter(r => r.gravity === 'micro' && r.o2_percent != null && r.pressure_kpa != null);
+  const stars = Array.from({length: 160}, () => ({x: Math.random(), y: Math.random(), r: Math.random() * 1.3 + .2, a: Math.random() * .6 + .2}));
+  const seeds = pts.map(() => ({x: Math.random(), y: Math.random(), ph: Math.random() * 6.28}));
+  const moon = D.envs.moon, near = D.worked.record;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+  addEventListener('resize', size); size();
+  const lerp = (a, b, t) => a + (b - a) * t, clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  function progress() {
+    // continuous story position: 0 at top of beat 0, 1 at top of beat 1, ...
+    const y = scrollY + H * .5;
+    for (let i = 0; i < beats.length; i++) {
+      const b = beats[i], top = b.getBoundingClientRect().top + scrollY, h = b.offsetHeight;
+      if (y < top + h) return i + clamp((y - top) / h);
+    }
+    return beats.length;
+  }
+  function chart() {
+    const mobile = W < 900, x0 = mobile ? W * .2 : W * .5, x1 = W * .94, y0 = mobile ? H * .52 : H * .16, y1 = H * .86;
+    return {x0, x1, y0, y1, X: o => lerp(x0, x1, (o - 12) / (36 - 12)), Y: p => lerp(y1, y0, (p - 60) / (110 - 60))};
+  }
+  function flame(cx, cy, R, m, t) {
+    // m: 0 = Earth teardrop (orange, flickering), 1 = microgravity sphere (blue). Cross-fade two fills on a morphing path.
+    const flick = (1 - m) * (Math.sin(t * 9) * .05 + Math.sin(t * 13.7) * .03);
+    const warm = [255, 122, 61], cool = [90, 200, 255];
+    const col = warm.map((v, i) => Math.round(lerp(v, cool[i], m)));
+    const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 3.2);
+    halo.addColorStop(0, `rgba(${col},.30)`); halo.addColorStop(1, `rgba(${col},0)`);
+    ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, R * 3.2, 0, 6.283); ctx.fill();
+    ctx.save(); ctx.translate(cx, cy);
+    // Path: lerp every control point from a teardrop (m=0) to a true circle (m=1)
+    const k = .5523, f = 1 + flick;
+    const drop = [[0, -2.5 * f], [.06, -2.25 * f], [.9, -1.0], [.82, 0], [.8, .55], [.5, 1], [0, 1]];
+    const circ = [[0, -1], [k, -1], [1, -k], [1, 0], [1, k], [k, 1], [0, 1]];
+    const P = drop.map((d, i) => [lerp(d[0], circ[i][0], m) * R, lerp(d[1], circ[i][1], m) * R]);
+    ctx.beginPath();
+    ctx.moveTo(P[0][0], P[0][1]);
+    ctx.bezierCurveTo(P[1][0], P[1][1], P[2][0], P[2][1], P[3][0], P[3][1]);
+    ctx.bezierCurveTo(P[4][0], P[4][1], P[5][0], P[5][1], P[6][0], P[6][1]);
+    ctx.bezierCurveTo(-P[5][0], P[5][1], -P[4][0], P[4][1], -P[3][0], P[3][1]);
+    ctx.bezierCurveTo(-P[2][0], P[2][1], -P[1][0], P[1][1], P[0][0], P[0][1]);
+    ctx.closePath();
+    // Earth flame: bright core low in the flame, yellow, orange, deep red edge
+    const ge = ctx.createRadialGradient(0, R * .35, R * .05, 0, -R * .1, R * 1.7);
+    ge.addColorStop(0, 'rgba(255,250,225,1)'); ge.addColorStop(.2, 'rgba(255,214,102,1)');
+    ge.addColorStop(.55, 'rgba(255,122,61,.95)'); ge.addColorStop(.85, 'rgba(200,52,24,.75)'); ge.addColorStop(1, 'rgba(200,52,24,0)');
+    // Microgravity flame: dim interior, bright blue shell
+    const gs = ctx.createRadialGradient(0, 0, R * .05, 0, 0, R * 1.05);
+    gs.addColorStop(0, 'rgba(10,20,60,.10)'); gs.addColorStop(.7, 'rgba(90,200,255,.22)');
+    gs.addColorStop(.9, 'rgba(150,225,255,.95)'); gs.addColorStop(1, 'rgba(90,200,255,0)');
+    ctx.globalAlpha = 1 - m; ctx.fillStyle = ge; ctx.fill();
+    ctx.globalAlpha = m; ctx.fillStyle = gs; ctx.fill();
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+  function frame(now) {
+    const t = now / 1000, s = progress();
+    ctx.clearRect(0, 0, W, H);
+    // sky
+    ctx.fillStyle = '#0A0F2E'; ctx.fillRect(0, 0, W, H);
+    for (const st of stars) { ctx.fillStyle = `rgba(238,242,255,${st.a * (reduce ? 1 : .75 + .25 * Math.sin(t + st.x * 40))})`; ctx.fillRect(st.x * W, st.y * H, st.r, st.r); }
+    const C = chart(), mobile = W < 900;
+    const fx = mobile ? W * .5 : W * .72, fy = mobile ? H * .7 : H * .5, R = Math.min(W, H) * (mobile ? .09 : .1);
+    // beat 0: morph Earth flame -> sphere ; beat 1: sphere holds, dims
+    if (s < 2.2) {
+      const m = ease(clamp((s - .5) / .55));
+      const fade = 1 - clamp((s - 1.7) / .5);
+      ctx.globalAlpha = fade; flame(fx, fy, R, m, reduce ? 0 : t); ctx.globalAlpha = 1;
+    }
+    // beat 2: sphere bursts into points ; beat 3: points fly into the chart
+    const burst = ease(clamp((s - 1.6) / .8)), toChart = ease(clamp((s - 2.55) / .75));
+    const showPts = s > 1.6 && s < 5.6;
+    if (showPts) {
+      const chartAlpha = toChart;
+      if (chartAlpha > .01) {
+        ctx.globalAlpha = chartAlpha * .9; ctx.strokeStyle = '#24306E'; ctx.lineWidth = 1; ctx.fillStyle = '#9CA6D8'; ctx.font = '13px "IBM Plex Sans", sans-serif';
+        for (let o = 15; o <= 35; o += 5) { const x = C.X(o); ctx.beginPath(); ctx.moveTo(x, C.y0); ctx.lineTo(x, C.y1); ctx.stroke(); ctx.fillText(o + '% O₂', x - 18, C.y1 + 20); }
+        for (let p = 60; p <= 110; p += 10) { const y = C.Y(p); ctx.beginPath(); ctx.moveTo(C.x0, y); ctx.lineTo(C.x1, y); ctx.stroke(); ctx.fillText(p + ' kPa', C.x0 - 56, y + 4); }
+        ctx.globalAlpha = 1;
+      }
+      pts.forEach((r, i) => {
+        const sd = seeds[i], ang = sd.ph + i;
+        const bx = fx + Math.cos(ang) * R * (.2 + 3.6 * burst * sd.x) + (reduce ? 0 : Math.sin(t * .6 + sd.ph) * 6 * burst);
+        const by = fy + Math.sin(ang) * R * (.2 + 3.6 * burst * sd.y) + (reduce ? 0 : Math.cos(t * .5 + sd.ph) * 6 * burst);
+        const jx = (sd.x - .5) * 6, jy = (sd.y - .5) * 6;
+        const x = lerp(bx, C.X(r.o2_percent) + jx, toChart), y = lerp(by, C.Y(r.pressure_kpa) + jy, toChart);
+        ctx.fillStyle = r.sustained === false ? '#3DDC97' : r.sustained ? '#5AC8FF' : '#9CA6D8';
+        ctx.globalAlpha = clamp((s - 1.6) / .3) * (1 - clamp((s - 5.2) / .4));
+        ctx.beginPath(); ctx.arc(x, y, 3.2, 0, 6.283); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      // Moon Base appears (beat 3 second half), distance line (beat 4)
+      const mA = clamp((s - 3.35) / .35) * (1 - clamp((s - 5.2) / .4));
+      if (mA > 0) {
+        const mx = C.X(moon.o2), my = C.Y(moon.pressure);
+        ctx.globalAlpha = mA;
+        ctx.strokeStyle = '#FF7A3D'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.arc(mx, my, 14 + (reduce ? 0 : Math.sin(t * 2.4) * 3), 0, 6.283); ctx.stroke();
+        ctx.fillStyle = '#FF7A3D'; ctx.beginPath(); ctx.arc(mx, my, 4, 0, 6.283); ctx.fill();
+        ctx.font = '600 16px "IBM Plex Sans", sans-serif'; ctx.fillText('Moon Base', mx + 20, my - 16);
+        const lA = clamp((s - 3.95) / .35);
+        if (lA > 0) {
+          const nx = C.X(near.o2_percent), ny = C.Y(near.pressure_kpa);
+          ctx.setLineDash([6, 6]); ctx.globalAlpha = mA * lA; ctx.beginPath();
+          ctx.moveTo(nx, ny); ctx.lineTo(lerp(nx, mx, lA), lerp(ny, my, lA)); ctx.stroke(); ctx.setLineDash([]);
+          ctx.font = '700 22px "Syne", sans-serif'; ctx.fillText('d = __D__', (nx + mx) / 2 + 10, (ny + my) / 2 - 10);
+        }
+        ctx.globalAlpha = 1;
+      }
+    }
+    // after the story the sky dims behind the dashboard
+    cv.style.opacity = s >= 5.6 ? .35 : 1;
+    if (!reduce || true) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  document.getElementById('openAtlas').onclick = () => document.getElementById('atlas').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+})();
+function route() { const h = location.hash.slice(1) || 'brief';
+  const bm = /^beat(\d)$/.exec(h); if (bm) { const el = document.querySelector(`.story .beat[data-beat="${bm[1]}"]`); if (el) setTimeout(() => scrollTo(0, el.getBoundingClientRect().top + scrollY + el.offsetHeight * .35), 50); return; } const b = document.querySelector(`nav button[data-tab="${h}"]`); if (b && b.getAttribute('aria-selected') !== 'true') b.click(); }
+document.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => { if (location.hash.slice(1) !== b.dataset.tab) history.replaceState(null, '', '#' + b.dataset.tab); }));
+window.addEventListener('hashchange', route); route();
+</script>
+</body>
+</html>
