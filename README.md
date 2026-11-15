@@ -114,3 +114,15 @@ Developed collaboratively for the NASA Space Apps Challenge.
 ---
 
 **Flame Atlas** — Making wildfire information easier to explore.
+
+## Verification and workspace preview
+
+Run `npm test` (Node.js 22.18+ or 24+) for search-filter and scenario API regression tests,
+`npm run lint`, and `npm run build` before shipping changes.
+
+The Scenario Ranker accepts a material, gravity regime, and optional oxygen (%),
+pressure (kPa), and airflow (cm/s). Blank numeric fields remain unknown (`null`).
+Preview mode never sends an assessment request. Live mode requires
+`NEXT_PUBLIC_API_BASE_URL` pointing to a service implementing `POST /api/assess`;
+the form displays the server's assessment summary and warnings, not a locally
+calculated ranking.

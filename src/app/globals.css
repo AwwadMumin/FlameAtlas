@@ -72,6 +72,58 @@
 .atmosphere-canvas{opacity:1!important}
 .fire-plume,.smoke-plume{display:none!important}
 
+/* Keep mobile navigation usable without letting its row widen the page. */
+@media(max-width:850px){
+  .shell>.topbar{position:sticky;z-index:20}
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(38,42,48,.97);
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+  }
+  .topbar nav{
+    min-width:0;
+    height:auto;
+    justify-content:flex-start;
+    gap:4px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .topbar nav::-webkit-scrollbar{display:none}
+  .topbar nav button{
+    flex:0 0 auto;
+    min-height:48px;
+    padding:0 12px;
+    scroll-snap-align:start;
+  }
+  .topbar nav button::after{left:12px;right:12px;bottom:4px;height:3px}
+  .topbar nav button.active{
+    color:#fff;
+    background:rgba(214,90,49,.13)!important;
+    box-shadow:inset 0 0 0 1px rgba(214,90,49,.24)!important;
+    border-radius:7px;
+  }
+  .topbar nav{scroll-snap-type:x proximity}
+  .mode-switch button{min-height:42px}
+}
+@media(max-width:520px){
+  .topbar{gap:5px;padding:8px 12px}
+  .brand{flex:1 1 0;min-width:0;gap:8px}
+  .brand-mark{width:45px;height:45px;flex:0 0 45px}
+  .brand-mark img{width:42px;height:42px}
+  .brand strong{font-size:13px;letter-spacing:.1em;white-space:nowrap}
+  .brand small{max-width:150px;font-size:7px;line-height:1.25;letter-spacing:.035em}
+  .mode-switch{margin-left:auto;flex:0 0 auto;padding:2px}
+  .mode-switch button{min-width:48px;min-height:42px;padding:6px 8px}
+  .topbar nav{margin:2px -2px 0;padding:0 2px}
+  .topbar nav button{min-height:48px;padding:0 13px;font-size:12px}
+  .topbar nav button::after{left:13px;right:13px}
+}
+
 /* V7: remove the logo tile entirely; retain only a soft orange halo. */
 .brand-mark,.brand:hover .brand-mark{
   position:relative;isolation:isolate;overflow:visible;

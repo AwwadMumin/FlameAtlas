@@ -26,6 +26,26 @@ export interface Answer {
   answer: string; limitations?: string;
   citations: { source_id: string; title: string; url: string | null }[];
 }
+export type AssessmentGravity = 'orbit' | 'microgravity' | 'earth' | '1g' | 'moon' | 'mars';
+export interface AssessScenarioRequest {
+  material_query: string;
+  gravity: AssessmentGravity;
+  oxygen_pct: number | null;
+  pressure_kpa: number | null;
+  airflow_cm_s: number | null;
+  use_llm: false;
+}
+export interface ScenarioAssessment {
+  verdict: string;
+  verdict_label: string;
+  verdict_tier: 'green' | 'amber' | 'grey';
+  verdict_reason: string;
+  matched_tolerances: { text: string } | null;
+  summary_text: string;
+  summary_fallback_reason: string | null;
+  warnings: string[];
+  empty_state_message: string | null;
+}
 const BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace(/\/$/, '');
 async function request<T>(path:string, options?:RequestInit):Promise<T>{
   if(!BASE) throw new Error('Research API is not configured. Set NEXT_PUBLIC_API_BASE_URL in .env.local.');
@@ -42,4 +62,7 @@ export function compareExperiments(ids:string[]):Promise<ComparisonResult>{
 }
 export function askResearch(question:string,ids:string[]):Promise<Answer>{
   return request('/api/ask',{method:'POST',body:JSON.stringify({question,experiment_ids:ids})});
+}
+export function assessScenario(input:AssessScenarioRequest):Promise<ScenarioAssessment>{
+  return request('/api/assess',{method:'POST',body:JSON.stringify(input)});
 }
