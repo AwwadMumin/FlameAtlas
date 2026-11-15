@@ -1,7 +1,7 @@
 # Mission Lens backend: MongoDB (atlas-local, supports $vectorSearch) + one-shot data loader + API.
 #   cp .env.example .env && docker compose up --build      ->  http://localhost:8000/docs
 x-backend: &backend
-  build: ./backend
+  build: {context: ., dockerfile: backend/Dockerfile}
   env_file: [.env.example]
   environment:
     MONGODB_URI: mongodb://mongo:27017/?directConnection=true

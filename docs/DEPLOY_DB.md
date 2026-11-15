@@ -22,5 +22,5 @@ separate piece of work, not a setting.
 ## Before hosting the API (not done yet)
 - **Labels and validation now live in the database** (collections `outcome_labels` and `derived_docs`), so they survive restarts and redeploys. The loader never drops them. Exported `validation.json`/`.md` files are only a convenience copy.
   Move them to a Mongo collection (small change) or mount a persistent volume.
-- **The image needs `data/`** (knowledge pack, materials, derived files). Compose mounts it; a production image must copy it (build from the repo root) or mount it.
+- **The production image is self-contained**: build from the repo root with `docker build -f backend/Dockerfile -t mission-lens .`. It holds the code, `data/` (without `data/raw`), `docs/` and the embedding model. Run it with `MONGODB_URI` and `MONGODB_DB` set and port 8000.
 - Set `CORS_ORIGINS` to the real frontend origin, and keep `ANTHROPIC_API_KEY` in the host's secret store.

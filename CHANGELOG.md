@@ -3,6 +3,8 @@ Contract changes after Phase 2 must be listed here and in `docs/API_CONTRACT.md`
 
 ## 1.3.0
 
+- Production image is self-contained (`data/`, `docs/`, embedding model baked in); `docker build -f backend/Dockerfile .` from the repo root. Compose builds the same way.
+
 - Human labels moved from `data/derived/outcome_labels.json` to the MongoDB collection `outcome_labels` (atomic upsert per experiment_id). The validation result is stored in `derived_docs`; the `.json`/`.md` files are exported best-effort. `correction.measured_error()` reads the database. No API change. Any old label file must be re-imported with `import_labels.py`.
 
 ## 0.1.0 — Phase 0
