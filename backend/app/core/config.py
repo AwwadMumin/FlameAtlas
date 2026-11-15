@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     embed_model: str = "all-MiniLM-L6-v2"
     embed_dims: int = 384
     similarity_threshold: float = 0.55
+    ask_similarity_threshold: float = 0.70   # /api/ask: unrelated questions score ~0.55-0.60, relevant ones >= 0.75 (measured on the MiniLM cards)
 
     # coverage tolerances, shown to the user as "matched within ±..."
     tol_o2_pct: float = 1.5

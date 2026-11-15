@@ -420,3 +420,84 @@ class AboutResponse(BaseModel):
     licenses: list[str]
     incidents: list[dict[str, Any]]
     earth_benefits: list[dict[str, Any]]
+
+
+# ---------- frontend adapter endpoints: /api/experiments, /api/compare, /api/ask ----------
+class ExperimentListItem(BaseModel):
+    """Shape the frontend (src/components/api.ts `Experiment`) expects. Every value comes from the record; null stays null."""
+    id: str
+    program: str | None = None
+    title: str
+    material: str | None = None
+    material_id: str | None = None
+    gravity: str
+    oxygen: str | None = None
+    airflow: str | None = None
+    year: int | None = None
+    summary: str
+    source_id: str | None = None
+    source_url: str | None = None
+    evidence_type: str | None = None
+    display_kind: str | None = None
+
+
+class ExperimentListResponse(BaseModel):
+    experiments: list[ExperimentListItem]
+    total: int
+    returned: int
+
+
+class CompareRequest(BaseModel):
+    experiment_ids: list[str] = Field(min_length=2, max_length=12, description="The first id is the reference; every other record is checked against it.")
+    use_llm: bool = True
+
+
+class CompareItem(BaseModel):
+    experiment_id: str
+    comparable: bool
+    reason: str
+    differences: list[str] = []
+
+
+class ScientificLimitation(BaseModel):
+    id: str
+    category: Literal["experimental_conditions", "data_coverage", "measurement_uncertainty", "methodology", "interpretation", "other"]
+    severity: Literal["info", "caution", "critical"] = "info"
+    title: str
+    description: str
+    affected_experiment_ids: list[str] = []
+    source_ids: list[str] = []
+    source_urls: list[str] = []
+
+
+class SourceRef(BaseModel):
+    source_id: str
+    title: str
+    url: str | None = None
+
+
+class ComparisonResponse(BaseModel):
+    summary: str
+    reference_id: str
+    items: list[CompareItem]
+    limitations: list[ScientificLimitation]
+    methodology: str
+    sources: list[SourceRef]
+    generated_at: str
+    summary_source: Literal["template", "llm_checked"] = "template"
+    summary_fallback_reason: str | None = None
+
+
+class AskRequest(BaseModel):
+    question: str = Field(min_length=3, max_length=500)
+    experiment_ids: list[str] = Field(default=[], max_length=12, description="Optional: answer only from these records.")
+    use_llm: bool = True
+
+
+class AskResponse(BaseModel):
+    answer: str
+    limitations: str | None = None
+    citations: list[SourceRef]
+    records: list[EvidenceRecord] = []
+    answer_source: Literal["template", "llm_checked"] = "template"
+    answer_fallback_reason: str | None = None

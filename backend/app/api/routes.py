@@ -1,4 +1,4 @@
-"""All 15 endpoints. Phase 0: MOCK=1 serves docs/examples/*.json; otherwise 501 until the phase that implements it."""
+"""All 18 endpoints. Phase 0: MOCK=1 serves docs/examples/*.json; otherwise 501 until the phase that implements it."""
 from __future__ import annotations
 
 import json
@@ -9,7 +9,7 @@ from fastapi import APIRouter, Query
 from app.core.config import get_settings
 from app.core.errors import ApiError
 from app.models import api as M
-from app.services import assess as assess_svc, catalog, demo, gaps, health as health_svc, labels as labels_svc, validation as validation_svc
+from app.services import assess as assess_svc, catalog, demo, research, gaps, health as health_svc, labels as labels_svc, validation as validation_svc
 
 router = APIRouter(prefix="/api")
 ERR = {404: {"model": M.ErrorResponse}, 422: {"model": M.ErrorResponse}}
@@ -116,6 +116,22 @@ def labels_save(body: M.LabelIn):
 @router.get("/demo-scenarios", response_model=M.DemoScenariosResponse)
 def demo_scenarios():
     return example("demo_scenarios") if MOCK() else demo.scenarios()
+
+
+@router.get("/experiments", response_model=M.ExperimentListResponse, responses=ERR)
+def experiments_list(material: str | None = None, gravity: str | None = None, q: str | None = Query(None, max_length=100), include_smoke: bool = True,
+                     limit: int = Query(1000, ge=1, le=2000), offset: int = Query(0, ge=0)):
+    return example("experiments_list") if MOCK() else research.list_experiments(material, gravity, q, include_smoke, limit, offset)
+
+
+@router.post("/compare", response_model=M.ComparisonResponse, responses=ERR)
+def compare(body: M.CompareRequest):
+    return example("compare") if MOCK() else research.compare(body)
+
+
+@router.post("/ask", response_model=M.AskResponse, responses=ERR)
+def ask(body: M.AskRequest):
+    return example("ask") if MOCK() else research.ask(body)
 
 
 @router.get("/about", response_model=M.AboutResponse)

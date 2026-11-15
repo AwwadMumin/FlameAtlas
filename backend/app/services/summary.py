@@ -46,8 +46,8 @@ def numbers(s: str) -> set[float]:
     return {round(float(m), 6) for m in _NUM.findall(_strip(s).replace(",", ""))}
 
 
-def check_text(text: str, context_json: str, resp: AssessResponse) -> str | None:
-    """Return None if the text passes, else the reason it was rejected."""
+def check_free(text: str, context_json: str) -> str | None:
+    """Number guard for any LLM text. Return None if the text passes, else the reason it was rejected."""
     t = text.strip()
     if not t:
         return "empty LLM text"
@@ -64,6 +64,15 @@ def check_text(text: str, context_json: str, resp: AssessResponse) -> str | None
     w = _WORDS.search(_strip(t))
     if w:
         return f"spelled-out number '{w.group(0)}'"
+    return None
+
+
+def check_text(text: str, context_json: str, resp: AssessResponse) -> str | None:
+    """Return None if the text passes, else the reason it was rejected."""
+    bad = check_free(text, context_json)
+    if bad:
+        return bad
+    t = text.strip()
     low = t.lower().replace("—", "-")
     need = {Verdict.EVIDENCE: ["evidence"], Verdict.NO_DIRECT_EVIDENCE: ["no direct evidence"],
             Verdict.MODEL_ESTIMATE: ["model estimate", "not tested"]}[resp.verdict]
@@ -112,20 +121,24 @@ def get_client():
     return anthropic.Anthropic(api_key=s.anthropic_api_key, timeout=s.llm_timeout_s, max_retries=1)
 
 
-def generate(context_json: str, question: str | None) -> str:
-    """One Claude call. Raises on refusal or API errors (caller falls back to the template)."""
+def complete(system: str, user: str) -> str:
+    """One Claude call. Raises on refusal or API errors (callers fall back to their template)."""
     s = get_settings()
-    user = f"Context (JSON):\n{context_json}\n\nEngineer's question: {question or '(none)'}\n\nWrite the summary."
     # Claude Opus 5.5: thinking is always on (parameter omitted); no sampling params; effort is the depth control;
     # server-side refusal fallback opted in by default.
     r = get_client().beta.messages.create(
-        model=s.llm_model, max_tokens=s.llm_max_tokens, system=SYSTEM_PROMPT, output_config={"effort": s.llm_effort},
+        model=s.llm_model, max_tokens=s.llm_max_tokens, system=system, output_config={"effort": s.llm_effort},
         betas=["server-side-fallback-2026-07-01"], fallbacks="default", messages=[{"role": "user", "content": user}])
     if r.stop_reason == "refusal":
         raise RuntimeError("model declined (stop_reason=refusal)")
     if r.stop_reason == "max_tokens":
         raise RuntimeError("output cut off (max_tokens)")
     return "".join(b.text for b in r.content if b.type == "text")
+
+
+def generate(context_json: str, question: str | None) -> str:
+    user = f"Context (JSON):\n{context_json}\n\nEngineer's question: {question or '(none)'}\n\nWrite the summary."
+    return complete(SYSTEM_PROMPT, user)
 
 
 def finalize(resp: AssessResponse, req: AssessRequest) -> AssessResponse:

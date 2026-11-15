@@ -21,7 +21,7 @@ MODEL_FOR = {
     "coverage": M.CoverageResponse, "next_experiments": M.NextExperimentsResponse, "labels_queue": M.LabelQueueResponse,
     "label_saved": M.LabelOut, "validation": M.ValidationResponse, "health": M.HealthResponse,
     "experiment_detail": M.ExperimentDetailResponse, "about": M.AboutResponse, "error_404": M.ErrorResponse,
-    "error_422": M.ErrorResponse, "demo_scenarios": M.DemoScenariosResponse,
+    "error_422": M.ErrorResponse, "experiments_list": M.ExperimentListResponse, "compare": M.ComparisonResponse, "ask": M.AskResponse, "demo_scenarios": M.DemoScenariosResponse,
 }
 
 

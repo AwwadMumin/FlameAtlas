@@ -107,6 +107,29 @@
       }
     },
     {
+      "name": "GET /api/experiments",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/experiments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "experiments"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
       "name": "GET /api/experiments/{experiment_id}",
       "request": {
         "method": "GET",
@@ -334,6 +357,29 @@
       }
     },
     {
+      "name": "POST /api/ask",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/ask",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "ask"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
       "name": "POST /api/assess — ISS cabin — PMMA (acrylic)",
       "request": {
         "method": "POST",
@@ -458,6 +504,29 @@
               "language": "json"
             }
           }
+        }
+      }
+    },
+    {
+      "name": "POST /api/compare",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/compare",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "compare"
+          ],
+          "query": []
         }
       }
     }

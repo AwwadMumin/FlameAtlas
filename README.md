@@ -85,6 +85,7 @@ OpenAPI at `/openapi.json`, Swagger at `/docs`, Postman collection in [`docs/pos
 | `GET /api/presets` · `/api/materials/search?q=` · `/api/materials/{id}` · `/api/materials/{id}/evidence` · `/api/experiments/{id}` | Catalog and provenance |
 | `GET /api/coverage/{material_id}` · `/api/next-experiments?preset=` | Gap map and "suggested test" ranking |
 | `GET /api/validation` · `GET /api/admin/labels/queue` · `POST /api/admin/labels` | Old-method error report and human labelling |
+| `GET /api/experiments` · `POST /api/compare` · `POST /api/ask` | Frontend list, **compare agent** (comparability rules + limitations) and **ask agent** (guarded retrieval, citations) |
 | `GET /api/about` · `/api/health` | Investigations, incidents, licenses · DB, vector index, embedding model |
 
 Try it:

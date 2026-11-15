@@ -78,7 +78,7 @@ def test_cors_preflight_and_origin_list(live):
 
 def test_openapi_and_docs(live):
     spec = live.get("/openapi.json").json()
-    assert len(spec["paths"]) == 14 and "AssessResponse" in spec["components"]["schemas"]   # 14 paths; /api/admin/labels is the POST
+    assert len(spec["paths"]) == 17 and "AssessResponse" in spec["components"]["schemas"]   # 14 paths; /api/admin/labels is the POST
     assert live.get("/docs").status_code == 200
 
 

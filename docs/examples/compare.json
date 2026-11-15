@@ -1,0 +1,184 @@
+{
+  "summary": "Reference WSTF-013: MOC = 19.0 % O2. 1 of 3 other record(s) report the same quantity and can be compared; see the listed differences before reading them side by side. Not comparable: LINK2018-S2-L01 (different quantities (MOC vs flame_spread_rate)); BASS2-001 (BASS2-001 only records the test conditions ('tested at'); the source reports no outcome).",
+  "reference_id": "WSTF-013",
+  "items": [
+    {
+      "experiment_id": "WSTF-013",
+      "comparable": true,
+      "reason": "Reference record: MOC = 19.0 % O2",
+      "differences": []
+    },
+    {
+      "experiment_id": "WSTF-044",
+      "comparable": true,
+      "reason": "Same quantity (MOC [% O2]): MOC = 19.0 % O2 vs MOC = 14.0 % O2.",
+      "differences": [
+        "O2 differs by 5.0% (19.0% vs 14.0%), outside the ±1.5% tolerance",
+        "airflow not stated for WSTF-013 and WSTF-044",
+        "1g test procedure: WSTF-013 is standard, WSTF-044 is non_standard (configuration changes the measured limit; Hirsch et al. 2011)",
+        "material variant differs ('rod, extruded' vs 'rod, unspecified')"
+      ]
+    },
+    {
+      "experiment_id": "LINK2018-S2-L01",
+      "comparable": false,
+      "reason": "different quantities (MOC vs flame_spread_rate).",
+      "differences": []
+    },
+    {
+      "experiment_id": "BASS2-001",
+      "comparable": false,
+      "reason": "BASS2-001 only records the test conditions ('tested at'); the source reports no outcome.",
+      "differences": []
+    }
+  ],
+  "limitations": [
+    {
+      "id": "LIM-o2",
+      "category": "experimental_conditions",
+      "severity": "caution",
+      "title": "Different O2",
+      "description": "WSTF-044 vs WSTF-013: O2 differs by 5.0% (19.0% vs 14.0%), outside the ±1.5% tolerance.",
+      "affected_experiment_ids": [
+        "WSTF-044"
+      ],
+      "source_ids": [
+        "WSTF-044"
+      ],
+      "source_urls": [
+        "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+      ]
+    },
+    {
+      "id": "LIM-airflow",
+      "category": "data_coverage",
+      "severity": "info",
+      "title": "Different airflow",
+      "description": "WSTF-044 vs WSTF-013: airflow not stated for WSTF-013 and WSTF-044.",
+      "affected_experiment_ids": [
+        "WSTF-044"
+      ],
+      "source_ids": [
+        "WSTF-044"
+      ],
+      "source_urls": [
+        "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+      ]
+    },
+    {
+      "id": "LIM-procedure",
+      "category": "methodology",
+      "severity": "caution",
+      "title": "Different test procedure",
+      "description": "WSTF-044 vs WSTF-013: 1g test procedure: WSTF-013 is standard, WSTF-044 is non_standard (configuration changes the measured limit; Hirsch et al. 2011).",
+      "affected_experiment_ids": [
+        "WSTF-044"
+      ],
+      "source_ids": [
+        "WSTF-044"
+      ],
+      "source_urls": [
+        "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+      ]
+    },
+    {
+      "id": "LIM-variant",
+      "category": "experimental_conditions",
+      "severity": "caution",
+      "title": "Different material variant",
+      "description": "WSTF-044 vs WSTF-013: material variant differs ('rod, extruded' vs 'rod, unspecified').",
+      "affected_experiment_ids": [
+        "WSTF-044"
+      ],
+      "source_ids": [
+        "WSTF-044"
+      ],
+      "source_urls": [
+        "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+      ]
+    },
+    {
+      "id": "LIM-flags-LINK2018-S2-L01",
+      "category": "measurement_uncertainty",
+      "severity": "caution",
+      "title": "Data-quality flags on LINK2018-S2-L01",
+      "description": "Pressure is not stated in the table..",
+      "affected_experiment_ids": [
+        "LINK2018-S2-L01"
+      ],
+      "source_ids": [
+        "LINK2018-S2-L01"
+      ],
+      "source_urls": [
+        "https://doi.org/10.1038/s41598-017-18398-4"
+      ]
+    },
+    {
+      "id": "LIM-flags-BASS2-001",
+      "category": "measurement_uncertainty",
+      "severity": "caution",
+      "title": "Data-quality flags on BASS2-001",
+      "description": "source table records conditions and gas readings, not flame outcome.",
+      "affected_experiment_ids": [
+        "BASS2-001"
+      ],
+      "source_ids": [
+        "BASS2-001"
+      ],
+      "source_urls": [
+        "https://doi.org/10.60555/4qc4-de67"
+      ]
+    },
+    {
+      "id": "LIM-interpretation",
+      "category": "interpretation",
+      "severity": "info",
+      "title": "Data cover only microgravity and 1g",
+      "description": "No record covers Moon or Mars gravity; nothing here can be read as an estimate for those.",
+      "affected_experiment_ids": [
+        "WSTF-013",
+        "WSTF-044",
+        "LINK2018-S2-L01",
+        "BASS2-001"
+      ],
+      "source_ids": [
+        "WSTF-013",
+        "WSTF-044",
+        "LINK2018-S2-L01",
+        "BASS2-001"
+      ],
+      "source_urls": [
+        "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+        "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf",
+        "https://doi.org/10.1038/s41598-017-18398-4",
+        "https://doi.org/10.60555/4qc4-de67"
+      ]
+    }
+  ],
+  "methodology": "Deterministic rules over NASA records. A pair is comparable only if both are burn-relevant (not smoke/detection), have a recorded outcome, are the same material and report the SAME outcome variable in the SAME unit as printed (no conversion; LOI downward and MOC/ULOI upward are never mixed). Differences in gravity, O2 (beyond the configured tolerance), pressure, airflow, test procedure, material variant or source campaign are listed as limitations. Nothing is interpolated or inferred; missing values are reported as 'not stated'.",
+  "sources": [
+    {
+      "source_id": "WSTF-013",
+      "title": "Hirsch, Juarez, Peyton, Harper, Olson (2011), Selected Parametric Effects on Materials Flammability Limits, NASA White Sands Test Facility, NTRS 20110008636, Table 2, p.5",
+      "url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+    },
+    {
+      "source_id": "WSTF-044",
+      "title": "Hirsch, Juarez, Peyton, Harper, Olson (2011), Selected Parametric Effects on Materials Flammability Limits, NASA White Sands Test Facility, NTRS 20110008636, Table 7, p.7",
+      "url": "https://ntrs.nasa.gov/api/citations/20110008636/downloads/20110008636.pdf"
+    },
+    {
+      "source_id": "LINK2018-S2-L01",
+      "title": "Link et al. 2018, Sci Rep 8:120, Supplemental Material, Table S2 (block left, y=147)",
+      "url": "https://doi.org/10.1038/s41598-017-18398-4"
+    },
+    {
+      "source_id": "BASS2-001",
+      "title": "PSI-25 BASS-II experimental table, test B1",
+      "url": "https://doi.org/10.60555/4qc4-de67"
+    }
+  ],
+  "generated_at": "2026-11-15T02:51:55+00:00",
+  "summary_source": "template",
+  "summary_fallback_reason": null
+}

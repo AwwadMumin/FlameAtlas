@@ -1,6 +1,12 @@
 # Changelog
 Contract changes after Phase 2 must be listed here and in `docs/API_CONTRACT.md`.
 
+## 1.4.0
+
+- New endpoints for the frontend (`src/components/api.ts`): `GET /api/experiments`, `POST /api/compare`, `POST /api/ask`. Additive; nothing existing changed.
+- **Compare agent**: deterministic comparability rules (smoke, no outcome, different material, different quantity or unit as printed, LOI vs MOC/ULOI never mixed) plus listed differences (gravity, O2, pressure, airflow, procedure, variant, campaign). Optional LLM only phrases the summary and is number-checked (`summary.check_free`); otherwise a template.
+- **Ask agent**: vector retrieval over evidence cards (cut-off `ASK_SIMILARITY_THRESHOLD` 0.70), conditions parsed from the question are used only to filter/rank; no match returns "No direct evidence". Moon/Mars questions get an explicit limitation.
+
 ## 1.3.0
 
 - Production image is self-contained (`data/`, `docs/`, embedding model baked in); `docker build -f backend/Dockerfile .` from the repo root. Compose builds the same way.
