@@ -24,3 +24,15 @@ separate piece of work, not a setting.
   Move them to a Mongo collection (small change) or mount a persistent volume.
 - **The production image is self-contained**: build from the repo root with `docker build -f backend/Dockerfile -t mission-lens .`. It holds the code, `data/` (without `data/raw`), `docs/` and the embedding model. Run it with `MONGODB_URI` and `MONGODB_DB` set and port 8000.
 - Set `CORS_ORIGINS` to the real frontend origin, and keep `ANTHROPIC_API_KEY` in the host's secret store.
+
+## Hosting the API on Render
+
+`render.yaml` at the repo root is a Blueprint (Docker, `backend/Dockerfile`, branch `Backend`, health check `/api/health`).
+
+1. Render dashboard: **New > Blueprint**, pick the repo, confirm the branch. Render asks for the secrets marked `sync: false`.
+2. Set `MONGODB_URI` to the Atlas connection string. Optional: `ANTHROPIC_API_KEY`. Set `CORS_ORIGINS` to the frontend's origin once it is known.
+3. Atlas **Network Access**: Render web services have no fixed IP on the starter plan, so allow `0.0.0.0/0` and rely on a strong, rotated database password (or use Render's static outbound IPs and allow only those).
+4. The plan is `starter` because torch + the embedding model do not fit the free tier's 512 MB. The container listens on Render's `PORT`.
+5. Check `https://<service>.onrender.com/api/health`: expect 31 / 970 / 970 and `vector_index.queryable: true`. Swagger is at `/docs`.
+
+The data is already loaded in Atlas (see above); the service does not load or drop anything on start.

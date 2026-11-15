@@ -12,4 +12,5 @@ COPY backend/scripts ./scripts
 COPY backend/tests ./tests
 COPY data ./data
 COPY docs ./docs
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# hosts such as Render inject PORT; default 8000
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

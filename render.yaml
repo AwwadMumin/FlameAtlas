@@ -1,0 +1,22 @@
+# Render Blueprint: New + > Blueprint > pick this repo / branch. Secrets are asked for in the dashboard (sync: false), never stored here.
+services:
+  - type: web
+    name: mission-lens-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    branch: Backend
+    plan: starter            # the embedding model + torch need more than the free tier's 512 MB
+    healthCheckPath: /api/health
+    autoDeploy: false
+    envVars:
+      - key: MONGODB_URI     # Atlas connection string (mongodb+srv://...)
+        sync: false
+      - key: MONGODB_DB
+        value: ignis_mu
+      - key: MOCK
+        value: "0"
+      - key: CORS_ORIGINS    # the frontend origin(s), comma separated; "*" while developing
+        value: "*"
+      - key: ANTHROPIC_API_KEY   # optional: enables the number-checked LLM summary
+        sync: false
