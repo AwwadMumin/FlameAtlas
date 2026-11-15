@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import type { Experiment } from './api';
 import styles from './ExperimentDetailDrawer.module.css';
+import Button from './Button';
 
 type ExperimentDetailDrawerProps = {
   experiment: Experiment;
@@ -150,14 +151,14 @@ export default function ExperimentDetailDrawer({
           <p className={styles.footerNote}>
             Missing fields reflect the information supplied with this research record.
           </p>
-          <button
+          <Button
             className={styles.toggleButton}
             type="button"
             aria-pressed={selected}
             onClick={onToggle}
           >
             {selected ? 'Remove from comparison' : 'Add to comparison'}
-          </button>
+          </Button>
         </footer>
       </div>
     </dialog>

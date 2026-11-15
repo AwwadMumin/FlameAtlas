@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { assessScenario, type AssessmentGravity, type ScenarioAssessment } from './api';
 import styles from './ScenarioForm.module.css';
+import Button from './Button';
 
 type Props = { mode: 'live' | 'demo' };
 type ScenarioFields = {
@@ -143,8 +144,8 @@ export default function ScenarioForm({ mode }: Props) {
           </label>
         </fieldset>
         <div className={styles.actions}>
-          <button type="button" className={styles.reset} onClick={reset}>Reset</button>
-          <button type="submit" className={styles.submit} disabled={loading}>{loading ? 'Assessing…' : 'Assess scenario'} <span aria-hidden="true">→</span></button>
+          <Button type="button" className={styles.reset} onClick={reset}>Reset</Button>
+          <Button type="submit" className={styles.submit} disabled={loading}>{loading ? 'Assessing…' : 'Assess scenario'} <span aria-hidden="true">→</span></Button>
         </div>
       </form>
 
