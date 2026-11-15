@@ -30,7 +30,7 @@ Port 27018 is used for MongoDB on the host (`MONGO_PORT` in `.env`); the API is 
 
 1. **No quote, no number.** Every number comes from a record (with `experiment_id`, `source_ref`, `doi`) or from a computed result whose inputs are shown. The optional LLM summary is checked number-by-number against the retrieved records; on any mismatch the deterministic template summary is used.
 2. **Never invent data.** Missing values stay `null` ("not available"). No correction coefficients are shipped.
-3. **Three labelled tiers:** `EVIDENCE` (green) · `MODEL_ESTIMATE` "Model estimate — not tested" (amber) · `NO_DIRECT_EVIDENCE` (grey).
+3. **Three labelled tiers:** `EVIDENCE` (green) · `MODEL_ESTIMATE` "Model estimate — not tested" (amber; a probability from a Bayesian model with its interval and its measured held-out error, only inside the oxygen/airflow range it was trained on) · `NO_DIRECT_EVIDENCE` (grey).
 4. **Gravity domain:** data exists only for microgravity and 1g. Never interpolated. Moon and Mars always return `NO_DIRECT_EVIDENCE` plus the nearest µg and 1g evidence.
 5. **No mixing of test types:** 1g MOC/ULOI (NASA-STD-6001 Test 1, upward) and LOI (downward, ASTM D2863) are separate quantities.
 6. **Smoke/detection records** (SAME, `flammability_relevant = false`) are never burn evidence.
@@ -106,6 +106,7 @@ Everything shown traces to a NASA record. Details, per-source counts, DOIs and l
 | `materials.json` (31) | Canonical materials, variants, ranges | Builder's grouping of the rows; Arabic names, aliases and chemical families are **search helpers, not NASA data** |
 | `flame_in_freefall_knowledge.json` | 24 investigations, Researcher's Guide findings RG-01…RG-30, incidents, mission presets | NASA Researcher's Guide, PSI, NASA pages |
 | `derived/link2018_experiments.json` (98) | PMMA rod flame-spread rates, ISS microgravity (Table S1) and normal gravity (Table S2), merged at load time | Link et al. 2018, Sci Rep 8:120, Supplemental Material (**CC BY 4.0**, attribution required), parsed by `backend/scripts/parse_link2018.py` from the raw PDF in `data/raw/` |
+| `atlas_dataset.json` (669) | Labelled microgravity runs used only to train the burn-outcome model (real solids, 136 of them after the label filter) | `ai-engine` branch (commit 43030de): NASA PSI raw files, plus BASS-II report tables transcribed by the team; label method and weight stored per row |
 | MongoDB `outcome_labels` | Human labels of BASS crew notes, each with its quote and labeller (one document per record; survives restarts and cloud deploys) | Team (human-confirmed only) |
 
 Known caveats shown in the data and the API: FLEX burning-rate unit is uncertain (the string is shown as given); BASS-II, CFI, Saffire-III and FLEX-2 rows are `conditions_only` ("tested at", not results); some PMMA variants are "inferred from investigation context"; ACME O2 cells like "3400%" are spreadsheet artifacts kept raw and flagged; Link 2018 Tables S1/S2 are not loaded yet.
@@ -114,7 +115,7 @@ Known caveats shown in the data and the API: FLEX burning-rate unit is uncertain
 
 - **EVIDENCE**: at least one record with an outcome, same material, same gravity bucket, within ±1.5 % O2 and ±20 kPa (pressure compared only when the record states it). Tolerances are in config and returned in the response. For 1g MOC thresholds the O2 coordinate is the MOC value.
 - **NO_DIRECT_EVIDENCE**: otherwise — and always for Moon/Mars and for unknown materials. Nearest µg and 1g evidence is shown instead.
-- **MODEL_ESTIMATE**: only when a correction model is configured, inputs are inside its `valid_range`, and its error has been measured by `build_validation`. None is configured today.
+- **MODEL_ESTIMATE**: (a) a configured correction model inside its `valid_range` with a measured error (none today); or (b) the burn-outcome model (`app/services/predictor.py`, Bayesian logistic regression on 136 labelled microgravity runs: NASA tables + crew-note rule) when there is no tested microgravity record and oxygen/airflow are inside the trained range. Materials the model has no data for get the prior material spread, so a wide interval. On held-out investigations it does **not** beat a constant guess, and the API says so.
 - **Earth vs Space**: shows the 1g MOC range next to µg evidence. The red "1g test is NOT conservative" banner needs a **human-confirmed** `sustained_burn` label below the 1g MOC; with no confirmed labels the answer is "undetermined", never "conservative".
 
 ## Team workflows

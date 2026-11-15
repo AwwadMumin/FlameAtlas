@@ -19,7 +19,7 @@ Full example responses: `docs/examples/<name>.json` (generated from the real NAS
 | `MODEL_ESTIMATE` | Model estimate — not tested | amber |
 | `NO_DIRECT_EVIDENCE` | No direct evidence | grey |
 
-`MODEL_ESTIMATE` only appears when a correction model is configured (`backend/app/core/correction_models.yaml`) and the input is in its valid range. Today none is configured, so it is never returned. Shape: `assess_model_estimate_SHAPE_ONLY.json` (no values).
+`MODEL_ESTIMATE` appears in two ways: (a) a configured correction model (`backend/app/core/correction_models.yaml`) with the input in its valid range (none is configured today, shape: `assess_model_estimate_SHAPE_ONLY.json`); (b) the burn-outcome model (`burn_prediction`) when microgravity has no tested record at these conditions (no research on the material, Earth-only research, or tested elsewhere) and oxygen and airflow are inside the range the model was trained on (15.9–22.7% O2, 0–53 cm/s). With a tested record the verdict stays `EVIDENCE` and `burn_prediction.role = "cross_check"`. Moon, Mars and 1g never get one. `burn_prediction.validation.beats_baseline` says whether the model beat a constant guess on held-out investigations; clients must show `validation.statement` next to the probability.
 
 ## Rules the UI must follow
 1. Show `matched_tolerances.text` next to an `EVIDENCE` verdict.

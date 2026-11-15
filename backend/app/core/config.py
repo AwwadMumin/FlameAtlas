@@ -52,6 +52,10 @@ class Settings(BaseSettings):
     gap_o2_bins_around_preset: int = 3
     gap_excluded_kind_words: tuple[str, ...] = ("liquid", "gaseous")
 
+    # microgravity burn-outcome model (Bayesian logistic regression). Which label sources may train it: NASA tables and the crew-note rule
+    # (89.5% right on 19 held-out runs). The keyword rule on report comments (accuracy not measured) is excluded.
+    model_label_methods: tuple[str, ...] = ("NASA table", "NASA report table", "NASA report table (measured end point)", "crew-note rule (89.5% held-out)")
+
     anthropic_api_key: str | None = None
     llm_provider: str = "auto"             # auto | anthropic | gemini (auto = Anthropic if its key is set, else Gemini)
     gemini_api_key: str | None = None

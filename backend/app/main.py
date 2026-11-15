@@ -16,6 +16,11 @@ async def lifespan(_: FastAPI):
             embeddings.embed(["warm-up"])
         except Exception:  # noqa: BLE001
             pass
+    try:  # fit the burn-outcome model once at start-up (about a second) so no request pays for it
+        from app.services import predictor
+        predictor.get_model()
+    except Exception:  # noqa: BLE001
+        pass
     yield
 
 

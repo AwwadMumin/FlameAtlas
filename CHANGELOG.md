@@ -1,6 +1,14 @@
 # Changelog
 Contract changes after Phase 2 must be listed here and in `docs/API_CONTRACT.md`.
 
+## 1.7.0
+
+- `AssessResponse.burn_prediction` (additive, optional): model estimate of P(flame keeps burning) in microgravity, from a Bayesian logistic regression (oxygen, airflow, material; code in `app/services/predictor.py`, adapted from `models.py` of the `ai-engine` branch, data `data/atlas_dataset.json`). Fields: `role` (`estimate` | `cross_check`), `basis` (`no_research` | `earth_only` | `not_tested_at_these_conditions` | `tested_here`), `probability_sustained`, `interval_95`, `material_group` (null = the model has no coefficient for this material: prior spread, wide interval), `trained_on`, `validation` (leave-one-investigation-out vs a constant guess, `beats_baseline`), `caveats`.
+- **Behaviour change:** `MODEL_ESTIMATE` (amber) is now also returned when there is no tested record at microgravity and the model applies (oxygen and airflow inside the trained range). Unknown materials and materials with Earth-only data now get it instead of `NO_DIRECT_EVIDENCE`. A tested record still gives `EVIDENCE` (the estimate is attached as `cross_check`). Moon, Mars and 1g never get an estimate.
+- Training labels: NASA tables and the crew-note rule (89.5% right on 19 held-out runs); the keyword rule on report comments is excluded (`MODEL_LABEL_METHODS` in config). 136 runs.
+- Measured: on held-out investigations the model does NOT beat a constant guess (pooled Brier 0.40 vs 0.33). This is returned in `validation.statement` and must be shown with every estimate.
+- `numpy` is a direct dependency.
+
 ## 1.6.0
 
 - Gemini as an alternative LLM (`GEMINI_API_KEY`, `GEMINI_MODEL`, `LLM_PROVIDER`), same number guard. `/api/health` gains `llm` (provider/model). `/api/ask` shows the record list when the AI has nothing to add.

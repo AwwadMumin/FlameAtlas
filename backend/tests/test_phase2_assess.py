@@ -37,8 +37,11 @@ def test_resolve_pmma(live, q):
 
 def test_no_false_material_match(live):
     for q in ("plexi glass", "Zorbium-7", "kevlar"):
-        d = post(live, material_query=q)
-        assert d["material"] is None and d["verdict"] == "NO_DIRECT_EVIDENCE", q
+        d = post(live, material_query=q)       # not in the data: no tested evidence; the model gives an estimate with a wide interval, never a match
+        assert d["material"] is None and d["verdict"] == "MODEL_ESTIMATE" and d["evidence_groups"] == [], q
+        assert d["burn_prediction"]["material_group"] is None and d["burn_prediction"]["basis"] == "no_research", q
+        d = post(live, material_query=q, gravity="mars")
+        assert d["material"] is None and d["verdict"] == "NO_DIRECT_EVIDENCE" and d["burn_prediction"] is None, q
 
 
 def test_pmma_iss_is_evidence(live):
@@ -50,8 +53,8 @@ def test_pmma_iss_is_evidence(live):
 
 def test_pet_orbit_no_direct(live):
     d = post(live, material_query="PET")
-    assert d["verdict"] == "NO_DIRECT_EVIDENCE" and "1g evidence only" in d["verdict_reason"]
-    assert d["nearest_evidence"] and all(n["gravity_bucket"] == "1g" for n in d["nearest_evidence"])
+    assert d["verdict"] == "MODEL_ESTIMATE" and d["burn_prediction"]["basis"] == "earth_only" and "Earth (1g) research only" in d["verdict_reason"]
+    assert d["evidence_groups"] == [] and d["nearest_evidence"] and all(n["gravity_bucket"] == "1g" for n in d["nearest_evidence"])
 
 
 @pytest.mark.parametrize("g", ["moon", "mars"])

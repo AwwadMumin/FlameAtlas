@@ -30,7 +30,6 @@ def van_krevelen(char_yield: float) -> Estimate:
 
 def assess(req: AssessRequest, requested: dict, tol: Tolerances) -> AssessResponse:
     pr = req.unknown_material_props
-    meta = VERDICT_META[Verdict.NO_DIRECT_EVIDENCE]
     warnings = ["Material not found in the NASA data set."]
     est, near, ctx, parts = None, [], [], []
     thickness = (pr.thickness_mm if pr and pr.thickness_mm is not None else req.thickness_mm)
@@ -61,9 +60,23 @@ def assess(req: AssessRequest, requested: dict, tol: Tolerances) -> AssessRespon
               "configured and the input is inside its valid range; "
               + ("a correction model is configured but needs a 1g MOC for this material, which is not available." if st == "configured"
                  else "the correction model is not configured."))
-    summary = "Unknown material: no direct evidence. " + " ".join(parts) if parts else "Unknown material: no data and no properties supplied."
+    bp, verdict = None, Verdict.NO_DIRECT_EVIDENCE
+    o2 = requested.get("oxygen_pct")
+    if o2 is not None and ev.GRAVITY_BUCKET.get(req.gravity) == "microgravity":
+        from app.services import predictor
+        try:
+            bp, why = predictor.describe(None, o2, req.airflow_cm_s, "estimate", "no_research", requested.get("pressure_kpa"))
+        except Exception as e:  # noqa: BLE001
+            bp, why = None, f"model unavailable ({type(e).__name__})"
+        if bp is None:
+            warnings.append(f"No model estimate: {why}")
+        else:
+            verdict = Verdict.MODEL_ESTIMATE
+            reason = f"Material is not in the NASA data. {bp.statement}"
+    meta = VERDICT_META[verdict]
+    summary = ((f"Unknown material: model estimate (not tested). {bp.statement} " if bp else "Unknown material: no direct evidence. ") + " ".join(parts)).strip() or "Unknown material: no data and no properties supplied."
     return AssessResponse(
-        verdict=Verdict.NO_DIRECT_EVIDENCE, verdict_label=meta["label"], verdict_tier=meta["tier"], verdict_reason=reason,
+        verdict=verdict, verdict_label=meta["label"], verdict_tier=meta["tier"], verdict_reason=reason,
         empty_state_message="Unknown material. Optionally provide polymer family, char yield (%), known LOI (with test standard) and thickness.",
-        material=None, requested=requested, matched_tolerances=tol, evidence_groups=[], estimate=est, nearest_evidence=near,
+        material=None, requested=requested, matched_tolerances=tol, evidence_groups=[], estimate=est, burn_prediction=bp, nearest_evidence=near,
         findings=_findings(ctx), investigations=_investigations(ctx), summary_text=summary, summary_source="template", warnings=warnings)

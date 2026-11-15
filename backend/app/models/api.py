@@ -244,6 +244,45 @@ class Estimate(BaseModel):
     not_a_microgravity_limit: bool = False
 
 
+class ModelValidationItem(BaseModel):
+    investigation: str
+    n: int
+    model_brier: float
+    baseline_brier: float
+    model_accuracy: float
+    baseline_accuracy: float
+
+
+class ModelValidation(BaseModel):
+    method: str = "leave-one-investigation-out"
+    pooled_n: int
+    model_brier: float
+    baseline_brier: float
+    model_accuracy: float
+    baseline_accuracy: float
+    beats_baseline: bool
+    per_investigation: list[ModelValidationItem]
+    statement: str
+
+
+class BurnPrediction(BaseModel):
+    """Model estimate of P(flame keeps burning) in microgravity. Never a tested result."""
+    label: str = "Model estimate — not tested"
+    role: Literal["estimate", "cross_check"] = Field(description="estimate: no tested record at these conditions; cross_check: a tested record exists, shown next to it")
+    basis: Literal["no_research", "earth_only", "not_tested_at_these_conditions", "tested_here"] = Field(
+        description="no_research: no data for this material at all; earth_only: only 1g data exists; not_tested_at_these_conditions: microgravity data exists elsewhere; tested_here: see role=cross_check")
+    probability_sustained: float
+    interval_95: tuple[float, float]
+    material_group: str | None = Field(None, description="The model's material group, or null when the model has no coefficient for this material (prior spread, wide interval)")
+    statement: str
+    inputs: dict[str, Any]
+    airflow_assumption: str | None = None
+    trained_on: dict[str, Any]
+    validation: ModelValidation
+    oxygen_odds_ratio_per_point: list[float] = Field(description="[estimate, low95, high95]")
+    caveats: list[str]
+
+
 class NearestEvidence(BaseModel):
     gravity_bucket: Literal["microgravity", "1g"]
     record: EvidenceRecord
@@ -302,6 +341,7 @@ class AssessResponse(BaseModel):
     smoke_detection: list[EvidenceRecord] = []
     earth_vs_space: EarthVsSpace | None = None
     estimate: Estimate | None = None
+    burn_prediction: BurnPrediction | None = None
     nearest_evidence: list[NearestEvidence] = []
     findings: list[Finding] = []
     investigations: list[InvestigationCard] = []

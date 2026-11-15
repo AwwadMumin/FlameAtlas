@@ -52,14 +52,14 @@ def test_unknown_char_yield_30(live):
 def test_unknown_family_neighbours_and_loi_not_mixed(live):
     d = post(live, material_query="Zorbium-7", unknown_material_props={"polymer_family": "polyester", "known_loi_pct": 22, "known_loi_standard": "ASTM D2863"})
     assert d["nearest_evidence"] and all(n["record"]["material_id"] == "pet" for n in d["nearest_evidence"])
-    assert d["verdict"] == "NO_DIRECT_EVIDENCE" and "not compared" in d["summary_text"]
+    assert d["verdict"] == "MODEL_ESTIMATE" and "not compared" in d["summary_text"] and d["burn_prediction"]["material_group"] is None
     d = post(live, material_query="Zorbium-7", unknown_material_props={"known_loi_pct": 22})
     assert any("without a test standard" in w for w in d["warnings"])
 
 
 def test_unknown_without_props_is_empty_state(live):
     d = post(live, material_query="Zorbium-7")
-    assert d["estimate"] is None and d["empty_state_message"] and d["verdict"] == "NO_DIRECT_EVIDENCE"
+    assert d["estimate"] is None and d["empty_state_message"] and d["verdict"] == "MODEL_ESTIMATE" and d["burn_prediction"]["basis"] == "no_research"
 
 
 def test_banner_only_from_confirmed_labels(live, tmp_path):
@@ -115,7 +115,7 @@ def test_configured_model_paths(live, tmp_path):
         assert r["verdict"] == "NO_DIRECT_EVIDENCE" and r["estimate"] is None and any("outside the model's valid range" in w for w in r["warnings"])
         r = post(live, material_query="PMMA", oxygen_pct=3, gravity="moon", airflow_cm_s=10)    # moon never gets an estimate
         assert r["verdict"] == "NO_DIRECT_EVIDENCE"
-        r = post(live, material_query="Zorbium-7", gravity="orbit", airflow_cm_s=10, unknown_material_props={"char_yield_pct": 30})
+        r = post(live, material_query="Zorbium-7", gravity="orbit", oxygen_pct=3, airflow_cm_s=10, unknown_material_props={"char_yield_pct": 30})
         assert r["verdict"] == "NO_DIRECT_EVIDENCE"                                           # unknown: no 1g MOC input
       finally:
         s.correction_models_path = old
