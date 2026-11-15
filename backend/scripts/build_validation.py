@@ -1,4 +1,4 @@
-"""Build data/derived/validation.json + validation_report.md from the confirmed labels. Run: python scripts/build_validation.py"""
+"""Build the database (derived_docs) and data/derived/validation.json + validation_report.md from the confirmed labels. Run: python scripts/build_validation.py"""
 import sys
 from pathlib import Path
 

@@ -57,7 +57,7 @@ flowchart LR
     GAP --> DB
     VAL --> DB
     EMB["MiniLM-L6-v2 embeddings<br/>(384 dims, local)"] --> DB
-    LAB[("data/derived/<br/>outcome_labels.json<br/>validation.json / .md")] <--> VAL
+    LAB[("MongoDB<br/>outcome_labels · derived_docs")] <--> VAL
     LAB --> E2S
     YAML["correction_models.yaml<br/>(team enters coefficients)"] --> COR
     SUM -. "optional, ANTHROPIC_API_KEY" .-> LLM["Claude (number-checked)"]
@@ -105,7 +105,7 @@ Everything shown traces to a NASA record. Details, per-source counts, DOIs and l
 | `materials.json` (31) | Canonical materials, variants, ranges | Builder's grouping of the rows; Arabic names, aliases and chemical families are **search helpers, not NASA data** |
 | `flame_in_freefall_knowledge.json` | 24 investigations, Researcher's Guide findings RG-01…RG-30, incidents, mission presets | NASA Researcher's Guide, PSI, NASA pages |
 | `derived/link2018_experiments.json` (98) | PMMA rod flame-spread rates, ISS microgravity (Table S1) and normal gravity (Table S2), merged at load time | Link et al. 2018, Sci Rep 8:120, Supplemental Material (**CC BY 4.0**, attribution required), parsed by `backend/scripts/parse_link2018.py` from the raw PDF in `data/raw/` |
-| `derived/outcome_labels.json` | Human labels of BASS crew notes, each with its quote and labeller | Team (human-confirmed only) |
+| MongoDB `outcome_labels` | Human labels of BASS crew notes, each with its quote and labeller (one document per record; survives restarts and cloud deploys) | Team (human-confirmed only) |
 
 Known caveats shown in the data and the API: FLEX burning-rate unit is uncertain (the string is shown as given); BASS-II, CFI, Saffire-III and FLEX-2 rows are `conditions_only` ("tested at", not results); some PMMA variants are "inferred from investigation context"; ACME O2 cells like "3400%" are spreadsheet artifacts kept raw and flagged; Link 2018 Tables S1/S2 are not loaded yet.
 
@@ -123,7 +123,7 @@ Known caveats shown in the data and the API: FLEX burning-rate unit is uncertain
 ```bash
 docker compose exec backend python scripts/import_labels.py --export-queue /app/data/derived/queue.csv   # fill label, quote, labelled_by in a spreadsheet
 docker compose exec backend python scripts/import_labels.py /app/data/derived/queue.csv                  # same rules as POST /api/admin/labels
-docker compose exec backend python scripts/build_validation.py     # writes data/derived/validation.json and validation_report.md
+docker compose exec backend python scripts/build_validation.py     # stores the result in MongoDB (derived_docs) and exports data/derived/validation.json + .md
 ```
 
 `label` ∈ `sustained_burn · brief_then_self_extinguished · no_ignition · extinguished_by_flow_or_N2 · hardware_issue · unclear`; `quote` must be a verbatim span of the notes. Keyword suggestions are only hints and never count.

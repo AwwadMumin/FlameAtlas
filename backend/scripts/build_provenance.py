@@ -40,6 +40,6 @@ L += ["", "## Not from NASA data", "",
       "- The Van Krevelen 1g LOI correlation (17.5 + 0.40 x char yield) is an empirical formula supplied in the team brief, not a NASA measurement.",
       "- The Mars gravity value (0.38 g) is general knowledge; cite a NASA source if it is shown.",
       "- Link 2018 Tables S1/S2 (Scientific Reports 8:120, CC BY 4.0) are not loaded yet; the importer design keeps each source in its own file so they can be added later.",
-      "- Crew-note outcome labels are human judgements stored in `data/derived/outcome_labels.json` with the supporting quote and labeller."]
+      "- Crew-note outcome labels are human judgements stored in the MongoDB collection `outcome_labels` with the supporting quote and labeller."]
 (get_settings().docs_dir / "PROVENANCE.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 print("wrote docs/PROVENANCE.md")

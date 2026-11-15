@@ -67,10 +67,11 @@ def _eval(node: ast.AST, env: dict[str, float]) -> float:
 
 
 def measured_error() -> tuple[float | None, str | None]:
-    """Leave-one-out MAE from data/derived/validation.json (Phase 5). None until measured."""
-    p = get_settings().derived_dir / "validation.json"
+    """Leave-one-out MAE from the stored validation result (database `derived_docs`, written by build_validation). None until measured."""
     try:
-        cm = json.loads(p.read_text(encoding="utf-8")).get("correction_model", {})
+        from app.services import store
+        doc = store.get_db()[get_settings().derived_collection].find_one({"_id": "validation"})
+        cm = (doc or {}).get("data", {}).get("correction_model", {})
         return cm.get("mae_pct_o2"), "% O2 (leave-one-out MAE)"
     except Exception:  # noqa: BLE001
         return None, None

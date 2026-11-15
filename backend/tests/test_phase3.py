@@ -64,21 +64,19 @@ def test_unknown_without_props_is_empty_state(live):
 
 def test_banner_only_from_confirmed_labels(live, tmp_path):
     from app.services import evidence as ev
-    s = get_settings(); old = s.derived_dir
+    from helpers import put_labels, temp_derived
     rows = ev.material_rows("pmma")
     mocs = [e["outcome_value"] for e in rows if e.get("outcome_variable") == "MOC"]
     cand = [e for e in rows if e["gravity_level"] == "microgravity" and e.get("oxygen_pct") is not None and e["oxygen_pct"] < min(mocs)]
     assert cand, "need a PMMA µg record below the lowest MOC for this test"
     eid = cand[0]["experiment_id"]
-    try:
-        s.derived_dir = tmp_path
-        (tmp_path / "outcome_labels.json").write_text(json.dumps([{"experiment_id": eid, "label": "sustained_burn", "quote": "q", "labelled_by": "t", "status": "suggested"}]))
+    with temp_derived():
+        put_labels([{"experiment_id": eid, "label": "sustained_burn", "quote": "q", "labelled_by": "t", "status": "suggested"}])
         assert post(live)["earth_vs_space"]["banner"] is None                       # suggestions never count
-        (tmp_path / "outcome_labels.json").write_text(json.dumps([{"experiment_id": eid, "label": "sustained_burn", "quote": "q", "labelled_by": "t", "status": "confirmed"}]))
+        from app.services import store
+        store.get_db()[get_settings().labels_collection].update_one({"_id": eid}, {"$set": {"status": "confirmed"}})
         e = post(live)["earth_vs_space"]
         assert e["one_g_not_conservative"] is True and "NOT conservative" in e["banner"] and len(e["banner_sources"]) == 2
-    finally:
-        s.derived_dir = old
 
 
 def _fake_model(tmp_path, with_error):
@@ -87,10 +85,10 @@ def _fake_model(tmp_path, with_error):
                      "formula": "moc_1g_pct - a * airflow_cm_s", "inputs": ["moc_1g_pct", "airflow_cm_s"], "coefficients": {"a": 0.1},
                      "valid_range": {"moc_1g_pct": [0, 100], "airflow_cm_s": [0, 50]}}]}
     p = tmp_path / "m.yaml"; p.write_text(yaml.safe_dump(y))
-    d = tmp_path / "derived"; d.mkdir()
     if with_error:
-        (d / "validation.json").write_text(json.dumps({"correction_model": {"mae_pct_o2": 1.0}}))
-    return p, d
+        from helpers import put_validation
+        put_validation({"correction_model": {"mae_pct_o2": 1.0}})
+    return p, None
 
 
 def test_shipped_model_is_not_configured():
@@ -100,14 +98,16 @@ def test_shipped_model_is_not_configured():
 
 
 def test_configured_model_paths(live, tmp_path):
-    s = get_settings(); old = (s.correction_models_path, s.derived_dir)
-    try:
+    from helpers import temp_derived
+    s = get_settings(); old = s.correction_models_path
+    with temp_derived():
+      try:
         p, d = _fake_model(tmp_path, with_error=False)
-        s.correction_models_path, s.derived_dir = p, d
+        s.correction_models_path = p
         r = post(live, material_query="PMMA", oxygen_pct=3, gravity="orbit", airflow_cm_s=10)
         assert r["verdict"] == "NO_DIRECT_EVIDENCE" and any("error has not been measured" in w for w in r["warnings"])  # no error -> no estimate
-        p, d = _fake_model(tmp_path / "x" if (tmp_path / "x").mkdir() is None else tmp_path, with_error=True)
-        s.correction_models_path, s.derived_dir = p, d
+        p, d = _fake_model(tmp_path, with_error=True)
+        s.correction_models_path = p
         r = post(live, material_query="PMMA", oxygen_pct=3, gravity="orbit", airflow_cm_s=10)
         assert r["verdict"] == "MODEL_ESTIMATE" and r["verdict_tier"] == "amber" and r["estimate"]["error"] == 1.0
         assert r["estimate"]["label"] == "Model estimate — not tested"
@@ -117,8 +117,8 @@ def test_configured_model_paths(live, tmp_path):
         assert r["verdict"] == "NO_DIRECT_EVIDENCE"
         r = post(live, material_query="Zorbium-7", gravity="orbit", airflow_cm_s=10, unknown_material_props={"char_yield_pct": 30})
         assert r["verdict"] == "NO_DIRECT_EVIDENCE"                                           # unknown: no 1g MOC input
-    finally:
-        s.correction_models_path, s.derived_dir = old
+      finally:
+        s.correction_models_path = old
 
 
 def test_formula_evaluator_is_safe():

@@ -68,16 +68,13 @@ def test_pmma_baseline_separates_standard_from_other_configurations(live):
 
 def test_banner_uses_standard_procedure_comparator(live, tmp_path):
     from app.services import evidence as ev
-    s = get_settings(); old = s.derived_dir
+    from helpers import put_labels, temp_derived
     rows = ev.material_rows("pmma")
     cand = next(e for e in rows if e["source_investigation"] == "BASS" and e["flame_behavior_notes"] and 16.5 <= e["oxygen_pct"] < 19.0)   # above 14.0, below standard 19.0
-    try:
-        s.derived_dir = tmp_path
-        (tmp_path / "outcome_labels.json").write_text(json.dumps([{"experiment_id": cand["experiment_id"], "label": "sustained_burn", "quote": "q", "labelled_by": "t", "status": "confirmed"}]))
+    with temp_derived():
+        put_labels([{"experiment_id": cand["experiment_id"], "label": "sustained_burn", "quote": "q", "labelled_by": "t", "status": "confirmed"}])
         e = post(live)["earth_vs_space"]
         assert e["one_g_not_conservative"] is True and "standard-procedure 1g MOC of 19.0% O2" in e["banner"]
-    finally:
-        s.derived_dir = old
 
 
 def test_validation_counts_standard_comparator_separately():

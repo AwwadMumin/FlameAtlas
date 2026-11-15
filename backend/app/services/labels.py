@@ -1,4 +1,4 @@
-"""Human outcome labels for BASS crew notes -> data/derived/outcome_labels.json.
+"""Human outcome labels for BASS crew notes -> MongoDB collection `outcome_labels` (one document per experiment_id).
 
 Keyword rules only PRE-SUGGEST a label (status 'suggested', computed on the fly, never saved as a decision).
 Only a human POST / CSV import writes a record, and it is stored as 'confirmed'. Input files are never touched.
@@ -8,9 +8,7 @@ from __future__ import annotations
 import csv
 import io
 import json
-import os
 import re
-import threading
 from typing import Any, get_args
 
 from app.core.config import get_settings
@@ -19,7 +17,6 @@ from app.models.api import LabelIn, LabelOut, LabelQueueItem, LabelQueueResponse
 from app.services import store
 
 LABELS = set(get_args(OutcomeLabel))
-_LOCK = threading.Lock()
 
 # priority order: first matching rule wins. These are hints for the human, not decisions.
 RULES: list[tuple[str, str, re.Pattern]] = [
@@ -36,31 +33,17 @@ RULES: list[tuple[str, str, re.Pattern]] = [
 ]
 
 
-def _path():
-    return get_settings().derived_dir / "outcome_labels.json"
+def _coll():
+    return store.get_db()[get_settings().labels_collection]
 
 
 def load_all() -> list[dict]:
-    p = _path()
-    if not p.exists():
-        return []
-    try:
-        return json.loads(p.read_text(encoding="utf-8"))
-    except Exception:  # noqa: BLE001
-        return []
+    return list(_coll().find({}, {"_id": 0}).sort("experiment_id", 1))
 
 
 def confirmed() -> dict[str, dict]:
     """experiment_id -> label record. Only human-confirmed labels; suggestions never count."""
     return {l["experiment_id"]: l for l in load_all() if l.get("status") == "confirmed"}
-
-
-def _save(records: list[dict]) -> None:
-    p = _path()
-    p.parent.mkdir(parents=True, exist_ok=True)
-    tmp = p.with_suffix(".tmp")
-    tmp.write_text(json.dumps(records, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    os.replace(tmp, p)
 
 
 def suggest(notes: str | None) -> tuple[str | None, str | None, str | None]:
@@ -115,9 +98,7 @@ def save_label(body: LabelIn) -> LabelOut:
     if _norm(body.quote) not in _norm(notes):
         raise ApiError(422, "validation_error", "quote must be a verbatim span of flame_behavior_notes", {"experiment_id": body.experiment_id, "notes": notes})
     rec = LabelOut(**body.model_dump(), status="confirmed")
-    with _LOCK:
-        records = [l for l in load_all() if l["experiment_id"] != body.experiment_id] + [rec.model_dump()]
-        _save(sorted(records, key=lambda l: l["experiment_id"]))
+    _coll().replace_one({"_id": body.experiment_id}, {"_id": body.experiment_id, **rec.model_dump()}, upsert=True)   # atomic upsert: no duplicates
     return rec
 
 

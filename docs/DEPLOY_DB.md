@@ -20,7 +20,7 @@ separate piece of work, not a setting.
 6. Check: run the API with `MONGODB_URI` pointing at Atlas and open `/api/health`: `db.connected: true`, counts 31 / 970 / 970, `vector_index.queryable: true`.
 
 ## Before hosting the API (not done yet)
-- **Labels and validation live in files** (`data/derived/outcome_labels.json`, `validation.json`). On an ephemeral host (most PaaS) they disappear on restart.
+- **Labels and validation now live in the database** (collections `outcome_labels` and `derived_docs`), so they survive restarts and redeploys. The loader never drops them. Exported `validation.json`/`.md` files are only a convenience copy.
   Move them to a Mongo collection (small change) or mount a persistent volume.
 - **The image needs `data/`** (knowledge pack, materials, derived files). Compose mounts it; a production image must copy it (build from the repo root) or mount it.
 - Set `CORS_ORIGINS` to the real frontend origin, and keep `ANTHROPIC_API_KEY` in the host's secret store.

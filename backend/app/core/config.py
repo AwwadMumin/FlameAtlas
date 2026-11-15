@@ -35,6 +35,8 @@ class Settings(BaseSettings):
     material_suggest_threshold: float = 0.65
 
     correction_models_path: Path = Path(__file__).resolve().parent / "correction_models.yaml"
+    labels_collection: str = "outcome_labels"      # human labels live in the database, not in files
+    derived_collection: str = "derived_docs"       # validation result (+ markdown report)
     derived_dir: Path = Path(os.environ.get("DATA_DIR", ROOT / "data")) / "derived"
     # Van Krevelen LOI = a + b * CR (formula given in the team brief; 1g downward LOI, not a microgravity limit)
     vk_intercept: float = 17.5

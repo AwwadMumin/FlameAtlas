@@ -174,11 +174,17 @@ def markdown(v: ValidationResponse) -> str:
 
 
 def write_files() -> ValidationResponse:
+    """Store the result in the database (collection `derived_docs`, _id 'validation'); also export validation.json / .md next to the data when the folder is writable."""
     v = compute()
-    d = get_settings().derived_dir
-    d.mkdir(parents=True, exist_ok=True)
     out = v.model_dump(mode="json")
     out["correction_model"] = v.correction_model   # correction.measured_error() reads mae_pct_o2 from here
-    (d / "validation.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    (d / "validation_report.md").write_text(markdown(v), encoding="utf-8")
+    md = markdown(v)
+    s = get_settings()
+    store.get_db()[s.derived_collection].replace_one({"_id": "validation"}, {"_id": "validation", "data": out, "report_md": md}, upsert=True)
+    try:
+        s.derived_dir.mkdir(parents=True, exist_ok=True)
+        (s.derived_dir / "validation.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        (s.derived_dir / "validation_report.md").write_text(md, encoding="utf-8")
+    except OSError:
+        pass   # read-only file system (cloud host): the database copy is the source of truth
     return v

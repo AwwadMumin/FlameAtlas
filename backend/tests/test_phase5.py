@@ -27,10 +27,10 @@ def live():
 
 @pytest.fixture
 def derived(tmp_path):
-    s = get_settings(); old = s.derived_dir
-    s.derived_dir = tmp_path / "derived"
-    yield s.derived_dir
-    s.derived_dir = old
+    from helpers import temp_derived
+    with temp_derived() as s:
+        s.derived_dir = tmp_path / "derived"   # exported validation files go to a temp folder
+        yield s.derived_dir
 
 
 def _ex(live, eid):
@@ -49,7 +49,8 @@ def test_queue_and_suggestions_are_hints(live, derived):
     assert all(i["status"] in ("suggested", "unlabelled") and i["label"] is None for i in q["items"])
     sug = [i for i in q["items"] if i["suggested_label"]]
     assert sug and all(" ".join(i["suggested_quote"].split()).lower() in " ".join(i["flame_behavior_notes"].split()).lower() for i in sug)
-    assert not (derived / "outcome_labels.json").exists()          # suggestions are never saved as decisions
+    from helpers import stored_labels
+    assert stored_labels() == []                                    # suggestions are never saved as decisions
 
 
 def test_save_label_rules_and_queue_effect(live, derived):
@@ -58,12 +59,13 @@ def test_save_label_rules_and_queue_effect(live, derived):
     body = {"experiment_id": "BASS-003", "label": "extinguished_by_flow_or_N2", "quote": quote, "labelled_by": "tester"}
     r = live.post("/api/admin/labels", json=body)
     assert r.status_code == 200 and r.json()["status"] == "confirmed"
-    assert json.loads((derived / "outcome_labels.json").read_text())[0]["experiment_id"] == "BASS-003"
+    from helpers import stored_labels
+    assert stored_labels()[0]["experiment_id"] == "BASS-003"
     assert "BASS-003" not in [i["experiment_id"] for i in live.get("/api/admin/labels/queue?limit=1000").json()["items"]]
     c = live.get("/api/admin/labels/queue?status=confirmed").json()
     assert c["total"] == 1 and c["items"][0]["label"] == "extinguished_by_flow_or_N2" and c["items"][0]["labelled_by"] == "tester"
     live.post("/api/admin/labels", json=body | {"label": "unclear"})                      # upsert, no duplicate
-    assert len(json.loads((derived / "outcome_labels.json").read_text())) == 1
+    assert len(stored_labels()) == 1
     for bad, code in ((body | {"quote": "this text is not in the notes"}, 422), (body | {"experiment_id": "NOPE"}, 404),
                       (body | {"experiment_id": "WSTF-013"}, 422), (body | {"label": "burned_nicely"}, 422), (body | {"labelled_by": ""}, 422)):
         r = live.post("/api/admin/labels", json=bad)
@@ -82,10 +84,13 @@ def test_csv_import_service_and_script(live, derived, tmp_path):
     # the script runs end-to-end against a separate derived dir
     f = tmp_path / "labels.csv"
     f.write_text(f"experiment_id,label,quote,labelled_by\nBASS-002,hardware_issue,\"{_first_words(b['flame_behavior_notes'], 2)}\",script-user\n")
-    env = {"DATA_DIR": str(tmp_path / "d"), "PATH": "/usr/local/bin:/usr/bin:/bin", "MONGODB_URI": get_settings().mongodb_uri}
+    s = get_settings()
+    env = {"DATA_DIR": str(tmp_path / "d"), "PATH": "/usr/local/bin:/usr/bin:/bin", "MONGODB_URI": s.mongodb_uri, "MONGODB_DB": s.mongodb_db,
+           "LABELS_COLLECTION": s.labels_collection, "DERIVED_COLLECTION": s.derived_collection}
     out = subprocess.run([sys.executable, "scripts/import_labels.py", str(f)], capture_output=True, text=True, env=env, cwd=str(get_settings().data_dir.parent / "scripts" / ".."))
     assert out.returncode == 0 and "imported 1" in out.stdout, out.stdout + out.stderr
-    assert json.loads((tmp_path / "d" / "derived" / "outcome_labels.json").read_text())[0]["labelled_by"] == "script-user"
+    from helpers import stored_labels
+    assert {l["experiment_id"]: l["labelled_by"] for l in stored_labels()}["BASS-002"] == "script-user"
 
 
 # ---------- validation ----------
@@ -122,9 +127,12 @@ def test_old_method_counts_and_report(live, derived):
     assert c["strength"] == "variant_dependent" and c["moc_range_pct"] == [lo, hi] and c["moc_pct"] == hi
     assert c["ug_source_url"] and c["moc_source_url"].startswith("https://ntrs") and c["quote"]
     validation.write_files()
-    md = (derived / "validation_report.md").read_text()
+    from helpers import stored_validation
+    md = stored_validation()["report_md"]
     assert burn["experiment_id"] in md and "9 pair(s)" in md and "variant-dependent" in md and "Correction model not configured" in md
-    assert json.loads((derived / "validation.json").read_text())["labels_confirmed"] == 3
+    from helpers import stored_validation
+    d = stored_validation()
+    assert d["data"]["labels_confirmed"] == 3 and burn["experiment_id"] in d["report_md"]
 
 
 def test_old_method_strict_logic_synthetic():
@@ -143,8 +151,8 @@ def test_old_method_strict_logic_synthetic():
 
 
 def test_suggested_labels_never_count(live, derived):
-    derived.mkdir(parents=True)
-    (derived / "outcome_labels.json").write_text(json.dumps([{"experiment_id": "BASS-001", "label": "sustained_burn", "quote": "q", "labelled_by": "x", "status": "suggested"}]))
+    from helpers import put_labels
+    put_labels([{"experiment_id": "BASS-001", "label": "sustained_burn", "quote": "q", "labelled_by": "x", "status": "suggested"}])
     assert live.get("/api/validation").json()["labels_confirmed"] == 0
 
 
