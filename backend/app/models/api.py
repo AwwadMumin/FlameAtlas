@@ -269,10 +269,11 @@ class BurnPrediction(BaseModel):
     """Model estimate of P(flame keeps burning) in microgravity. Never a tested result."""
     label: str = "Model estimate — not tested"
     role: Literal["estimate", "cross_check"] = Field(description="estimate: no tested record at these conditions; cross_check: a tested record exists, shown next to it")
-    basis: Literal["no_research", "earth_only", "not_tested_at_these_conditions", "tested_here"] = Field(
-        description="no_research: no data for this material at all; earth_only: only 1g data exists; not_tested_at_these_conditions: microgravity data exists elsewhere; tested_here: see role=cross_check")
+    basis: Literal["no_research", "smoke_only", "earth_only", "not_tested_at_these_conditions", "tested_here"] = Field(
+        description="no_research: no data for this material at all; smoke_only: only smoke/detection tests (heated, not burned), no burn test; earth_only: only 1g data exists; not_tested_at_these_conditions: microgravity data exists elsewhere; tested_here: see role=cross_check")
     probability_sustained: float
     interval_95: tuple[float, float]
+    informative: bool = Field(True, description="False when the 95% interval is wider than 50 points: the model cannot narrow the answer down, clients must not headline the central value")
     material_group: str | None = Field(None, description="The model's material group, or null when the model has no coefficient for this material (prior spread, wide interval)")
     statement: str
     inputs: dict[str, Any]

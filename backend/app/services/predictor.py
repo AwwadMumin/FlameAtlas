@@ -22,6 +22,7 @@ import numpy as np
 from app.core.config import get_settings
 
 SEED = 2026
+INFORMATIVE_MAX_WIDTH = 0.5      # a 95% interval wider than this says almost nothing: it is shown as "cannot be determined", not as a headline number
 FAMILY_GROUP = {"PMMA sphere": "PMMA", "PMMA (sheet / slab)": "PMMA", "PMMA rod": "PMMA",
                 "SIBAL (cotton-fiberglass fabric)": "SIBAL", "Wax (candle / slab)": "Wax",
                 "Nomex fabric": "Nomex", "Silicone": "Silicone", "Ultem sheet": "Ultem"}
@@ -169,8 +170,10 @@ def describe(group: str | None, o2: float, flow: float | None, role: str, basis:
                                      f"{pool['model']['n']} runs). " + ("" if beats else "Treat the probability as a rough, unproven indication.")))
     pct, lo, hi = round(pr["probability"] * 100), round(pr["lo"] * 100), round(pr["hi"] * 100)
     who = f"{group}" if group else "a material the model has no data for"
-    stmt = (f"Model estimate (not tested): {pct}% chance the flame keeps burning in microgravity (95% interval {lo}–{hi}%) for {who} at {o2:g}% O2"
-            + (f" and {flow:g} cm/s airflow" if flow is not None else f", averaged over the tested airflows ({m.flow_range[0]:g}–{m.flow_range[1]:g} cm/s)") + ".")
+    informative = (pr["hi"] - pr["lo"]) <= INFORMATIVE_MAX_WIDTH
+    where = (f" at {o2:g}% O2 and {flow:g} cm/s airflow" if flow is not None else f" at {o2:g}% O2, averaged over the tested airflows ({m.flow_range[0]:g}–{m.flow_range[1]:g} cm/s)")
+    stmt = (f"Model estimate (not tested): {pct}% chance the flame keeps burning in microgravity (95% interval {lo}–{hi}%) for {who}{where}." if informative else
+            f"Model estimate (not tested): too uncertain to call. The 95% interval for {who}{where} spans {lo}–{hi}% (central value {pct}%, which mostly reflects PMMA, the reference material).")
     caveats = [f"Trained on {m.n} labelled microgravity runs of real solids ({', '.join(f'{k} {v}' for k, v in m.by_investigation.items())}); "
                f"oxygen {m.o2_range[0]:g}–{m.o2_range[1]:g}%, airflow {m.flow_range[0]:g}–{m.flow_range[1]:g} cm/s. It does not predict outside these ranges.",
                "Some labels come from a rule applied to crew notes (89.5% right on 19 held-out runs), not from a human reading each note.",
@@ -180,7 +183,7 @@ def describe(group: str | None, o2: float, flow: float | None, role: str, basis:
     if role == "cross_check":
         caveats.append("A tested record exists at these conditions. The tested record is the evidence; this estimate is only a cross-check.")
     return BurnPrediction(
-        role=role, basis=basis, probability_sustained=round(pr["probability"], 3), interval_95=(round(pr["lo"], 3), round(pr["hi"], 3)),
+        role=role, basis=basis, probability_sustained=round(pr["probability"], 3), interval_95=(round(pr["lo"], 3), round(pr["hi"], 3)), informative=informative,
         material_group=group, statement=stmt, inputs={"oxygen_pct": o2, "airflow_cm_s": flow, "pressure_kpa_not_used": pressure_kpa},
         airflow_assumption=None if flow is not None else f"No airflow given: averaged over the {len(m.flows)} airflows tested ({m.flow_range[0]:g}–{m.flow_range[1]:g} cm/s).",
         trained_on={"n_runs": m.n, "by_investigation": m.by_investigation, "by_material": m.by_material, "by_label_method": m.by_label_method,

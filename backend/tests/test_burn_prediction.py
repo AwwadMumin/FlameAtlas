@@ -88,3 +88,16 @@ def test_summary_never_states_a_number_outside_the_context(live):
     d = post(live, material_query="PET")
     pct = round(d["burn_prediction"]["probability_sustained"] * 100)
     assert f"{pct}%" in d["summary_text"] and "not tested" in d["summary_text"].lower()
+
+
+def test_wide_interval_is_called_too_uncertain_and_narrow_is_not(live):
+    unk = post(live, material_query="Zorbium-7")
+    assert unk["burn_prediction"]["informative"] is False and "too uncertain to call" in unk["verdict_reason"]
+    known = post(live)["burn_prediction"]
+    assert known["informative"] is True and "too uncertain" not in known["statement"]
+
+
+def test_smoke_only_material_is_not_described_as_having_no_research(live):
+    d = post(live, material_query="cotton")
+    assert d["burn_prediction"]["basis"] == "smoke_only"
+    assert "smoke/detection tests" in d["verdict_reason"] and "No NASA research" not in d["verdict_reason"]

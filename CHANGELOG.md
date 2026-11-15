@@ -1,6 +1,11 @@
 # Changelog
 Contract changes after Phase 2 must be listed here and in `docs/API_CONTRACT.md`.
 
+## 1.7.1
+
+- `burn_prediction.informative` (bool): false when the 95% interval is wider than 50 points. The statement then says "too uncertain to call" and clients must not headline the central value.
+- `burn_prediction.basis` gains `smoke_only`: the material has only smoke/detection tests (heated, not burned) and no burn test. Previously worded "no NASA research".
+
 ## 1.7.0
 
 - `AssessResponse.burn_prediction` (additive, optional): model estimate of P(flame keeps burning) in microgravity, from a Bayesian logistic regression (oxygen, airflow, material; code in `app/services/predictor.py`, adapted from `models.py` of the `ai-engine` branch, data `data/atlas_dataset.json`). Fields: `role` (`estimate` | `cross_check`), `basis` (`no_research` | `earth_only` | `not_tested_at_these_conditions` | `tested_here`), `probability_sustained`, `interval_95`, `material_group` (null = the model has no coefficient for this material: prior spread, wide interval), `trained_on`, `validation` (leave-one-investigation-out vs a constant guess, `beats_baseline`), `caveats`.

@@ -116,7 +116,7 @@ def _assess(req: AssessRequest) -> AssessResponse:
         else:
             has_1g = any(gravity_bucket(e["gravity_level"]) == "1g" for e in r.rows)
             role = "estimate"
-            basis = ("earth_only" if has_1g else "no_research") if not m.has_microgravity_evidence else "not_tested_at_these_conditions"
+            basis = (("earth_only" if has_1g else "smoke_only" if smoke else "no_research") if not m.has_microgravity_evidence else "not_tested_at_these_conditions")
         try:
             bp, why = predictor.describe(predictor.CATALOG_TO_GROUP.get(m.material_id), o2, flow, role, basis, p)
         except Exception as e:  # noqa: BLE001  (a model failure must never break the evidence answer)
@@ -127,6 +127,7 @@ def _assess(req: AssessRequest) -> AssessResponse:
             v = Verdict.MODEL_ESTIMATE
             lead = {"earth_only": f"{m.name_en} has Earth (1g) research only, no microgravity test.",
                     "no_research": f"No NASA research on {m.name_en} was found in the data.",
+                    "smoke_only": f"{m.name_en} has only smoke/detection tests (heated, not burned) in the NASA data, and no burn test.",
                     "not_tested_at_these_conditions": f"No tested record for {m.name_en} at these conditions."}[basis]
             reason = f"{lead} {bp.statement}"
     meta = VERDICT_META[v]

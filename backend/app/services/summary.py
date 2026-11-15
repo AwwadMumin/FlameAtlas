@@ -119,7 +119,7 @@ def build_context(resp: AssessResponse) -> dict[str, Any]:
     if resp.burn_prediction:
         b = resp.burn_prediction
         ctx["model_estimate"] = {"label": b.label, "role": b.role, "basis": b.basis, "probability_sustained_pct": round(b.probability_sustained * 100),
-                                 "interval_95_pct": [round(x * 100) for x in b.interval_95], "material_group": b.material_group,
+                                 "interval_95_pct": [round(x * 100) for x in b.interval_95], "informative": b.informative, "material_group": b.material_group,
                                  "validation": b.validation.statement, "trained_runs": b.trained_on["n_runs"]}
     if resp.findings:
         ctx["researchers_guide_findings"] = [{"id": f.id, "claim": f.claim, "page": f.page} for f in resp.findings[:3]]
