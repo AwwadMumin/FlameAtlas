@@ -47,7 +47,7 @@ export interface ScenarioAssessment {
   empty_state_message: string | null;
 }
 const BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace(/\/$/, '');
-async function request<T>(path:string, options?:RequestInit):Promise<T>{
+export async function request<T>(path:string, options?:RequestInit):Promise<T>{
   if(!BASE) throw new Error('Research API is not configured. Set NEXT_PUBLIC_API_BASE_URL in .env.local.');
   const res = await fetch(`${BASE}${path}`, { ...options, headers: {'Content-Type':'application/json',...options?.headers} });
   if(!res.ok) throw new Error(`Research API returned ${res.status}. Check the backend service and CORS settings.`);

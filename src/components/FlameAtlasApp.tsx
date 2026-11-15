@@ -6,6 +6,9 @@ import { filterExperiments } from './explorer-search';
 import ExperimentDetailDrawer from './ExperimentDetailDrawer';
 import ScenarioForm from './ScenarioForm';
 import Button from './Button';
+import MaterialSearchAnswer from './MaterialSearchAnswer';
+import MaterialsPage from './MaterialsPage';
+import { safeSourceUrl } from './safe-url';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 
@@ -13,20 +16,20 @@ const subscribeToHydration = () => () => {};
 const clientSnapshot = () => true;
 const serverSnapshot = () => false;
 
-type Page = 'explore' | 'compare' | 'ask';
+type Page = 'explore' | 'materials' | 'compare' | 'ask';
 const DEMO: Experiment[] = [
   {id:'demo-bass-ii',program:'BASS-II',title:'Burning and Suppression of Solids II',material:'Fabric',gravity:'Microgravity',oxygen:null,airflow:null,year:2017,summary:'Microgravity solid-fuel combustion research program.',source_url:null,source_id:null},
   {id:'demo-bass',program:'BASS',title:'Burning and Suppression of Solids',material:'Fabric',gravity:'Microgravity',oxygen:null,airflow:null,year:2015,summary:'Microgravity burning and suppression experiments.',source_url:null,source_id:null},
   {id:'demo-saffire',program:'SAFFIRE',title:'Spacecraft Fire Experiment',material:'Composite',gravity:'Microgravity',oxygen:null,airflow:null,year:2021,summary:'Large-scale spacecraft fire research program.',source_url:null,source_id:null},
   {id:'demo-mstf',program:'MSTF',title:'Microgravity Solid-Fuel Testing',material:'Polymer',gravity:'Microgravity',oxygen:null,airflow:null,year:null,summary:'Solid-fuel flame-spread research context.',source_url:null,source_id:null},
 ];
-const labels: Record<Page,string> = {explore:'Evidence Explorer',compare:'Scenario Ranker',ask:'Ask with Citations'};
+const labels: Record<Page,string> = {explore:'Evidence Explorer',materials:'Materials',compare:'Scenario Ranker',ask:'Ask with Citations'};
 const format = (value: string | number | null | undefined, unit='') => value === null || value === undefined || value === '' ? '—' : `${value}${unit}`;
 
 export default function App() {
   const router = useRouter();
   const pathname = usePathname();
-  const page: Page = pathname === '/ranker' ? 'compare' : pathname === '/ask' ? 'ask' : 'explore';
+  const page: Page = pathname === '/materials' ? 'materials' : pathname === '/ranker' ? 'compare' : pathname === '/ask' ? 'ask' : 'explore';
   const [mode,setMode] = useState<'live'|'demo'>('demo');
   const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
   const [restored,setRestored] = useState(false);
@@ -66,7 +69,7 @@ export default function App() {
   const records = mode === 'demo' ? DEMO : data;
   const filtered = useMemo(() => filterExperiments(records, query, material, gravity), [records, query, material, gravity]);
   const chosen = records.filter(r=>selected.includes(r.id));
-  const navigate=(p:Page)=>{router.push(p==='explore'?'/explorer':p==='compare'?'/ranker':'/ask');setActionError('');window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
+  const navigate=(p:Page)=>{router.push(p==='explore'?'/explorer':p==='materials'?'/materials':p==='compare'?'/ranker':'/ask');setActionError('');window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
   const toggle=(id:string)=>setSelected(current=>current.includes(id)?current.filter(x=>x!==id):[...current,id]);
   async function runComparison(){navigate('compare');setComparison(null);if(mode==='demo')return;setCompareLoading(true);try{setComparison(await compareExperiments(selected));}catch(e){setActionError((e as Error).message);}finally{setCompareLoading(false);}}
   async function submitQuestion(e:React.FormEvent){e.preventDefault();const cleanQuestion = question.trim();if(!cleanQuestion){setActionError('Please enter a research question.');return;}if(cleanQuestion.length>1000){setActionError('Your question must be 1000 characters or fewer.');return;}setAnswer(null);setActionError('');if(mode==='demo'){setActionError('AI answers require the research backend. Switch to Live data after your team connects the API.');return;}setAsking(true);try{setAnswer(await askResearch(cleanQuestion,selected));}catch(e){setActionError((e as Error).message);}finally{setAsking(false);}}
@@ -74,14 +77,16 @@ export default function App() {
     <Atmosphere />
     <header className="topbar">
       <button className="brand" onClick={()=>navigate('explore')} aria-label="Flame Atlas home"><span className="brand-mark"><Image src="/flame-atlas-logo.png" alt="Flame Atlas logo" width={48} height={48}/></span><span><strong>FLAME ATLAS</strong><small>COMBUSTION RESEARCH INTELLIGENCE</small></span></button>
-      <nav aria-label="Main navigation">{(['explore','compare','ask'] as Page[]).map(p=><button key={p} className={page===p?'active':''} aria-current={page===p?'page':undefined} onFocus={event=>{if(window.matchMedia('(max-width: 850px)').matches)event.currentTarget.scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'});}} onClick={()=>navigate(p)}>{labels[p]}{p==='compare'&&selected.length>0?<em>{selected.length}</em>:null}</button>)}</nav>
+      <nav aria-label="Main navigation">{(['explore','materials','compare','ask'] as Page[]).map(p=><button key={p} className={page===p?'active':''} aria-current={page===p?'page':undefined} onFocus={event=>{if(window.matchMedia('(max-width: 850px)').matches)event.currentTarget.scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'});}} onClick={()=>navigate(p)}>{labels[p]}{p==='compare'&&selected.length>0?<em>{selected.length}</em>:null}</button>)}</nav>
       <div className="mode-switch" role="group" aria-label="Data mode"><button className={mode==='live'?'chosen':''} aria-pressed={mode==='live'} onClick={()=>{if(mode==='live')return;setMode('live');setLoading(true);setError('');setSelected([]);setComparison(null);setAnswer(null);}}>Live</button><button className={mode==='demo'?'chosen':''} aria-pressed={mode==='demo'} onClick={()=>{if(mode==='demo')return;setMode('demo');setLoading(false);setError('');setSelected([]);setComparison(null);setAnswer(null);}}>Preview</button></div>
     </header>
     <main className="workspace">
-      <div className="workspace-heading"><div><div className="overline">FLAME ATLAS <span>/</span> RESEARCH WORKSPACE</div><h1>{labels[page]}</h1><p>{page==='explore'?'Explore combustion experiments, inspect research conditions, and trace original evidence.':page==='compare'?'Evaluate experimental conditions and compare scientifically compatible evidence.':'Ask research questions and inspect the citations behind every answer.'}</p></div><div className="workspace-status" role="status" aria-live="polite" aria-atomic="true"><span className={mode==='live'?'dot':'dot amber'} aria-hidden="true"/>{mode==='live'?(loading?'Live · Connecting to research API':error?'Live · Research API unavailable':data.length?'Live · Research API connected':'Live · Research API · no records'):'Preview · Example data only'}</div></div>
+      <div className="workspace-heading"><div><div className="overline">FLAME ATLAS <span>/</span> RESEARCH WORKSPACE</div><h1>{labels[page]}</h1><p>{page==='explore'?'Explore combustion experiments, inspect research conditions, and trace original evidence.':page==='materials'?'Every material in the NASA data: tested evidence where it exists, a labelled model estimate where it does not.':page==='compare'?'Evaluate experimental conditions and compare scientifically compatible evidence.':'Ask research questions and inspect the citations behind every answer.'}</p></div><div className="workspace-status" role="status" aria-live="polite" aria-atomic="true"><span className={mode==='live'?'dot':'dot amber'} aria-hidden="true"/>{mode==='live'?(loading?'Live · Connecting to research API':error?'Live · Research API unavailable':data.length?'Live · Research API connected':'Live · Research API · no records'):'Preview · Example data only'}</div></div>
       {mode==='demo'&&<div className="preview-note">Interface preview uses program-level examples for navigation and layout only. Switch to Live when your team connects the NASA data service.</div>}
+      {page==='materials'&&<MaterialsPage live={mode==='live'} onGoLive={()=>{setMode('live');setLoading(true);setError('');}}/>}
       {page==='explore'&&<>
         <section className="panel search-panel"><form onSubmit={e=>{e.preventDefault();}}><label className="search-field"><span aria-hidden="true">⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search experiments, materials, programs or source identifiers" aria-label="Search experiments"/><kbd>SEARCH</kbd></label><div className="filter-row"><label>Material<select value={material} onChange={e=>setMaterial(e.target.value)}><option>All materials</option>{Array.from(new Set(records.map(r=>r.material).filter(Boolean))).map(m=><option key={m}>{m}</option>)}</select></label><label>Gravity regime<select value={gravity} onChange={e=>setGravity(e.target.value)}><option>All gravity</option>{Array.from(new Set(records.map(r=>r.gravity).filter(Boolean))).map(g=><option key={g}>{g}</option>)}</select></label><Button type="button" variant="ghost" onClick={()=>{setQuery('');setMaterial('All materials');setGravity('All gravity');}}>Clear filters</Button><Button type="submit" variant="primary">Search evidence <span>→</span></Button></div></form></section>
+        {mode==='live'&&<MaterialSearchAnswer query={query}/>}
         <div className="metrics"><div><span>EXPERIMENT RECORDS</span><strong>{loading?'…':records.length}</strong><small>Available in current dataset</small></div><div><span>VISIBLE RESULTS</span><strong>{filtered.length}</strong><small>Matching current filters</small></div><div><span>SELECTED EVIDENCE</span><strong>{selected.length}</strong><small>Ready for comparison</small></div></div>
         <section className="panel results"><div className="panel-title"><div><span className="overline">DATA EXPLORATION</span><h2>Experiment catalog</h2></div><span role="status" aria-live="polite">{filtered.length} {filtered.length===1?'record':'records'}</span></div>
           {loading?<div className="empty"><h3>Loading experiment catalog…</h3><p>Retrieving records from the research service.</p></div>:error&&mode==='live'?<div className="empty"><h3>Connect your NASA research data service</h3><p>The frontend is ready to display real experiments. Configure <code>NEXT_PUBLIC_API_BASE_URL</code> and implement <code>GET /api/experiments</code>.</p><small>{error}</small><Button variant="outline" onClick={()=>setMode('demo')}>Explore interface preview →</Button></div>:filtered.length===0?<div className="empty"><h3>{records.length?'No matching experiments':'No experiment records yet'}</h3><p>Adjust your filters or connect your NASA dataset to begin.</p></div>:<div className="table-wrap"><table><thead><tr><th aria-label="Select"/><th>EXPERIMENT / PROGRAM</th><th>MATERIAL</th><th>GRAVITY</th><th>OXYGEN</th><th>AIRFLOW</th><th>SOURCE</th></tr></thead><tbody>{filtered.map(r=><tr key={r.id} className={selected.includes(r.id)?'row-selected':''}><td><input type="checkbox" aria-label={`Select ${r.title}`} checked={selected.includes(r.id)} onChange={()=>toggle(r.id)}/></td><td><button className="record-link" onClick={()=>setDetail(r)}><strong>{r.title}</strong><small>{r.program} · {format(r.year)}</small></button></td><td>{r.material}</td><td>{r.gravity}</td><td className="numeric">{format(r.oxygen)}</td><td className="numeric">{format(r.airflow)}</td><td><button className="inline-link" onClick={()=>setDetail(r)}>View record ↗</button></td></tr>)}</tbody></table></div>}
@@ -100,16 +105,3 @@ export default function App() {
   </div>;
 }
 
-const safeSourceUrl = (url: string | null | undefined): string | null => {
-  if (!url) return null;
-
-  try {
-    const parsed = new URL(url);
-
-    return parsed.protocol === 'https:' || parsed.protocol === 'http:'
-      ? parsed.href
-      : null;
-  } catch {
-    return null;
-  }
-};
