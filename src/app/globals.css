@@ -57,7 +57,7 @@
 .topbar nav button:hover{color:#fff}
 @media(max-width:850px){.topbar nav button::after{left:9px;right:9px}}
 @media(max-width:520px){.brand-mark{width:53px;height:53px;border-radius:13px}.brand-mark img{width:46px;height:45px}.cursor-ember-glow{display:none}.fire-plume{filter:blur(64px);opacity:.16}}
-@media(prefers-reduced-motion:reduce){.fire-plume,.smoke-plume{animation:none!important}.cursor-ember-glow{display:none!important}.topbar nav button::after{transition:none}}
+@media(prefers-reduced-motion:reduce){.fire-plume,.smoke-plume{animation:none!important}.cursor-ember-glow{display:none!important}.topbar nav button,.topbar nav button::after{transition:none}}
 
 /* V4 visual refinement — brand, starfield, smoke and fire only. */
 .brand-mark{background:rgba(241,240,236,.50);border-color:rgba(255,255,255,.17);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 0 0 1px rgba(214,90,49,.25),0 5px 28px rgba(214,90,49,.16),inset 0 1px rgba(255,255,255,.13)}
@@ -114,11 +114,13 @@
     justify-content:flex-start;
     gap:4px;
     overflow-x:auto;
+    scroll-behavior:auto;
     overscroll-behavior-x:contain;
     scrollbar-width:none;
     -webkit-overflow-scrolling:touch;
   }
   .topbar nav::-webkit-scrollbar{display:none}
+  .topbar nav button:focus-visible{outline-offset:-2px}
   .topbar nav button{
     flex:0 0 auto;
     min-height:48px;
